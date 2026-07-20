@@ -1,0 +1,6 @@
+{
+  "name": "Smart School Tiffin",
+  "description": "An innovative online tiffin service connecting busy parents with healthy, home-cooked, allergen-safe lunches and flexible subscription tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
