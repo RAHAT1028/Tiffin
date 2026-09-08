@@ -11,8 +11,7 @@ import {
   VolumeX, 
   HelpCircle,
   Scale,
-  Layers,
-  HelpCircle as QuizIcon
+  Layers
 } from 'lucide-react';
 import { sfx } from '../utils/audio';
 
@@ -48,6 +47,16 @@ export const Navbar: React.FC<NavbarProps> = ({
     if (nextState) sfx.playPop();
   };
 
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    sfx.playPop();
+    setMobileMenuOpen(false);
+    const target = document.querySelector(id);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled ? 'bg-slate-950/95 backdrop-blur-md shadow-lg shadow-black/60 border-b border-slate-800/80 py-3' : 'bg-transparent py-4 sm:py-5'
@@ -56,7 +65,11 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center justify-between">
           
           {/* Logo */}
-          <a href="#" className="flex items-center gap-3 group">
+          <a 
+            href="#" 
+            onClick={(e) => scrollToSection(e, '#')}
+            className="flex items-center gap-3 group"
+          >
             <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center text-white shadow-md shadow-orange-500/25 group-hover:scale-105 transition-transform">
               <UtensilsCrossed className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
@@ -69,39 +82,67 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden xl:flex items-center gap-6 text-sm font-semibold text-slate-300">
-            <a href="#menu" className="hover:text-orange-400 transition-colors">
+          {/* Desktop Navigation (Visible on lg / xl screens) */}
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs xl:text-sm font-semibold text-slate-300">
+            <a 
+              href="#menu" 
+              onClick={(e) => scrollToSection(e, '#menu')}
+              className="hover:text-orange-400 transition-colors py-1"
+            >
               Menu
             </a>
-            <a href="#visualizer" className="hover:text-orange-400 transition-colors flex items-center gap-1">
+            <a 
+              href="#visualizer" 
+              onClick={(e) => scrollToSection(e, '#visualizer')}
+              className="hover:text-orange-400 transition-colors flex items-center gap-1 py-1"
+            >
               <Layers className="w-3.5 h-3.5 text-orange-400" />
               <span>Bento Builder</span>
             </a>
-            <a href="#calculator" className="hover:text-orange-400 transition-colors flex items-center gap-1">
+            <a 
+              href="#calculator" 
+              onClick={(e) => scrollToSection(e, '#calculator')}
+              className="hover:text-orange-400 transition-colors flex items-center gap-1 py-1"
+            >
               <Scale className="w-3.5 h-3.5 text-orange-400" />
               <span>Nutrition Calc</span>
             </a>
-            <a href="#plans" className="hover:text-orange-400 transition-colors">
+            <a 
+              href="#plans" 
+              onClick={(e) => scrollToSection(e, '#plans')}
+              className="hover:text-orange-400 transition-colors py-1"
+            >
               Plans
             </a>
-            <a href="#customizer" className="hover:text-orange-400 transition-colors">
+            <a 
+              href="#customizer" 
+              onClick={(e) => scrollToSection(e, '#customizer')}
+              className="hover:text-orange-400 transition-colors py-1"
+            >
               Customise
             </a>
-            <a href="#tracker" className="hover:text-orange-400 transition-colors flex items-center gap-1.5">
+            <a 
+              href="#tracker" 
+              onClick={(e) => scrollToSection(e, '#tracker')}
+              className="hover:text-orange-400 transition-colors flex items-center gap-1.5 py-1"
+            >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
               </span>
               <span>Live Tracker</span>
             </a>
-            <a href="#faq" className="hover:text-orange-400 transition-colors">
+            <a 
+              href="#faq" 
+              onClick={(e) => scrollToSection(e, '#faq')}
+              className="hover:text-orange-400 transition-colors py-1"
+            >
               FAQ
             </a>
           </nav>
 
-          {/* Right Action buttons */}
-          <div className="hidden sm:flex items-center gap-2.5">
+          {/* Right Action buttons (Desktop) */}
+          <div className="hidden md:flex items-center gap-2.5">
             
             {/* Audio Toggle */}
             <button
@@ -130,8 +171,11 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* AI Nutribot button */}
             <button
-              onClick={onOpenNutribot}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-orange-950/60 text-orange-300 hover:bg-orange-900/60 border border-orange-500/40 transition-all hover:shadow-sm hover:shadow-orange-500/20 group"
+              onClick={() => {
+                sfx.playPop();
+                onOpenNutribot();
+              }}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-orange-950/60 text-orange-300 hover:bg-orange-900/60 border border-orange-500/40 transition-all hover:shadow-sm hover:shadow-orange-500/20 group"
             >
               <Sparkles className="w-3.5 h-3.5 text-orange-400 group-hover:rotate-12 transition-transform" />
               <span>Ask Nutribot</span>
@@ -139,7 +183,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Cart Button */}
             <button
-              onClick={onOpenCart}
+              onClick={() => {
+                sfx.playPop();
+                onOpenCart();
+              }}
               className="relative p-2 rounded-xl bg-orange-600 text-white hover:bg-orange-500 transition-all shadow-md shadow-orange-600/30 flex items-center gap-2 text-xs font-bold px-3.5 active:scale-95"
             >
               <ShoppingBag className="w-4 h-4" />
@@ -152,99 +199,113 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
           </div>
 
-          {/* Mobile hamburger button */}
-          <div className="flex sm:hidden items-center gap-2">
+          {/* Mobile & Tablet hamburger + cart bar (Visible on < lg screens) */}
+          <div className="flex lg:hidden items-center gap-2">
             <button
               onClick={toggleSound}
               className="p-2 rounded-xl bg-slate-900 text-slate-400 border border-slate-800"
+              title="Toggle sound"
             >
               {soundEnabled ? <Volume2 className="w-4 h-4 text-orange-400" /> : <VolumeX className="w-4 h-4" />}
             </button>
+
             <button
-              onClick={onOpenCart}
-              className="relative p-2 rounded-xl bg-orange-600 text-white shadow-sm"
+              onClick={() => {
+                sfx.playPop();
+                onOpenCart();
+              }}
+              className="relative p-2 rounded-xl bg-orange-600 text-white shadow-sm flex items-center gap-1.5 px-3"
               aria-label="Cart"
             >
-              <ShoppingBag className="w-5 h-5" />
+              <ShoppingBag className="w-4 h-4" />
+              <span className="text-xs font-bold sm:inline hidden">Cart</span>
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 text-[10px] font-bold bg-white text-orange-600 rounded-full flex items-center justify-center">
+                <span className="px-1.5 py-0.2 text-[10px] font-bold bg-white text-orange-600 rounded-full">
                   {cartCount}
                 </span>
               )}
             </button>
+
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={() => {
+                sfx.playPop();
+                setMobileMenuOpen(!mobileMenuOpen);
+              }}
               className="p-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:text-white"
+              aria-label="Toggle Menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-6 h-6 text-orange-400" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
 
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile / Tablet Dropdown Menu */}
       {mobileMenuOpen && (
-        <div className="xl:hidden bg-slate-950/98 backdrop-blur-xl border-b border-slate-800 px-6 py-5 shadow-2xl transition-all">
-          <div className="flex flex-col gap-3.5 text-sm font-semibold">
+        <div className="lg:hidden bg-slate-950/98 backdrop-blur-2xl border-b border-slate-800 px-6 py-6 shadow-2xl transition-all animate-in slide-in-from-top-2 duration-200">
+          <div className="flex flex-col gap-3 text-sm font-semibold">
             <a 
               href="#menu" 
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-slate-200 hover:text-orange-400 py-1"
+              onClick={(e) => scrollToSection(e, '#menu')}
+              className="text-slate-200 hover:text-orange-400 py-2 border-b border-slate-900 flex items-center justify-between"
             >
-              Weekly Menu
+              <span>Weekly Lunch Menu</span>
+              <span className="text-xs text-orange-500">View dishes →</span>
             </a>
             <a 
               href="#visualizer" 
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-slate-200 hover:text-orange-400 py-1 flex items-center gap-2"
+              onClick={(e) => scrollToSection(e, '#visualizer')}
+              className="text-slate-200 hover:text-orange-400 py-2 border-b border-slate-900 flex items-center gap-2"
             >
               <Layers className="w-4 h-4 text-orange-500" />
-              Interactive Bento Builder
+              <span>Interactive Bento Builder</span>
             </a>
             <a 
               href="#calculator" 
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-slate-200 hover:text-orange-400 py-1 flex items-center gap-2"
+              onClick={(e) => scrollToSection(e, '#calculator')}
+              className="text-slate-200 hover:text-orange-400 py-2 border-b border-slate-900 flex items-center gap-2"
             >
               <Scale className="w-4 h-4 text-orange-500" />
-              Kid Nutrition Calculator
+              <span>Kid Nutrition & Macro Calculator</span>
             </a>
             <a 
               href="#plans" 
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-slate-200 hover:text-orange-400 py-1"
+              onClick={(e) => scrollToSection(e, '#plans')}
+              className="text-slate-200 hover:text-orange-400 py-2 border-b border-slate-900"
             >
               Meal Plans & Pricing
             </a>
             <a 
               href="#customizer" 
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-slate-200 hover:text-orange-400 py-1"
+              onClick={(e) => scrollToSection(e, '#customizer')}
+              className="text-slate-200 hover:text-orange-400 py-2 border-b border-slate-900"
             >
-              Customise Your Tiffin
+              Customise Your Child's Tiffin
             </a>
             <a 
               href="#tracker" 
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-slate-200 hover:text-orange-400 py-1 flex items-center gap-2"
+              onClick={(e) => scrollToSection(e, '#tracker')}
+              className="text-slate-200 hover:text-orange-400 py-2 border-b border-slate-900 flex items-center gap-2"
             >
               <Truck className="w-4 h-4 text-orange-500" />
-              Live Lunch Tracker
+              <span>Live Thermal & Van Tracker</span>
             </a>
             <a 
               href="#faq" 
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-slate-200 hover:text-orange-400 py-1 flex items-center gap-2"
+              onClick={(e) => scrollToSection(e, '#faq')}
+              className="text-slate-200 hover:text-orange-400 py-2 flex items-center gap-2"
             >
               <HelpCircle className="w-4 h-4 text-orange-500" />
-              FAQ
+              <span>Frequently Asked Questions</span>
             </a>
             
-            <div className="pt-3 flex flex-col gap-2.5">
+            {/* Quick Action CTA buttons in mobile drawer */}
+            <div className="pt-4 flex flex-col gap-2.5">
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
+                  sfx.playPop();
                   onOpenQuiz();
                 }}
                 className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40"
@@ -256,6 +317,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
+                  sfx.playPop();
                   onOpenNutribot();
                 }}
                 className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs font-semibold bg-orange-950/80 text-orange-300 border border-orange-500/40"

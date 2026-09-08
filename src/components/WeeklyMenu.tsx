@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { WEEKLY_MEALS } from '../data/mockData';
 import { MealItem, MealCategory } from '../types';
+import { sfx } from '../utils/audio';
 import { 
   Calendar, 
   Filter, 
@@ -26,6 +27,26 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
   const [onlyVeg, setOnlyVeg] = useState(false);
   const [onlyNutFree, setOnlyNutFree] = useState(false);
   const [activeMealModal, setActiveMealModal] = useState<MealItem | null>(null);
+
+  const handleDaySelect = (day: typeof DAYS_OF_WEEK[number]) => {
+    sfx.playSlot();
+    setSelectedDay(day);
+  };
+
+  const handleCategorySelect = (cat: 'all' | MealCategory) => {
+    sfx.playPop();
+    setSelectedCategory(cat);
+  };
+
+  const handleToggleVeg = () => {
+    sfx.playPop();
+    setOnlyVeg(!onlyVeg);
+  };
+
+  const handleToggleNutFree = () => {
+    sfx.playPop();
+    setOnlyNutFree(!onlyNutFree);
+  };
 
   // Filter logic
   const filteredMeals = WEEKLY_MEALS.filter((meal) => {
@@ -58,7 +79,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
           {/* Dietary toggle chips */}
           <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
             <button
-              onClick={() => setOnlyVeg(!onlyVeg)}
+              onClick={handleToggleVeg}
               className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 ${
                 onlyVeg
                   ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/20'
@@ -69,7 +90,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
               {onlyVeg && <Check className="w-3.5 h-3.5" />}
             </button>
             <button
-              onClick={() => setOnlyNutFree(!onlyNutFree)}
+              onClick={handleToggleNutFree}
               className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 ${
                 onlyNutFree
                   ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/20'
@@ -90,7 +111,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
             return (
               <button
                 key={day}
-                onClick={() => setSelectedDay(day)}
+                onClick={() => handleDaySelect(day)}
                 className={`flex-1 min-w-[140px] p-3.5 rounded-2xl text-left font-bold transition-all border ${
                   isSelected
                     ? 'bg-gradient-to-r from-orange-600 to-amber-600 text-white border-orange-500 shadow-lg shadow-orange-600/20 scale-[1.02]'
@@ -115,7 +136,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
           {(['all', 'basic', 'standard', 'premium'] as const).map((cat) => (
             <button
               key={cat}
-              onClick={() => setSelectedCategory(cat)}
+              onClick={() => handleCategorySelect(cat)}
               className={`px-4 py-1.5 rounded-xl text-xs font-bold capitalize transition-all ${
                 selectedCategory === cat
                   ? 'bg-orange-600 text-white shadow-md shadow-orange-600/20'
