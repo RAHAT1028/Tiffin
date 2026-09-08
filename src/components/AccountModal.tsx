@@ -1,31 +1,32 @@
 import React, { useState } from 'react';
-import { 
-  X, 
-  User, 
-  Calendar, 
-  CreditCard, 
-  ShieldCheck, 
-  Sparkles, 
-  AlertTriangle, 
-  CheckCircle2, 
-  Clock, 
-  Zap, 
-  Layers, 
-  Check, 
-  Edit3, 
-  Receipt, 
-  Truck, 
-  Flame, 
-  HelpCircle, 
-  Download, 
-  Plus, 
-  DollarSign, 
+import {
+  X,
+  User,
+  Calendar,
+  CreditCard,
+  ShieldCheck,
+  Sparkles,
+  AlertTriangle,
+  CheckCircle2,
+  Clock,
+  Zap,
+  Layers,
+  Check,
+  Edit3,
+  Receipt,
+  Truck,
+  Flame,
+  HelpCircle,
+  Download,
+  Plus,
+  DollarSign,
   ChevronRight,
   School,
   Lock,
   RefreshCw,
   BellRing,
-  Heart
+  Heart,
+  LogOut
 } from 'lucide-react';
 import { ParentAccount, MealCategory, Allergen } from '../types';
 import { sfx } from '../utils/audio';
@@ -34,6 +35,7 @@ interface AccountModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSwitchPlanGlobal?: (plan: MealCategory) => void;
+  onLogout?: () => void;
 }
 
 const INITIAL_PARENT_ACCOUNT: ParentAccount = {
@@ -167,10 +169,10 @@ const ALL_ALLERGENS: { key: Allergen; label: string }[] = [
 
 const WEEK_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] as const;
 
-export const AccountModal: React.FC<AccountModalProps> = ({ 
-  isOpen, 
+export const AccountModal: React.FC<AccountModalProps> = ({
+  isOpen,
   onClose,
-  onSwitchPlanGlobal 
+  onSwitchPlanGlobal
 }) => {
   const [account, setAccount] = useState<ParentAccount>(INITIAL_PARENT_ACCOUNT);
   const [selectedChildIndex, setSelectedChildIndex] = useState<number>(0);
@@ -322,11 +324,11 @@ export const AccountModal: React.FC<AccountModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
-      <div 
+      <div
         className="bg-[#1C1712] rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-hidden shadow-2xl border border-orange-500/25 text-[#F5EBE1] flex flex-col relative animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
       >
-        
+
         {/* Header Bar */}
         <div className="p-5 sm:p-6 bg-[#261E18] border-b border-orange-500/20 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
@@ -387,11 +389,10 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                   sfx.playPop();
                   setSelectedChildIndex(idx);
                 }}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
-                  selectedChildIndex === idx
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${selectedChildIndex === idx
                     ? 'bg-orange-600 text-white shadow-md shadow-orange-600/30 ring-1 ring-orange-400/40'
                     : 'bg-[#261E18] text-[#D4C5B5] hover:bg-[#2F251E] hover:text-white border border-orange-500/20'
-                }`}
+                  }`}
               >
                 <span>🎒 {child.name}</span>
                 <span className="text-[10px] opacity-80">({child.gradeClass})</span>
@@ -411,11 +412,10 @@ export const AccountModal: React.FC<AccountModalProps> = ({
             </div>
             <button
               onClick={handleTogglePauseToday}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 ${
-                currentChild.isPausedToday
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 ${currentChild.isPausedToday
                   ? 'bg-emerald-700 hover:bg-emerald-600 text-white shadow-sm'
                   : 'bg-rose-950/90 hover:bg-rose-900 border border-rose-600/50 text-rose-200'
-              }`}
+                }`}
             >
               {currentChild.isPausedToday ? (
                 <>
@@ -449,11 +449,10 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                   sfx.playPop();
                   setActiveTab(tab.id as any);
                 }}
-                className={`py-3.5 px-3 sm:px-4 text-xs font-bold border-b-2 transition-all flex items-center gap-2 whitespace-nowrap ${
-                  isActive
+                className={`py-3.5 px-3 sm:px-4 text-xs font-bold border-b-2 transition-all flex items-center gap-2 whitespace-nowrap ${isActive
                     ? 'border-orange-500 text-orange-400 bg-orange-950/30'
                     : 'border-transparent text-[#D4C5B5] hover:text-white hover:bg-[#2F251E]'
-                }`}
+                  }`}
               >
                 <Icon className={`w-4 h-4 ${isActive ? 'text-orange-400' : 'text-[#A8988A]'}`} />
                 <span>{tab.label}</span>
@@ -472,11 +471,11 @@ export const AccountModal: React.FC<AccountModalProps> = ({
 
         {/* Modal Scrollable Body */}
         <div className="p-5 sm:p-8 overflow-y-auto flex-1 space-y-6">
-          
+
           {/* TAB 1: SUBSCRIPTION PLAN & DELIVERY SCHEDULE */}
           {activeTab === 'plan' && (
             <div className="space-y-6">
-              
+
               {/* Current Active Plan Overview */}
               <div className="bg-[#261E18] rounded-3xl p-6 border border-orange-500/25 shadow-xl">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-orange-500/20">
@@ -511,11 +510,10 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                         <div
                           key={pKey}
                           onClick={() => handleSelectPlan(pKey)}
-                          className={`p-4 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between ${
-                            isSelected
+                          className={`p-4 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between ${isSelected
                               ? 'bg-orange-950/40 border-orange-500 shadow-md shadow-orange-950/40 ring-1 ring-orange-500/30'
                               : 'bg-[#15100C] border-orange-500/20 hover:border-orange-500/40 hover:bg-[#2F251E]'
-                          }`}
+                            }`}
                         >
                           <div>
                             <div className="flex items-center justify-between mb-1">
@@ -555,11 +553,10 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                       <button
                         key={day}
                         onClick={() => handleToggleDay(day)}
-                        className={`p-3.5 rounded-2xl border text-center transition-all flex flex-col items-center justify-center gap-1 ${
-                          isSelected
+                        className={`p-3.5 rounded-2xl border text-center transition-all flex flex-col items-center justify-center gap-1 ${isSelected
                             ? 'bg-orange-600 border-orange-500 text-white font-bold shadow-md shadow-orange-600/30'
                             : 'bg-[#15100C] border-orange-500/20 text-[#A8988A] hover:text-[#D4C5B5] hover:bg-[#2F251E]'
-                        }`}
+                          }`}
                       >
                         <span className="text-xs font-bold">{day.slice(0, 3)}</span>
                         <span className="text-[10px] opacity-90">{isSelected ? `$${currentRate.price.toFixed(2)}` : 'Off'}</span>
@@ -573,7 +570,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
 
                 <div className="mt-4 pt-4 border-t border-orange-500/20 flex flex-col sm:flex-row items-center justify-between text-xs text-[#A8988A] gap-2">
                   <span>💡 Tip: Adjusting days instantly recalculates your weekly invoice without cancellation fees.</span>
-                  <button 
+                  <button
                     onClick={() => {
                       sfx.playSuccess();
                       showFeedback('Schedule preferences saved!');
@@ -591,7 +588,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
           {/* TAB 2: CHILD PROFILE & ALLERGEN PASSPORT */}
           {activeTab === 'child' && (
             <div className="space-y-6">
-              
+
               {/* School & Locker Info */}
               <div className="bg-[#261E18] rounded-3xl p-6 border border-orange-500/20 shadow-xl space-y-4">
                 <h4 className="text-sm font-extrabold text-[#F5EBE1] flex items-center gap-2">
@@ -678,11 +675,10 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                       <button
                         key={alg.key}
                         onClick={() => handleToggleAllergen(alg.key)}
-                        className={`p-3 rounded-2xl border text-left transition-all flex items-center justify-between ${
-                          isAllergic
+                        className={`p-3 rounded-2xl border text-left transition-all flex items-center justify-between ${isAllergic
                             ? 'bg-rose-950/80 border-rose-600 text-rose-200 font-bold'
                             : 'bg-[#15100C] border-orange-500/20 text-[#D4C5B5] hover:bg-[#2F251E]'
-                        }`}
+                          }`}
                       >
                         <span className="text-xs">{alg.label}</span>
                         {isAllergic && <AlertTriangle className="w-3.5 h-3.5 text-rose-400 flex-shrink-0" />}
@@ -725,7 +721,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
           {/* TAB 3: DELIVERY TELEMETRY & REPORT */}
           {activeTab === 'deliveries' && (
             <div className="space-y-6">
-              
+
               {/* Recent Deliveries Log */}
               <div className="bg-[#261E18] rounded-3xl p-6 border border-orange-500/20 shadow-xl space-y-4">
                 <div className="flex items-center justify-between">
@@ -745,11 +741,10 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <span className="font-extrabold text-xs text-[#F5EBE1]">{del.mealName}</span>
-                          <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${
-                            del.status === 'In Transit'
+                          <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${del.status === 'In Transit'
                               ? 'bg-orange-950 text-orange-300 border border-orange-500/40 animate-pulse'
                               : 'bg-emerald-950 text-emerald-300 border border-emerald-600/50'
-                          }`}>
+                            }`}>
                             {del.status}
                           </span>
                         </div>
@@ -801,7 +796,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
           {/* TAB 4: WALLET & INVOICES */}
           {activeTab === 'billing' && (
             <div className="space-y-6">
-              
+
               {/* Wallet Card */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="bg-[#261E18] rounded-3xl p-6 border border-orange-500/25 shadow-xl flex flex-col justify-between">
@@ -910,10 +905,9 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                       </div>
                       <div className="flex items-center gap-3">
                         <span className="font-black text-sm text-orange-400">${inv.amount.toFixed(2)}</span>
-                        <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${
-                          inv.status === 'paid' ? 'bg-emerald-950 text-emerald-300 border border-emerald-600/40' :
-                          'bg-amber-950 text-amber-300 border border-amber-500/40'
-                        }`}>
+                        <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${inv.status === 'paid' ? 'bg-emerald-950 text-emerald-300 border border-emerald-600/40' :
+                            'bg-amber-950 text-amber-300 border border-amber-500/40'
+                          }`}>
                           {inv.status.toUpperCase()}
                         </span>
                       </div>

@@ -128,3 +128,14 @@ export interface ParentAccount {
   recentInvoices: AccountInvoice[];
   recentDeliveries: AccountDeliveryLog[];
 }
+
+export interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  avatar: string;
+  role: 'parent' | 'admin';
+  membershipTier: string;
+  walletBalance: number;
+}

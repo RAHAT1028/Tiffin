@@ -15,9 +15,21 @@ import { NutribotChat } from './components/NutribotChat';
 import { CartDrawer } from './components/CartDrawer';
 import { TasteQuizModal } from './components/TasteQuizModal';
 import { AccountModal } from './components/AccountModal';
-import { MealItem, MealCategory, ChildProfile, SubscriptionConfig } from './types';
+import { AuthModal } from './components/AuthModal';
+import { MealItem, MealCategory, ChildProfile, SubscriptionConfig, AuthUser } from './types';
 import { Sparkles, MessageSquareHeart, Award, Flame } from 'lucide-react';
 import { sfx } from './utils/audio';
+
+const DEFAULT_DEMO_PARENT: AuthUser = {
+  id: 'usr-parent-9921',
+  name: 'Dr. Sarah Jenkins',
+  email: 'sarah.jenkins@familymail.com',
+  phone: '+44 (0) 7700 900822',
+  avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80',
+  role: 'parent',
+  membershipTier: 'Gold VIP',
+  walletBalance: 28.50
+};
 
 export const App: React.FC = () => {
   const [cartItems, setCartItems] = useState<MealItem[]>([]);
@@ -26,6 +38,10 @@ export const App: React.FC = () => {
     config: SubscriptionConfig;
     weeklyTotal: number;
   } | null>(null);
+
+  // Auth State
+  const [currentUser, setCurrentUser] = useState<AuthUser | null>(DEFAULT_DEMO_PARENT);
+  const [authOpen, setAuthOpen] = useState(false);
 
   const [cartOpen, setCartOpen] = useState(false);
   const [nutribotOpen, setNutribotOpen] = useState(false);
@@ -40,6 +56,18 @@ export const App: React.FC = () => {
     setTimeout(() => {
       setToastMessage(null);
     }, 3500);
+  };
+
+  const handleLoginSuccess = (user: AuthUser) => {
+    setCurrentUser(user);
+    setAuthOpen(false);
+    showToast(`Welcome back, ${user.name}!`);
+  };
+
+  const handleLogout = () => {
+    setCurrentUser(null);
+    setAccountOpen(false);
+    showToast('You have been logged out.');
   };
 
   const handleAddToCart = (meal: MealItem) => {
@@ -155,8 +183,18 @@ export const App: React.FC = () => {
         }}
         onOpenAccount={() => {
           sfx.playPop();
-          setAccountOpen(true);
+          if (currentUser) {
+            setAccountOpen(true);
+          } else {
+            setAuthOpen(true);
+          }
         }}
+        currentUser={currentUser}
+        onOpenAuth={() => {
+          sfx.playPop();
+          setAuthOpen(true);
+        }}
+        onLogout={handleLogout}
       />
 
       {/* Main Content Sections */}
@@ -264,10 +302,18 @@ export const App: React.FC = () => {
       <AccountModal
         isOpen={accountOpen}
         onClose={() => setAccountOpen(false)}
+        onLogout={handleLogout}
         onSwitchPlanGlobal={(plan) => {
           setCustomizerPlan(plan);
           showToast(`Switched active subscription plan to ${plan.toUpperCase()}!`);
         }}
+      />
+
+      {/* Parent Login & Registration Modal */}
+      <AuthModal
+        isOpen={authOpen}
+        onClose={() => setAuthOpen(false)}
+        onLoginSuccess={handleLoginSuccess}
       />
 
       {/* 30-Second Taste Quiz Modal */}

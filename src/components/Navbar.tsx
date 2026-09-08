@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  UtensilsCrossed, 
-  Sparkles, 
-  ShoppingBag, 
-  ShieldCheck, 
-  Menu, 
-  X, 
-  Truck, 
-  Volume2, 
-  VolumeX, 
+import {
+  UtensilsCrossed,
+  Sparkles,
+  ShoppingBag,
+  ShieldCheck,
+  Menu,
+  X,
+  Truck,
+  Volume2,
+  VolumeX,
   HelpCircle,
   Scale,
   Layers,
@@ -25,9 +25,9 @@ interface NavbarProps {
   onOpenAccount: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ 
-  onOpenCart, 
-  cartCount, 
+export const Navbar: React.FC<NavbarProps> = ({
+  onOpenCart,
+  cartCount,
   onOpenNutribot,
   onOpenQuiz,
   onOpenAccount
@@ -62,15 +62,14 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-[#1C1712]/95 backdrop-blur-md shadow-lg shadow-black/80 border-b border-amber-950/40 py-2.5' : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-4'
-    }`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-[#1C1712]/95 backdrop-blur-md shadow-lg shadow-black/80 border-b border-amber-950/40 py-2.5' : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-4'
+      }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4">
-          
+
           {/* Logo */}
-          <a 
-            href="#" 
+          <a
+            href="#"
             onClick={(e) => scrollToSection(e, '#')}
             className="flex items-center gap-2.5 group flex-shrink-0"
           >
@@ -94,45 +93,45 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Desktop Navigation Pill Capsule (Clean, single-line, whitespace-nowrap) */}
           <nav className="hidden xl:flex items-center gap-1 bg-[#15100C]/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-orange-500/20 shadow-inner">
-            <a 
-              href="#menu" 
+            <a
+              href="#menu"
               onClick={(e) => scrollToSection(e, '#menu')}
               className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all whitespace-nowrap"
             >
               Weekly Menu
             </a>
-            <a 
-              href="#visualizer" 
+            <a
+              href="#visualizer"
               onClick={(e) => scrollToSection(e, '#visualizer')}
               className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all flex items-center gap-1.5 whitespace-nowrap"
             >
               <Layers className="w-3.5 h-3.5 text-orange-400" />
               <span>Bento Builder</span>
             </a>
-            <a 
-              href="#calculator" 
+            <a
+              href="#calculator"
               onClick={(e) => scrollToSection(e, '#calculator')}
               className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all flex items-center gap-1.5 whitespace-nowrap"
             >
               <Scale className="w-3.5 h-3.5 text-orange-400" />
               <span>Nutrition Calc</span>
             </a>
-            <a 
-              href="#plans" 
+            <a
+              href="#plans"
               onClick={(e) => scrollToSection(e, '#plans')}
               className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all whitespace-nowrap"
             >
               Plans
             </a>
-            <a 
-              href="#customizer" 
+            <a
+              href="#customizer"
               onClick={(e) => scrollToSection(e, '#customizer')}
               className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all whitespace-nowrap"
             >
               Customise
             </a>
-            <a 
-              href="#tracker" 
+            <a
+              href="#tracker"
               onClick={(e) => scrollToSection(e, '#tracker')}
               className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all flex items-center gap-1.5 whitespace-nowrap"
             >
@@ -142,8 +141,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               </span>
               <span>Live Tracker</span>
             </a>
-            <a 
-              href="#faq" 
+            <a
+              href="#faq"
               onClick={(e) => scrollToSection(e, '#faq')}
               className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all whitespace-nowrap"
             >
@@ -153,15 +152,14 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Right Action buttons (Desktop) */}
           <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
-            
+
             {/* Audio Toggle */}
             <button
               onClick={toggleSound}
-              className={`p-2 rounded-full border text-xs transition-colors flex-shrink-0 ${
-                soundEnabled 
-                  ? 'bg-[#261E18] border-orange-500/30 text-orange-400 hover:text-orange-300' 
+              className={`p-2 rounded-full border text-xs transition-colors flex-shrink-0 ${soundEnabled
+                  ? 'bg-[#261E18] border-orange-500/30 text-orange-400 hover:text-orange-300'
                   : 'bg-[#261E18] border-orange-500/20 text-[#8C7B6D] hover:text-[#D4C5B5]'
-              }`}
+                }`}
               title={soundEnabled ? 'Sound Enabled (Click to Mute)' : 'Sound Muted (Click to Unmute)'}
             >
               {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
@@ -191,20 +189,56 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Ask Nutribot</span>
             </button>
 
-            {/* Parent Account Plan button */}
-            <button
-              onClick={() => {
-                sfx.playPop();
-                onOpenAccount();
-              }}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold bg-[#261E18] text-[#F5EBE1] hover:bg-[#2F251E] hover:text-white border border-orange-500/30 transition-all hover:scale-105 active:scale-95 whitespace-nowrap flex-shrink-0 group shadow-sm"
-              title="Parent Account & Subscription Plan"
-            >
-              <div className="w-5 h-5 rounded-full bg-orange-600/30 border border-orange-500/40 flex items-center justify-center text-orange-400 group-hover:bg-orange-600 group-hover:text-white transition-colors">
-                <User className="w-3 h-3" />
+            {/* Parent Account or Sign In button (Desktop) */}
+            {currentUser ? (
+              <div className="flex items-center gap-1.5 bg-[#261E18] p-1 pr-2.5 rounded-full border border-orange-500/30 hover:border-orange-500/60 transition-all shadow-sm group">
+                <button
+                  onClick={() => {
+                    sfx.playPop();
+                    onOpenAccount();
+                  }}
+                  className="flex items-center gap-2 text-left"
+                  title="Open Parent Account & Subscription Portal"
+                >
+                  <img
+                    src={currentUser.avatar}
+                    alt={currentUser.name}
+                    className="w-7 h-7 rounded-full object-cover ring-1 ring-orange-400"
+                  />
+                  <div className="flex flex-col">
+                    <span className="text-[11px] font-extrabold text-[#F5EBE1] group-hover:text-white leading-tight whitespace-nowrap">
+                      {currentUser.name}
+                    </span>
+                    <span className="text-[9px] font-black text-orange-400 uppercase tracking-wider leading-none whitespace-nowrap">
+                      {currentUser.membershipTier} • ${currentUser.walletBalance.toFixed(2)}
+                    </span>
+                  </div>
+                </button>
+                {onLogout && (
+                  <button
+                    onClick={() => {
+                      sfx.playPop();
+                      onLogout();
+                    }}
+                    className="ml-1 p-1 rounded-full text-[#8C7B6D] hover:text-rose-400 hover:bg-[#15100C] transition-colors"
+                    title="Sign Out"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                  </button>
+                )}
               </div>
-              <span>Account Plan</span>
-            </button>
+            ) : (
+              <button
+                onClick={() => {
+                  sfx.playPop();
+                  onOpenAuth();
+                }}
+                className="flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-[#261E18] text-orange-300 hover:text-white hover:bg-orange-600/30 border border-orange-500/40 transition-all hover:scale-105 active:scale-95 whitespace-nowrap flex-shrink-0 shadow-sm animate-glow-orange"
+              >
+                <LogIn className="w-3.5 h-3.5 text-orange-400" />
+                <span>Parent Sign In</span>
+              </button>
+            )}
 
             {/* Cart Button */}
             <button
@@ -226,17 +260,36 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Mobile & Tablet Top Bar (< xl screens) */}
           <div className="flex xl:hidden items-center gap-2">
-            <button
-              onClick={() => {
-                sfx.playPop();
-                onOpenAccount();
-              }}
-              className="p-2 rounded-xl bg-[#261E18] text-orange-400 border border-orange-500/30"
-              title="Parent Account"
-              aria-label="Parent Account"
-            >
-              <User className="w-4 h-4" />
-            </button>
+            {currentUser ? (
+              <button
+                onClick={() => {
+                  sfx.playPop();
+                  onOpenAccount();
+                }}
+                className="p-1 rounded-xl bg-[#261E18] border border-orange-500/40 flex items-center justify-center"
+                title="Parent Account"
+                aria-label="Parent Account"
+              >
+                <img
+                  src={currentUser.avatar}
+                  alt={currentUser.name}
+                  className="w-6 h-6 rounded-lg object-cover"
+                />
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  sfx.playPop();
+                  onOpenAuth();
+                }}
+                className="p-2 rounded-xl bg-[#261E18] text-orange-400 border border-orange-500/40 hover:text-white"
+                title="Parent Sign In"
+                aria-label="Parent Sign In"
+              >
+                <LogIn className="w-4 h-4" />
+              </button>
+            )}
+
             <button
               onClick={toggleSound}
               className="p-2 rounded-full bg-[#261E18] text-[#D4C5B5] border border-orange-500/25"
@@ -281,63 +334,116 @@ export const Navbar: React.FC<NavbarProps> = ({
       {mobileMenuOpen && (
         <div className="xl:hidden bg-[#1C1712]/98 backdrop-blur-2xl border-b border-amber-950/40 px-6 py-6 shadow-2xl transition-all animate-in slide-in-from-top-2 duration-200">
           <div className="flex flex-col gap-2 text-sm font-semibold">
-            <a 
-              href="#menu" 
+            <a
+              href="#menu"
               onClick={(e) => scrollToSection(e, '#menu')}
               className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10 flex items-center justify-between"
             >
               <span>Weekly Lunch Menu</span>
               <span className="text-xs text-orange-500">View dishes →</span>
             </a>
-            <a 
-              href="#visualizer" 
+            <a
+              href="#visualizer"
               onClick={(e) => scrollToSection(e, '#visualizer')}
               className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10 flex items-center gap-2"
             >
               <Layers className="w-4 h-4 text-orange-500" />
               <span>Interactive Bento Builder</span>
             </a>
-            <a 
-              href="#calculator" 
+            <a
+              href="#calculator"
               onClick={(e) => scrollToSection(e, '#calculator')}
               className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10 flex items-center gap-2"
             >
               <Scale className="w-4 h-4 text-orange-500" />
               <span>Kid Nutrition & Macro Calculator</span>
             </a>
-            <a 
-              href="#plans" 
+            <a
+              href="#plans"
               onClick={(e) => scrollToSection(e, '#plans')}
               className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10"
             >
               Meal Plans & Pricing
             </a>
-            <a 
-              href="#customizer" 
+            <a
+              href="#customizer"
               onClick={(e) => scrollToSection(e, '#customizer')}
               className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10"
             >
               Customise Your Child's Tiffin
             </a>
-            <a 
-              href="#tracker" 
+            <a
+              href="#tracker"
               onClick={(e) => scrollToSection(e, '#tracker')}
               className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10 flex items-center gap-2"
             >
               <Truck className="w-4 h-4 text-orange-500" />
               <span>Live Thermal & Van Tracker</span>
             </a>
-            <a 
-              href="#faq" 
+            <a
+              href="#faq"
               onClick={(e) => scrollToSection(e, '#faq')}
               className="text-[#F5EBE1] hover:text-orange-400 py-2.5 flex items-center gap-2"
             >
               <HelpCircle className="w-4 h-4 text-orange-500" />
               <span>Frequently Asked Questions</span>
             </a>
-            
+
             {/* Quick Action CTA buttons in mobile drawer */}
             <div className="pt-4 flex flex-col gap-2.5">
+              {currentUser ? (
+                <div className="p-3.5 bg-[#15100C] rounded-2xl border border-orange-500/25 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={currentUser.avatar}
+                      alt={currentUser.name}
+                      className="w-10 h-10 rounded-xl object-cover ring-1 ring-orange-500"
+                    />
+                    <div>
+                      <span className="text-xs font-bold text-[#F5EBE1] block">{currentUser.name}</span>
+                      <span className="text-[10px] text-orange-400 font-semibold">{currentUser.membershipTier} • ${currentUser.walletBalance.toFixed(2)} Wallet</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        sfx.playPop();
+                        onOpenAccount();
+                      }}
+                      className="px-3 py-1.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs shadow-sm shadow-orange-600/30"
+                    >
+                      Portal
+                    </button>
+                    {onLogout && (
+                      <button
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          sfx.playPop();
+                          onLogout();
+                        }}
+                        className="p-1.5 rounded-xl bg-[#261E18] text-[#8C7B6D] hover:text-rose-400 border border-orange-500/20"
+                        title="Sign Out"
+                      >
+                        <LogOut className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    sfx.playPop();
+                    onOpenAuth();
+                  }}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-full text-xs font-bold bg-orange-600 hover:bg-orange-500 text-white shadow-lg shadow-orange-600/30"
+                >
+                  <LogIn className="w-4 h-4" />
+                  <span>Parent Sign In / Register (+$10 Bonus)</span>
+                </button>
+              )}
+
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
@@ -348,18 +454,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 <Sparkles className="w-4 h-4 text-amber-400" />
                 Take 30-Second Taste Quiz (Get 15% OFF)
-              </button>
-
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  sfx.playPop();
-                  onOpenAccount();
-                }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-full text-xs font-bold bg-[#261E18] text-[#F5EBE1] border border-orange-500/40 hover:bg-[#2F251E]"
-              >
-                <User className="w-4 h-4 text-orange-400" />
-                <span>Parent Account & Plan Management</span>
               </button>
 
               <button
