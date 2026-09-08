@@ -50,16 +50,26 @@ export const App: React.FC = () => {
     const customMeal: MealItem = {
       id: `custom-bento-${Date.now()}`,
       name: `Custom Bento: ${traySummary}`,
-      description: 'Chef-assembled custom 4-compartment hot insulated lunch tray.',
+      tagline: 'Chef-assembled custom 4-compartment hot insulated lunch tray',
+      description: 'Handcrafted personalized bento lunchbox, sealed hot at 72°C in a double-wall thermal stainless container.',
       category: 'standard',
-      calories: 520,
-      protein: 26,
-      carbs: 58,
-      fats: 14,
+      pricePerDay: price,
+      imageUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+      dayOfWeek: 'Monday',
       allergens: [],
-      price: price,
-      image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
-      dietaryTags: ['Custom Bento', 'Nut-Free', 'Insulated 65°C']
+      tags: ['Custom Bento', 'Nut-Free', 'Insulated 65°C'],
+      isVegetarian: false,
+      isHalal: true,
+      isNutFree: true,
+      nutrition: {
+        calories: 520,
+        proteinGrams: 26,
+        carbsGrams: 58,
+        fatGrams: 14,
+        fiberGrams: 7,
+      },
+      chefNote: 'Custom partitioned and sealed with child-friendly easy-open thermal latch.',
+      includedItems: [traySummary]
     };
     sfx.playSuccess();
     setCartItems((prev) => [...prev, customMeal]);
