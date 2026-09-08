@@ -1,5 +1,6 @@
 {
-  "name": "react-example",
+  "name": "smart-school-tiffin",
+  "description": "Project JK - Smart School Tiffin Platform",
   "private": true,
   "version": "0.0.0",
   "type": "module",
