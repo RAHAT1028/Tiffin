@@ -1,4 +1,4 @@
-import { MealItem } from '../types';
+import { MealItem, FamilyMember, PartnerRestaurant } from '../types';
 
 export const WEEKLY_MEALS: MealItem[] = [
   // Monday
