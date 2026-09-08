@@ -172,11 +172,21 @@ export const AccountModal: React.FC<AccountModalProps> = ({
     setEditEmail(currentUser.email);
     setEditPhone(currentUser.phone || '+44 (0) 7700 900822');
 
-    // Build children from familyMembers or fallback
+    // Build children strictly for currentUser
     let mappedChildren: ParentAccountChild[] = [];
     
-    if (familyMembers && familyMembers.length > 0) {
-      mappedChildren = familyMembers.map((m, idx) => ({
+    // If Sarah Jenkins, use her children (Oliver & Maya)
+    // If another user, use their children (excluding Dr. Sarah/Mark)
+    const relevantFamily = (currentUser.email === 'sarah.jenkins@familymail.com')
+      ? familyMembers.filter(m => m.relation === 'Child')
+      : (currentUser.familyMembers && currentUser.familyMembers.length > 0
+          ? currentUser.familyMembers
+          : (familyMembers && familyMembers.length > 0 
+              ? familyMembers.filter(m => m.relation === 'Child' && !m.name.includes('Jenkins'))
+              : []));
+    
+    if (relevantFamily.length > 0) {
+      mappedChildren = relevantFamily.map((m, idx) => ({
         id: m.id || `child-${idx}`,
         name: m.name,
         age: m.age || 8,
@@ -193,7 +203,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
     } else {
       mappedChildren = [
         {
-          id: 'child-default-1',
+          id: `child-${Date.now()}`,
           name: `${currentUser.name.split(' ')[0]}'s Child`,
           age: 8,
           schoolName: 'St. Mary Academy',

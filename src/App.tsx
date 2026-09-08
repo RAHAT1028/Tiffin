@@ -43,9 +43,25 @@ const DEFAULT_DEMO_PARENT: AuthUser = {
 };
 
 export const App: React.FC = () => {
-  // Family Members State with LocalStorage
+  // Auth State with LocalStorage
+  const [currentUser, setCurrentUser] = useState<AuthUser | null>(() => {
+    try {
+      const saved = localStorage.getItem('smart_tiffin_current_user');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {}
+    return DEFAULT_DEMO_PARENT;
+  });
+
+  // Family Members State strictly tied to currentUser
   const [familyMembers, setFamilyMembers] = useState<FamilyMember[]>(() => {
     try {
+      const savedUser = localStorage.getItem('smart_tiffin_current_user');
+      if (savedUser) {
+        const user = JSON.parse(savedUser);
+        if (user.familyMembers && user.familyMembers.length > 0) {
+          return user.familyMembers;
+        }
+      }
       const saved = localStorage.getItem('smart_tiffin_family_members');
       if (saved) return JSON.parse(saved);
     } catch (e) {}
@@ -54,6 +70,13 @@ export const App: React.FC = () => {
 
   const [activeMember, setActiveMember] = useState<FamilyMember>(() => {
     try {
+      const savedUser = localStorage.getItem('smart_tiffin_current_user');
+      if (savedUser) {
+        const user = JSON.parse(savedUser);
+        if (user.familyMembers && user.familyMembers.length > 0) {
+          return user.familyMembers[0];
+        }
+      }
       const saved = localStorage.getItem('smart_tiffin_family_members');
       if (saved) {
         const parsed = JSON.parse(saved);
@@ -73,17 +96,7 @@ export const App: React.FC = () => {
     weeklyTotal: number;
   } | null>(null);
 
-  // Auth State with LocalStorage
-  const [currentUser, setCurrentUser] = useState<AuthUser | null>(() => {
-    try {
-      const saved = localStorage.getItem('smart_tiffin_current_user');
-      if (saved) return JSON.parse(saved);
-    } catch (e) {}
-    return DEFAULT_DEMO_PARENT;
-  });
-
   const [authOpen, setAuthOpen] = useState(false);
-
   const [cartOpen, setCartOpen] = useState(false);
   const [nutribotOpen, setNutribotOpen] = useState(false);
   const [quizOpen, setQuizOpen] = useState(false);
@@ -107,20 +120,36 @@ export const App: React.FC = () => {
       localStorage.setItem('smart_tiffin_current_user', JSON.stringify(user));
     } catch (e) {}
 
-    // If user has family members / newly registered child, sync them
+    // Determine children strictly for this user
+    let userChildren: FamilyMember[] = [];
     if (user.familyMembers && user.familyMembers.length > 0) {
-      // Merge with existing or set
-      const newChild = user.familyMembers[0];
-      setFamilyMembers((prev) => {
-        const filtered = prev.filter(m => m.id !== newChild.id && m.name.toLowerCase() !== newChild.name.toLowerCase());
-        const combined = [newChild, ...filtered];
-        try {
-          localStorage.setItem('smart_tiffin_family_members', JSON.stringify(combined));
-        } catch (e) {}
-        return combined;
-      });
-      setActiveMember(newChild);
+      userChildren = user.familyMembers;
+    } else if (user.email === DEMO_PARENT_USER.email) {
+      userChildren = INITIAL_FAMILY_MEMBERS;
+    } else {
+      // New user default child
+      userChildren = [
+        {
+          id: `child-${Date.now()}`,
+          name: `${user.name.split(' ')[0]}'s Child`,
+          relation: 'Child',
+          age: 8,
+          deliveryLocation: 'St. Mary Academy • Class 3B',
+          allergies: ['nuts'],
+          dietaryPreferences: ['Nut-Free Certified'],
+          avatar: 'https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=300&q=80',
+          colorTheme: 'orange',
+          defaultPlan: 'standard'
+        }
+      ];
     }
+
+    setFamilyMembers(userChildren);
+    setActiveMember(userChildren[0]);
+
+    try {
+      localStorage.setItem('smart_tiffin_family_members', JSON.stringify(userChildren));
+    } catch (e) {}
 
     showToast(`Welcome, ${user.name}! ($${user.walletBalance.toFixed(2)} in Wallet)`);
   };
@@ -129,7 +158,10 @@ export const App: React.FC = () => {
     setCurrentUser(null);
     try {
       localStorage.removeItem('smart_tiffin_current_user');
+      localStorage.removeItem('smart_tiffin_family_members');
     } catch (e) {}
+    setFamilyMembers(INITIAL_FAMILY_MEMBERS);
+    setActiveMember(INITIAL_FAMILY_MEMBERS[0]);
     setAccountOpen(false);
     showToast('You have been logged out.');
   };
@@ -143,6 +175,16 @@ export const App: React.FC = () => {
 
   const handleUpdateFamilyMembers = (updatedMembers: FamilyMember[]) => {
     setFamilyMembers(updatedMembers);
+    if (currentUser) {
+      const userWithUpdatedFam = {
+        ...currentUser,
+        familyMembers: updatedMembers
+      };
+      setCurrentUser(userWithUpdatedFam);
+      try {
+        localStorage.setItem('smart_tiffin_current_user', JSON.stringify(userWithUpdatedFam));
+      } catch (e) {}
+    }
     try {
       localStorage.setItem('smart_tiffin_family_members', JSON.stringify(updatedMembers));
     } catch (e) {}
