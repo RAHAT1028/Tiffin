@@ -124,7 +124,7 @@ export const App: React.FC = () => {
     let userChildren: FamilyMember[] = [];
     if (user.familyMembers && user.familyMembers.length > 0) {
       userChildren = user.familyMembers;
-    } else if (user.email === DEMO_PARENT_USER.email) {
+    } else if (user.email === DEFAULT_DEMO_PARENT.email) {
       userChildren = INITIAL_FAMILY_MEMBERS;
     } else {
       // New user default child
