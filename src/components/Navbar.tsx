@@ -12,7 +12,8 @@ import {
   HelpCircle,
   Scale,
   Layers,
-  Flame
+  Flame,
+  User
 } from 'lucide-react';
 import { sfx } from '../utils/audio';
 
@@ -21,13 +22,15 @@ interface NavbarProps {
   cartCount: number;
   onOpenNutribot: () => void;
   onOpenQuiz: () => void;
+  onOpenAccount: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ 
   onOpenCart, 
   cartCount, 
   onOpenNutribot,
-  onOpenQuiz
+  onOpenQuiz,
+  onOpenAccount
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -188,6 +191,21 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Ask Nutribot</span>
             </button>
 
+            {/* Parent Account Plan button */}
+            <button
+              onClick={() => {
+                sfx.playPop();
+                onOpenAccount();
+              }}
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold bg-[#261E18] text-[#F5EBE1] hover:bg-[#2F251E] hover:text-white border border-orange-500/30 transition-all hover:scale-105 active:scale-95 whitespace-nowrap flex-shrink-0 group shadow-sm"
+              title="Parent Account & Subscription Plan"
+            >
+              <div className="w-5 h-5 rounded-full bg-orange-600/30 border border-orange-500/40 flex items-center justify-center text-orange-400 group-hover:bg-orange-600 group-hover:text-white transition-colors">
+                <User className="w-3 h-3" />
+              </div>
+              <span>Account Plan</span>
+            </button>
+
             {/* Cart Button */}
             <button
               onClick={() => {
@@ -208,6 +226,17 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Mobile & Tablet Top Bar (< xl screens) */}
           <div className="flex xl:hidden items-center gap-2">
+            <button
+              onClick={() => {
+                sfx.playPop();
+                onOpenAccount();
+              }}
+              className="p-2 rounded-xl bg-[#261E18] text-orange-400 border border-orange-500/30"
+              title="Parent Account"
+              aria-label="Parent Account"
+            >
+              <User className="w-4 h-4" />
+            </button>
             <button
               onClick={toggleSound}
               className="p-2 rounded-full bg-[#261E18] text-[#D4C5B5] border border-orange-500/25"
@@ -319,6 +348,18 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 <Sparkles className="w-4 h-4 text-amber-400" />
                 Take 30-Second Taste Quiz (Get 15% OFF)
+              </button>
+
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  sfx.playPop();
+                  onOpenAccount();
+                }}
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-full text-xs font-bold bg-[#261E18] text-[#F5EBE1] border border-orange-500/40 hover:bg-[#2F251E]"
+              >
+                <User className="w-4 h-4 text-orange-400" />
+                <span>Parent Account & Plan Management</span>
               </button>
 
               <button

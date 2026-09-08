@@ -14,6 +14,7 @@ import { Footer } from './components/Footer';
 import { NutribotChat } from './components/NutribotChat';
 import { CartDrawer } from './components/CartDrawer';
 import { TasteQuizModal } from './components/TasteQuizModal';
+import { AccountModal } from './components/AccountModal';
 import { MealItem, MealCategory, ChildProfile, SubscriptionConfig } from './types';
 import { Sparkles, MessageSquareHeart, Award, Flame } from 'lucide-react';
 import { sfx } from './utils/audio';
@@ -29,6 +30,7 @@ export const App: React.FC = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const [nutribotOpen, setNutribotOpen] = useState(false);
   const [quizOpen, setQuizOpen] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
   const [customizerPlan, setCustomizerPlan] = useState<MealCategory>('standard');
   const [customizerProfile, setCustomizerProfile] = useState<Partial<ChildProfile>>({});
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -151,6 +153,10 @@ export const App: React.FC = () => {
           sfx.playPop();
           setQuizOpen(true);
         }}
+        onOpenAccount={() => {
+          sfx.playPop();
+          setAccountOpen(true);
+        }}
       />
 
       {/* Main Content Sections */}
@@ -185,7 +191,13 @@ export const App: React.FC = () => {
         <KidNutritionCalculator onSelectRecommendedPlan={handleSelectRecommendedPlan} />
 
         {/* Meal Plans & Pricing Cards */}
-        <MealPlanSelector onSelectPlan={handlePlanSelect} />
+        <MealPlanSelector 
+          onSelectPlan={handlePlanSelect} 
+          onOpenAccount={() => {
+            sfx.playPop();
+            setAccountOpen(true);
+          }}
+        />
 
         {/* Personalised Tiffin Customizer */}
         <TiffinCustomizer
@@ -247,6 +259,16 @@ export const App: React.FC = () => {
           <span>{toastMessage}</span>
         </div>
       )}
+
+      {/* Parent Account & Subscription Plan Portal Modal */}
+      <AccountModal
+        isOpen={accountOpen}
+        onClose={() => setAccountOpen(false)}
+        onSwitchPlanGlobal={(plan) => {
+          setCustomizerPlan(plan);
+          showToast(`Switched active subscription plan to ${plan.toUpperCase()}!`);
+        }}
+      />
 
       {/* 30-Second Taste Quiz Modal */}
       <TasteQuizModal

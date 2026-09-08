@@ -71,3 +71,60 @@ export interface ChatMessage {
   timestamp: string;
   suggestedMeals?: string[];
 }
+
+export interface ParentAccountChild {
+  id: string;
+  name: string;
+  age: number;
+  schoolName: string;
+  gradeClass: string;
+  lunchLocker: string;
+  allergies: Allergen[];
+  dietaryPreferences: string[];
+  portionSize: 'regular' | 'large';
+  activeDays: ('Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday')[];
+  isPausedToday: boolean;
+  pauseReason?: string;
+  notes?: string;
+}
+
+export interface AccountInvoice {
+  id: string;
+  date: string;
+  amount: number;
+  description: string;
+  status: 'paid' | 'refunded' | 'pending';
+  receiptUrl?: string;
+}
+
+export interface AccountDeliveryLog {
+  id: string;
+  date: string;
+  mealName: string;
+  childName: string;
+  tempArrival: string;
+  status: 'Delivered On Time' | 'In Transit' | 'Paused/Refunded';
+  childFeedback?: string;
+}
+
+export interface ParentAccount {
+  id: string;
+  parentName: string;
+  email: string;
+  phone: string;
+  avatar: string;
+  walletBalance: number;
+  activePlan: MealCategory;
+  billingCycle: 'weekly' | 'monthly' | 'term';
+  autoRenew: boolean;
+  nextBillingDate: string;
+  membershipTier: 'Silver' | 'Gold VIP' | 'Platinum';
+  paymentMethod: {
+    brand: 'visa' | 'mastercard' | 'applepay';
+    last4: string;
+    expiry: string;
+  };
+  children: ParentAccountChild[];
+  recentInvoices: AccountInvoice[];
+  recentDeliveries: AccountDeliveryLog[];
+}

@@ -5,18 +5,29 @@ import { MealCategory } from '../types';
 
 interface MealPlanSelectorProps {
   onSelectPlan: (planId: MealCategory) => void;
+  onOpenAccount?: () => void;
 }
 
-export const MealPlanSelector: React.FC<MealPlanSelectorProps> = ({ onSelectPlan }) => {
+export const MealPlanSelector: React.FC<MealPlanSelectorProps> = ({ onSelectPlan, onOpenAccount }) => {
   return (
     <section id="plans" className="py-20 bg-[#1C1712] text-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold uppercase tracking-widest text-orange-400 bg-orange-950/80 border border-orange-500/30 px-3 py-1 rounded-full">
-            Transparent Pricing
-          </span>
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <span className="text-xs font-bold uppercase tracking-widest text-orange-400 bg-orange-950/80 border border-orange-500/30 px-3 py-1 rounded-full">
+              Transparent Pricing
+            </span>
+            {onOpenAccount && (
+              <button
+                onClick={onOpenAccount}
+                className="text-xs font-bold text-amber-300 hover:text-white bg-[#261E18] hover:bg-[#2F251E] border border-orange-500/30 px-3 py-1 rounded-full transition-all flex items-center gap-1"
+              >
+                <span>Parent Account Portal →</span>
+              </button>
+            )}
+          </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-3 tracking-tight">
             Flexible meal plans tailored to your child's appetite.
           </h2>
@@ -87,7 +98,7 @@ export const MealPlanSelector: React.FC<MealPlanSelectorProps> = ({ onSelectPlan
                   {plan.features.map((feature, idx) => (
                     <div key={idx} className="flex items-start gap-2.5 text-xs text-[#D4C5B5]">
                       <div className="w-4 h-4 rounded-full bg-orange-950 text-orange-400 border border-orange-500/40 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Check className="w-3 h-3" />
+                        <Check className="w-3.5 h-3.5" />
                       </div>
                       <span>{feature}</span>
                     </div>
@@ -125,12 +136,22 @@ export const MealPlanSelector: React.FC<MealPlanSelectorProps> = ({ onSelectPlan
               </p>
             </div>
           </div>
-          <a
-            href="#customizer"
-            className="whitespace-nowrap px-6 py-3 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs sm:text-sm transition-colors shadow-md shadow-orange-600/20"
-          >
-            Calculate Weekly Cost
-          </a>
+          <div className="flex items-center gap-3">
+            {onOpenAccount && (
+              <button
+                onClick={onOpenAccount}
+                className="whitespace-nowrap px-5 py-3 rounded-xl bg-[#15100C] hover:bg-[#2F251E] text-[#D4C5B5] hover:text-white border border-orange-500/30 font-bold text-xs sm:text-sm transition-colors"
+              >
+                Manage Active Plan
+              </button>
+            )}
+            <a
+              href="#customizer"
+              className="whitespace-nowrap px-6 py-3 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs sm:text-sm transition-colors shadow-md shadow-orange-600/20"
+            >
+              Calculate Weekly Cost
+            </a>
+          </div>
         </div>
 
       </div>
