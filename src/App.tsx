@@ -134,7 +134,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#1C1712] text-slate-100 font-sans selection:bg-orange-500 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#1C1712] text-[#F5EBE1] font-sans selection:bg-orange-500 selection:text-white">
       
       {/* Navigation */}
       <Navbar
@@ -218,7 +218,7 @@ export const App: React.FC = () => {
             sfx.playPop();
             setQuizOpen(true);
           }}
-          className="bg-slate-900/90 hover:bg-slate-800 text-amber-300 px-4 py-3 rounded-full shadow-2xl border border-amber-500/40 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 group backdrop-blur-md"
+          className="bg-[#1C1712]/95 hover:bg-[#261E18] text-amber-300 px-4 py-3 rounded-full shadow-2xl border border-amber-500/40 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 group backdrop-blur-md"
           aria-label="Take 30s Taste Quiz"
         >
           <Sparkles className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform" />
@@ -242,7 +242,7 @@ export const App: React.FC = () => {
 
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 left-6 z-50 bg-slate-900 border border-orange-500/40 text-white px-5 py-3.5 rounded-2xl shadow-2xl text-xs sm:text-sm font-semibold flex items-center gap-2.5 animate-in slide-in-from-left duration-200">
+        <div className="fixed bottom-6 left-6 z-50 bg-[#261E18] border border-orange-500/40 text-white px-5 py-3.5 rounded-2xl shadow-2xl text-xs sm:text-sm font-semibold flex items-center gap-2.5 animate-in slide-in-from-left duration-200">
           <span className="w-2.5 h-2.5 rounded-full bg-orange-400 animate-pulse"></span>
           <span>{toastMessage}</span>
         </div>

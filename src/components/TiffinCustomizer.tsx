@@ -136,7 +136,7 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-3 tracking-tight">
             Build your child's custom school tiffin plan.
           </h2>
-          <p className="text-slate-400 text-sm sm:text-base mt-2">
+          <p className="text-[#D4C5B5] text-sm sm:text-base mt-2">
             Configure allergy safety, select portion size, add healthy booster snacks, and see live pricing instantly.
           </p>
         </div>
@@ -145,30 +145,30 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Form: Profile & Customisation Options */}
-          <div className="lg:col-span-8 bg-slate-900/90 rounded-3xl p-6 sm:p-8 border border-slate-800 shadow-2xl space-y-8">
+          <div className="lg:col-span-8 bg-[#261E18] rounded-3xl p-6 sm:p-8 border border-orange-500/20 shadow-2xl space-y-8">
             
             {/* Step 1: Child Information */}
             <div>
-              <div className="flex items-center gap-2 mb-4 pb-2 border-b border-slate-800">
-                <span className="w-6 h-6 rounded-full bg-orange-600 text-white flex items-center justify-center text-xs font-bold">1</span>
+              <div className="flex items-center gap-2 mb-4 pb-2 border-b border-amber-950/60">
+                <span className="w-6 h-6 rounded-full bg-gradient-to-r from-orange-600 to-amber-600 text-white flex items-center justify-center text-xs font-bold">1</span>
                 <h3 className="font-extrabold text-white text-base">Child & School Details</h3>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1">Child's Name</label>
+                  <label className="block text-xs font-bold text-[#D4C5B5] mb-1">Child's Name</label>
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. Oliver"
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#15100C] border border-orange-500/20 text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 placeholder-[#9E8C7D]"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1">Age Group</label>
+                  <label className="block text-xs font-bold text-[#D4C5B5] mb-1">Age Group</label>
                   <div className="grid grid-cols-3 gap-2">
                     {[
                       { id: 'nursery', label: 'Nursery (3-5)' },
@@ -178,11 +178,14 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
                       <button
                         type="button"
                         key={g.id}
-                        onClick={() => setAgeGroup(g.id as any)}
+                        onClick={() => {
+                          sfx.playPop();
+                          setAgeGroup(g.id as any);
+                        }}
                         className={`py-2 px-1 rounded-xl text-center text-xs font-bold border transition-all ${
                           ageGroup === g.id
-                            ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/20'
-                            : 'bg-slate-950 text-slate-300 border-slate-800 hover:bg-slate-800'
+                            ? 'bg-gradient-to-r from-orange-600 to-amber-600 text-white border-orange-500 shadow-md shadow-orange-600/20'
+                            : 'bg-[#15100C] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2F251E]'
                         }`}
                       >
                         {g.label}
@@ -192,26 +195,26 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1">School Campus</label>
+                  <label className="block text-xs font-bold text-[#D4C5B5] mb-1">School Campus</label>
                   <select
                     value={school}
                     onChange={(e) => setSchool(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#15100C] border border-orange-500/20 text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
                   >
                     {PARTNER_SCHOOLS.map((s) => (
-                      <option key={s} value={s} className="bg-slate-900 text-white">{s}</option>
+                      <option key={s} value={s} className="bg-[#1C1712] text-white">{s}</option>
                     ))}
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1">Class / Grade & Section</label>
+                  <label className="block text-xs font-bold text-[#D4C5B5] mb-1">Class / Grade & Section</label>
                   <input
                     type="text"
                     value={gradeClass}
                     onChange={(e) => setGradeClass(e.target.value)}
                     placeholder="e.g. Class 3B (Room 104)"
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#15100C] border border-orange-500/20 text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 placeholder-[#9E8C7D]"
                   />
                 </div>
               </div>
@@ -219,8 +222,8 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
 
             {/* Step 2: Plan & Delivery Days */}
             <div>
-              <div className="flex items-center gap-2 mb-4 pb-2 border-b border-slate-800">
-                <span className="w-6 h-6 rounded-full bg-orange-600 text-white flex items-center justify-center text-xs font-bold">2</span>
+              <div className="flex items-center gap-2 mb-4 pb-2 border-b border-amber-950/60">
+                <span className="w-6 h-6 rounded-full bg-gradient-to-r from-orange-600 to-amber-600 text-white flex items-center justify-center text-xs font-bold">2</span>
                 <h3 className="font-extrabold text-white text-base">Select Meal Plan & Schedule</h3>
               </div>
 
@@ -230,18 +233,21 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
                   <button
                     type="button"
                     key={p.id}
-                    onClick={() => setPlan(p.id as MealCategory)}
+                    onClick={() => {
+                      sfx.playSlot();
+                      setPlan(p.id as MealCategory);
+                    }}
                     className={`p-4 rounded-2xl text-left border transition-all ${
                       plan === p.id
                         ? 'border-orange-500 bg-orange-950/40 ring-2 ring-orange-500/30 shadow-lg shadow-orange-950/40'
-                        : 'border-slate-800 bg-slate-950/80 hover:border-slate-700'
+                        : 'border-orange-500/15 bg-[#15100C] hover:border-orange-500/40 hover:bg-[#231B15]'
                     }`}
                   >
                     <div className="flex justify-between items-center mb-1">
                       <span className="font-bold text-sm text-white">{p.name}</span>
                       <span className="text-xs font-extrabold text-orange-400">${p.price.toFixed(2)}</span>
                     </div>
-                    <span className="text-[11px] text-slate-400 block leading-tight">{p.description}</span>
+                    <span className="text-[11px] text-[#9E8C7D] block leading-tight">{p.description}</span>
                   </button>
                 ))}
               </div>
@@ -249,63 +255,75 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
               {/* Delivery Days per week */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1">Delivery Frequency</label>
+                  <label className="block text-xs font-bold text-[#D4C5B5] mb-1">Delivery Frequency</label>
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       type="button"
-                      onClick={() => setDaysPerWeek(5)}
+                      onClick={() => {
+                        sfx.playPop();
+                        setDaysPerWeek(5);
+                      }}
                       className={`p-3 rounded-xl text-center text-xs font-bold border transition-all ${
                         daysPerWeek === 5
-                          ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/30'
-                          : 'bg-slate-950 text-slate-300 border-slate-800 hover:bg-slate-800'
+                          ? 'bg-gradient-to-r from-orange-600 to-amber-600 text-white border-orange-500 shadow-md shadow-orange-600/30'
+                          : 'bg-[#15100C] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2F251E]'
                       }`}
                     >
                       <span>5 Days / Week</span>
-                      <span className="block text-[10px] font-normal text-orange-200">Monday to Friday</span>
+                      <span className="block text-[10px] font-normal text-orange-100">Monday to Friday</span>
                     </button>
 
                     <button
                       type="button"
-                      onClick={() => setDaysPerWeek(3)}
+                      onClick={() => {
+                        sfx.playPop();
+                        setDaysPerWeek(3);
+                      }}
                       className={`p-3 rounded-xl text-center text-xs font-bold border transition-all ${
                         daysPerWeek === 3
-                          ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/30'
-                          : 'bg-slate-950 text-slate-300 border-slate-800 hover:bg-slate-800'
+                          ? 'bg-gradient-to-r from-orange-600 to-amber-600 text-white border-orange-500 shadow-md shadow-orange-600/30'
+                          : 'bg-[#15100C] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2F251E]'
                       }`}
                     >
                       <span>3 Days / Week</span>
-                      <span className="block text-[10px] font-normal text-slate-400">Mon, Wed, Fri</span>
+                      <span className="block text-[10px] font-normal text-[#9E8C7D]">Mon, Wed, Fri</span>
                     </button>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1">Portion Size</label>
+                  <label className="block text-xs font-bold text-[#D4C5B5] mb-1">Portion Size</label>
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       type="button"
-                      onClick={() => setPortionSize('regular')}
+                      onClick={() => {
+                        sfx.playPop();
+                        setPortionSize('regular');
+                      }}
                       className={`p-3 rounded-xl text-center text-xs font-bold border transition-all ${
                         portionSize === 'regular'
-                          ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/30'
-                          : 'bg-slate-950 text-slate-300 border-slate-800 hover:bg-slate-800'
+                          ? 'bg-gradient-to-r from-orange-600 to-amber-600 text-white border-orange-500 shadow-md shadow-orange-600/30'
+                          : 'bg-[#15100C] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2F251E]'
                       }`}
                     >
                       <span>Standard Portion</span>
-                      <span className="block text-[10px] font-normal text-slate-400">Ages 3-11 standard</span>
+                      <span className="block text-[10px] font-normal text-[#9E8C7D]">Ages 3-11 standard</span>
                     </button>
 
                     <button
                       type="button"
-                      onClick={() => setPortionSize('large')}
+                      onClick={() => {
+                        sfx.playPop();
+                        setPortionSize('large');
+                      }}
                       className={`p-3 rounded-xl text-center text-xs font-bold border transition-all ${
                         portionSize === 'large'
-                          ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/30'
-                          : 'bg-slate-950 text-slate-300 border-slate-800 hover:bg-slate-800'
+                          ? 'bg-gradient-to-r from-orange-600 to-amber-600 text-white border-orange-500 shadow-md shadow-orange-600/30'
+                          : 'bg-[#15100C] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2F251E]'
                       }`}
                     >
                       <span>Hearty Teen (+20%)</span>
-                      <span className="block text-[10px] font-normal text-orange-200">Ages 12-18 / Athletes</span>
+                      <span className="block text-[10px] font-normal text-orange-100">Ages 12-18 / Athletes</span>
                     </button>
                   </div>
                 </div>
@@ -315,11 +333,11 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
 
             {/* Step 3: Allergies & Dietary Restrictions */}
             <div>
-              <div className="flex items-center gap-2 mb-3 pb-2 border-b border-slate-800">
-                <span className="w-6 h-6 rounded-full bg-orange-600 text-white flex items-center justify-center text-xs font-bold">3</span>
+              <div className="flex items-center gap-2 mb-3 pb-2 border-b border-amber-950/60">
+                <span className="w-6 h-6 rounded-full bg-gradient-to-r from-orange-600 to-amber-600 text-white flex items-center justify-center text-xs font-bold">3</span>
                 <h3 className="font-extrabold text-white text-base">Allergy Safety Filters</h3>
               </div>
-              <p className="text-xs text-slate-400 mb-3">
+              <p className="text-xs text-[#D4C5B5] mb-3">
                 Select ingredients your child is allergic to. We will automatically substitute or prepare these in segregated allergy-safe zones.
               </p>
 
@@ -334,14 +352,14 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
                       className={`p-2.5 rounded-xl border text-left text-xs font-semibold flex items-center justify-between transition-all ${
                         isChecked
                           ? 'bg-rose-950/80 border-rose-600 text-rose-300'
-                          : 'bg-slate-950 border-slate-800 text-slate-300 hover:bg-slate-800'
+                          : 'bg-[#15100C] border-orange-500/15 text-[#D4C5B5] hover:bg-[#261E18]'
                       }`}
                     >
                       <span>{alg.label}</span>
                       {isChecked ? (
                         <span className="w-4 h-4 rounded-full bg-rose-600 text-white flex items-center justify-center text-[10px] font-bold">✕</span>
                       ) : (
-                        <span className="w-4 h-4 rounded-full border border-slate-700"></span>
+                        <span className="w-4 h-4 rounded-full border border-amber-950/80"></span>
                       )}
                     </button>
                   );
@@ -354,86 +372,98 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
                   value={specialNotes}
                   onChange={(e) => setSpecialNotes(e.target.value)}
                   placeholder="Special instructions (e.g. cut fruit in small bite sizes, no spicy pepper)"
-                  className="w-full px-4 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-4 py-2.5 rounded-xl bg-[#15100C] border border-orange-500/20 text-white text-xs focus:outline-none focus:ring-2 focus:ring-orange-500 placeholder-[#9E8C7D]"
                 />
               </div>
             </div>
 
             {/* Step 4: Healthy Snack Add-Ons */}
             <div>
-              <div className="flex items-center gap-2 mb-3 pb-2 border-b border-slate-800">
-                <span className="w-6 h-6 rounded-full bg-orange-600 text-white flex items-center justify-center text-xs font-bold">4</span>
+              <div className="flex items-center gap-2 mb-3 pb-2 border-b border-amber-950/60">
+                <span className="w-6 h-6 rounded-full bg-gradient-to-r from-orange-600 to-amber-600 text-white flex items-center justify-center text-xs font-bold">4</span>
                 <h3 className="font-extrabold text-white text-base">Healthy Afternoon Boosters (Optional)</h3>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <label className={`p-3 rounded-2xl border flex items-center justify-between cursor-pointer transition-all ${
-                  fruitBowl ? 'bg-orange-950/40 border-orange-500/50' : 'bg-slate-950 border-slate-800'
+                  fruitBowl ? 'bg-orange-950/40 border-orange-500/50' : 'bg-[#15100C] border-orange-500/15'
                 }`}>
                   <div className="flex items-center gap-3">
                     <input
                       type="checkbox"
                       checked={fruitBowl}
-                      onChange={(e) => setFruitBowl(e.target.checked)}
-                      className="w-4 h-4 text-orange-600 rounded focus:ring-orange-500 bg-slate-900 border-slate-700"
+                      onChange={(e) => {
+                        sfx.playPop();
+                        setFruitBowl(e.target.checked);
+                      }}
+                      className="w-4 h-4 text-orange-600 rounded focus:ring-orange-500 bg-[#1C1712] border-amber-950"
                     />
                     <div>
                       <span className="text-xs font-bold text-white block">Seasonal Organic Fruit Medley</span>
-                      <span className="text-[11px] text-slate-400">Berries, grapes, apple slices</span>
+                      <span className="text-[11px] text-[#9E8C7D]">Berries, grapes, apple slices</span>
                     </div>
                   </div>
                   <span className="text-xs font-extrabold text-orange-400">+$1.20/day</span>
                 </label>
 
                 <label className={`p-3 rounded-2xl border flex items-center justify-between cursor-pointer transition-all ${
-                  coldPressedJuice ? 'bg-orange-950/40 border-orange-500/50' : 'bg-slate-950 border-slate-800'
+                  coldPressedJuice ? 'bg-orange-950/40 border-orange-500/50' : 'bg-[#15100C] border-orange-500/15'
                 }`}>
                   <div className="flex items-center gap-3">
                     <input
                       type="checkbox"
                       checked={coldPressedJuice}
-                      onChange={(e) => setColdPressedJuice(e.target.checked)}
-                      className="w-4 h-4 text-orange-600 rounded focus:ring-orange-500 bg-slate-900 border-slate-700"
+                      onChange={(e) => {
+                        sfx.playPop();
+                        setColdPressedJuice(e.target.checked);
+                      }}
+                      className="w-4 h-4 text-orange-600 rounded focus:ring-orange-500 bg-[#1C1712] border-amber-950"
                     />
                     <div>
                       <span className="text-xs font-bold text-white block">100% Cold-Pressed Juice</span>
-                      <span className="text-[11px] text-slate-400">Zero added sugar / preservatives</span>
+                      <span className="text-[11px] text-[#9E8C7D]">Zero added sugar / preservatives</span>
                     </div>
                   </div>
                   <span className="text-xs font-extrabold text-orange-400">+$1.80/day</span>
                 </label>
 
                 <label className={`p-3 rounded-2xl border flex items-center justify-between cursor-pointer transition-all ${
-                  organicYoghurt ? 'bg-orange-950/40 border-orange-500/50' : 'bg-slate-950 border-slate-800'
+                  organicYoghurt ? 'bg-orange-950/40 border-orange-500/50' : 'bg-[#15100C] border-orange-500/15'
                 }`}>
                   <div className="flex items-center gap-3">
                     <input
                       type="checkbox"
                       checked={organicYoghurt}
-                      onChange={(e) => setOrganicYoghurt(e.target.checked)}
-                      className="w-4 h-4 text-orange-600 rounded focus:ring-orange-500 bg-slate-900 border-slate-700"
+                      onChange={(e) => {
+                        sfx.playPop();
+                        setOrganicYoghurt(e.target.checked);
+                      }}
+                      className="w-4 h-4 text-orange-600 rounded focus:ring-orange-500 bg-[#1C1712] border-amber-950"
                     />
                     <div>
                       <span className="text-xs font-bold text-white block">Probiotic Greek Yoghurt Cup</span>
-                      <span className="text-[11px] text-slate-400">Gut health & calcium boost</span>
+                      <span className="text-[11px] text-[#9E8C7D]">Gut health & calcium boost</span>
                     </div>
                   </div>
                   <span className="text-xs font-extrabold text-orange-400">+$1.00/day</span>
                 </label>
 
                 <label className={`p-3 rounded-2xl border flex items-center justify-between cursor-pointer transition-all ${
-                  proteinCookie ? 'bg-orange-950/40 border-orange-500/50' : 'bg-slate-950 border-slate-800'
+                  proteinCookie ? 'bg-orange-950/40 border-orange-500/50' : 'bg-[#15100C] border-orange-500/15'
                 }`}>
                   <div className="flex items-center gap-3">
                     <input
                       type="checkbox"
                       checked={proteinCookie}
-                      onChange={(e) => setProteinCookie(e.target.checked)}
-                      className="w-4 h-4 text-orange-600 rounded focus:ring-orange-500 bg-slate-900 border-slate-700"
+                      onChange={(e) => {
+                        sfx.playPop();
+                        setProteinCookie(e.target.checked);
+                      }}
+                      className="w-4 h-4 text-orange-600 rounded focus:ring-orange-500 bg-[#1C1712] border-amber-950"
                     />
                     <div>
                       <span className="text-xs font-bold text-white block">Chia & Oat Superfood Cookie</span>
-                      <span className="text-[11px] text-slate-400">Nut-free, high fiber energy</span>
+                      <span className="text-[11px] text-[#9E8C7D]">Nut-free, high fiber energy</span>
                     </div>
                   </div>
                   <span className="text-xs font-extrabold text-orange-400">+$0.90/day</span>
@@ -445,61 +475,61 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
 
           {/* Right Summary Card: Live Cost & Checkout */}
           <div className="lg:col-span-4 sticky top-28 space-y-6">
-            <div className="glass-dark rounded-3xl p-6 sm:p-7 border border-slate-800 shadow-2xl">
+            <div className="bg-[#261E18] rounded-3xl p-6 sm:p-7 border border-orange-500/25 shadow-2xl">
               
-              <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+              <div className="flex items-center justify-between pb-4 border-b border-amber-950/60">
                 <div>
                   <h4 className="text-lg font-extrabold text-white">Subscription Summary</h4>
-                  <p className="text-xs text-slate-400">For {name || 'Your Child'} ({school.split('(')[0]})</p>
+                  <p className="text-xs text-[#9E8C7D]">For {name || 'Your Child'} ({school.split('(')[0]})</p>
                 </div>
-                <span className="w-9 h-9 rounded-2xl bg-orange-950 border border-orange-500/30 text-orange-400 flex items-center justify-center">
+                <span className="w-9 h-9 rounded-2xl bg-orange-950/80 border border-orange-500/30 text-orange-400 flex items-center justify-center">
                   <Calculator className="w-5 h-5" />
                 </span>
               </div>
 
               {/* Price Line items */}
               <div className="py-4 space-y-2.5 text-xs">
-                <div className="flex justify-between text-slate-400">
+                <div className="flex justify-between text-[#D4C5B5]">
                   <span>{activePlanObj.name} Base Rate ({daysPerWeek} days)</span>
                   <span className="font-bold text-white">${(baseDaily * daysPerWeek).toFixed(2)}</span>
                 </div>
 
                 {portionSize === 'large' && (
-                  <div className="flex justify-between text-slate-400">
+                  <div className="flex justify-between text-[#D4C5B5]">
                     <span>Hearty Portion Upgrade (+20%)</span>
                     <span className="font-bold text-white">${((baseDaily * 0.2) * daysPerWeek).toFixed(2)}</span>
                   </div>
                 )}
 
                 {addOnsDaily > 0 && (
-                  <div className="flex justify-between text-slate-400">
+                  <div className="flex justify-between text-[#D4C5B5]">
                     <span>Healthy Booster Snacks ({daysPerWeek} days)</span>
                     <span className="font-bold text-white">${(addOnsDaily * daysPerWeek).toFixed(2)}</span>
                   </div>
                 )}
 
-                <div className="flex justify-between text-slate-400">
+                <div className="flex justify-between text-[#D4C5B5]">
                   <span>Insulated Thermal Tiffin Delivery</span>
                   <span className="font-bold text-orange-400 uppercase">FREE</span>
                 </div>
 
-                <div className="flex justify-between text-slate-400">
+                <div className="flex justify-between text-[#D4C5B5]">
                   <span>Segregated Allergy Packaging</span>
                   <span className="font-bold text-orange-400 uppercase">INCLUDED</span>
                 </div>
               </div>
 
               {/* Total Calculation */}
-              <div className="p-4 rounded-2xl bg-slate-950 border border-orange-500/30 text-white mb-6">
+              <div className="p-4 rounded-2xl bg-[#15100C] border border-orange-500/30 text-white mb-6">
                 <div className="flex items-baseline justify-between">
-                  <span className="text-xs font-medium text-slate-400">Weekly Total</span>
+                  <span className="text-xs font-medium text-[#9E8C7D]">Weekly Total</span>
                   <span className="text-3xl font-extrabold text-orange-400">${totalWeekly.toFixed(2)}</span>
                 </div>
-                <div className="flex items-baseline justify-between mt-1 text-[11px] text-slate-400">
+                <div className="flex items-baseline justify-between mt-1 text-[11px] text-[#9E8C7D]">
                   <span>Daily breakdown</span>
                   <span>${totalDaily.toFixed(2)} / school day</span>
                 </div>
-                <div className="mt-3 pt-3 border-t border-slate-800 flex justify-between text-[11px] text-slate-300">
+                <div className="mt-3 pt-3 border-t border-amber-950/60 flex justify-between text-[11px] text-[#D4C5B5]">
                   <span>Est. Monthly (4 weeks)</span>
                   <span className="font-bold text-white">${estimatedMonthly.toFixed(2)}</span>
                 </div>
@@ -509,17 +539,17 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
               <button
                 type="button"
                 onClick={handleSubscribe}
-                className="w-full py-4 px-6 rounded-2xl bg-orange-600 hover:bg-orange-500 text-white font-extrabold text-sm shadow-lg shadow-orange-600/30 hover:shadow-xl hover:shadow-orange-600/40 transition-all flex items-center justify-center gap-2 group active:scale-95"
+                className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-extrabold text-sm shadow-lg shadow-orange-600/30 hover:shadow-xl hover:shadow-orange-600/40 transition-all flex items-center justify-center gap-2 group active:scale-95"
               >
                 <span>Activate Tiffin Plan</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
 
               <div className="mt-4 text-center space-y-1">
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-[#9E8C7D]">
                   ⚡ Pause or change days anytime via the dashboard
                 </p>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-[#9E8C7D]">
                   🛡️ 100% money-back guarantee for untasted meals
                 </p>
               </div>

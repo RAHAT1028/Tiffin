@@ -99,25 +99,25 @@ export const InteractiveFAQ: React.FC<InteractiveFAQProps> = ({ onOpenNutribot }
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             Frequently Asked <span className="gradient-text">Questions</span>
           </h2>
-          <p className="mt-3 text-slate-400 text-sm sm:text-base">
+          <p className="mt-3 text-[#D4C5B5] text-sm sm:text-base">
             Everything parents need to know about thermal insulation, same-day cancellations, and school desk delivery.
           </p>
         </div>
 
         {/* Live Search Input */}
         <div className="relative mb-6">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#8C7B6D]" />
           <input
             type="text"
             placeholder="Search questions (e.g. thermal temperature, pause subscription, nut allergies)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 pr-4 py-3.5 bg-slate-900/90 border border-slate-800 rounded-2xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all shadow-inner"
+            className="w-full pl-12 pr-4 py-3.5 bg-[#15100C] border border-orange-500/20 rounded-2xl text-white placeholder-[#8C7B6D] text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-all shadow-inner"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-400 hover:text-white"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-semibold text-[#D4C5B5] hover:text-white"
             >
               Clear
             </button>
@@ -142,7 +142,7 @@ export const InteractiveFAQ: React.FC<InteractiveFAQProps> = ({ onOpenNutribot }
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
                 activeCategory === cat.id
                   ? 'bg-orange-600 text-white shadow-md shadow-orange-600/30'
-                  : 'bg-slate-900 border border-slate-800 text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+                  : 'bg-[#15100C] border border-orange-500/20 text-[#D4C5B5] hover:bg-[#261E18] hover:text-white'
               }`}
             >
               {cat.label}
@@ -158,7 +158,7 @@ export const InteractiveFAQ: React.FC<InteractiveFAQProps> = ({ onOpenNutribot }
               return (
                 <div
                   key={faq.id}
-                  className="bg-slate-900/80 border border-slate-800/90 rounded-2xl overflow-hidden transition-all duration-200 hover:border-slate-700"
+                  className="bg-[#261E18] border border-orange-500/20 rounded-2xl overflow-hidden transition-all duration-200 hover:border-orange-500/40"
                 >
                   <button
                     onClick={() => toggleFAQ(faq.id)}
@@ -167,7 +167,7 @@ export const InteractiveFAQ: React.FC<InteractiveFAQProps> = ({ onOpenNutribot }
                     <span className="text-sm sm:text-base font-bold text-white">
                       {faq.question}
                     </span>
-                    <div className={`p-1.5 rounded-lg bg-slate-800 text-slate-400 transition-transform duration-200 ${
+                    <div className={`p-1.5 rounded-lg bg-[#15100C] text-[#D4C5B5] transition-transform duration-200 ${
                       isOpen ? 'rotate-180 text-orange-400 bg-orange-950/80 border border-orange-500/30' : ''
                     }`}>
                       <ChevronDown className="w-4 h-4" />
@@ -175,7 +175,7 @@ export const InteractiveFAQ: React.FC<InteractiveFAQProps> = ({ onOpenNutribot }
                   </button>
 
                   {isOpen && (
-                    <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/40 animate-in fade-in duration-200">
+                    <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-[#D4C5B5] leading-relaxed border-t border-orange-500/10 animate-in fade-in duration-200">
                       {faq.answer}
                     </div>
                   )}
@@ -183,21 +183,21 @@ export const InteractiveFAQ: React.FC<InteractiveFAQProps> = ({ onOpenNutribot }
               );
             })
           ) : (
-            <div className="text-center py-12 bg-slate-900/40 border border-slate-800 rounded-2xl">
-              <p className="text-slate-400 text-sm">No matching questions found for "{searchQuery}".</p>
+            <div className="text-center py-12 bg-[#15100C] border border-orange-500/20 rounded-2xl">
+              <p className="text-[#D4C5B5] text-sm">No matching questions found for "{searchQuery}".</p>
             </div>
           )}
         </div>
 
         {/* AI Nutribot Prompt Card */}
-        <div className="mt-12 bg-gradient-to-r from-orange-950/60 via-slate-900 to-amber-950/40 border border-orange-500/30 rounded-3xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
+        <div className="mt-12 bg-gradient-to-r from-orange-950/60 via-[#261E18] to-amber-950/40 border border-orange-500/30 rounded-3xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
           <div className="flex items-center gap-3.5 text-center sm:text-left">
             <div className="w-12 h-12 rounded-2xl bg-orange-600/20 border border-orange-500/40 flex items-center justify-center text-orange-400 flex-shrink-0">
               <Sparkles className="w-6 h-6" />
             </div>
             <div>
               <h4 className="text-base font-bold text-white">Have a specific pediatric or dietary question?</h4>
-              <p className="text-xs text-slate-400">Our Gemini-powered AI Nutribot has clinical pediatric meal intelligence.</p>
+              <p className="text-xs text-[#D4C5B5]">Our Gemini-powered AI Nutribot has clinical pediatric meal intelligence.</p>
             </div>
           </div>
 

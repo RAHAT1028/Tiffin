@@ -4,6 +4,14 @@
   :root {
     --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     --font-display: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --bg-base: #1C1712;
+    --bg-surface: #261E18;
+    --bg-surface-elevated: #2F251E;
+    --bg-input: #140F0C;
+    --border-warm: rgba(249, 115, 22, 0.18);
+    --text-primary: #FFFDF8;
+    --text-secondary: #D4C5B5;
+    --text-muted: #9E8C7D;
   }
 
   html {
@@ -11,12 +19,12 @@
     scroll-padding-top: 5.5rem;
     font-family: var(--font-sans);
     background-color: #1C1712;
-    color: #f8fafc;
+    color: #FFFDF8;
   }
 
   body {
     background-color: #1C1712;
-    color: #f8fafc;
+    color: #FFFDF8;
   }
 
   section {
@@ -26,15 +34,33 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
+    color: #FFFDF8;
   }
 }
 
-/* Custom glowing effects and black & orange dark theme */
+/* Custom Warm Cocoa & Vivid Orange Harmonious Aesthetic */
+.card-warm {
+  background-color: #261E18;
+  border: 1px solid rgba(249, 115, 22, 0.18);
+  box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.6);
+}
+
+.card-warm-elevated {
+  background-color: #2F251E;
+  border: 1px solid rgba(249, 115, 22, 0.28);
+  box-shadow: 0 16px 40px -10px rgba(249, 115, 22, 0.15);
+}
+
+.card-warm-inner {
+  background-color: #15100C;
+  border: 1px solid rgba(249, 115, 22, 0.14);
+}
+
 .glass-panel {
-  background: rgba(36, 30, 24, 0.88);
+  background: rgba(38, 30, 24, 0.88);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(249, 115, 22, 0.15);
 }
 
 .glass-dark {
@@ -45,14 +71,14 @@
 }
 
 .glass-orange {
-  background: rgba(249, 115, 22, 0.08);
+  background: rgba(249, 115, 22, 0.10);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(249, 115, 22, 0.3);
+  border: 1px solid rgba(249, 115, 22, 0.35);
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #fb923c 0%, #f97316 45%, #ea580c 100%);
+  background: linear-gradient(135deg, #fcd34d 0%, #fb923c 35%, #f97316 70%, #ea580c 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -65,7 +91,7 @@
 .subtle-mesh {
   background-color: #1C1712;
   background-image: 
-    radial-gradient(at 10% 10%, rgba(249, 115, 22, 0.15) 0px, transparent 55%),
+    radial-gradient(at 10% 10%, rgba(249, 115, 22, 0.16) 0px, transparent 55%),
     radial-gradient(at 90% 15%, rgba(245, 158, 11, 0.12) 0px, transparent 50%),
     radial-gradient(at 50% 55%, rgba(234, 88, 12, 0.10) 0px, transparent 65%),
     radial-gradient(at 80% 90%, rgba(249, 115, 22, 0.14) 0px, transparent 55%);
@@ -91,18 +117,18 @@
   animation: ping-slow 2.5s infinite;
 }
 
-/* Custom sleek orange scrollbar */
+/* Custom sleek warm scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #090d16;
+  background: #140F0C;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #3D3026;
   border-radius: 9999px;
 }
 

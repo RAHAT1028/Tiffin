@@ -113,10 +113,10 @@ export const TasteQuizModal: React.FC<TasteQuizModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="relative w-full max-w-2xl bg-slate-950 border border-orange-500/40 rounded-3xl shadow-2xl shadow-orange-950/40 overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="relative w-full max-w-2xl bg-[#1C1712] border border-orange-500/40 rounded-3xl shadow-2xl shadow-orange-950/40 overflow-hidden flex flex-col max-h-[90vh]">
         
         {/* Header Bar */}
-        <div className="px-6 py-4 border-b border-slate-800 bg-slate-900/90 flex items-center justify-between">
+        <div className="px-6 py-4 border-b border-orange-500/20 bg-[#261E18] flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-xl bg-orange-600/30 border border-orange-500/40 flex items-center justify-center text-orange-400">
               <Sparkles className="w-4 h-4" />
@@ -125,7 +125,7 @@ export const TasteQuizModal: React.FC<TasteQuizModalProps> = ({
               <h3 className="font-extrabold text-sm sm:text-base text-white">
                 30-Second Kid Taste & Allergen Quiz
               </h3>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-[#A8988A]">
                 {step < 4 ? `Step ${step} of 3 • Quick Personality Match` : 'Your Perfect Tiffin Match'}
               </p>
             </div>
@@ -133,7 +133,7 @@ export const TasteQuizModal: React.FC<TasteQuizModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
+            className="p-2 rounded-xl bg-[#15100C] text-[#D4C5B5] hover:text-white hover:bg-[#2F251E] transition-colors border border-orange-500/20"
           >
             <X className="w-5 h-5" />
           </button>
@@ -141,7 +141,7 @@ export const TasteQuizModal: React.FC<TasteQuizModalProps> = ({
 
         {/* Step Progress Bar */}
         {step < 4 && (
-          <div className="h-1.5 w-full bg-slate-900">
+          <div className="h-1.5 w-full bg-[#15100C]">
             <div 
               className="h-full bg-gradient-to-r from-orange-600 to-amber-500 transition-all duration-300"
               style={{ width: `${(step / 3) * 100}%` }}
@@ -150,7 +150,7 @@ export const TasteQuizModal: React.FC<TasteQuizModalProps> = ({
         )}
 
         {/* Modal Body */}
-        <div className="p-6 sm:p-8 overflow-y-auto flex-1 text-slate-100 space-y-6">
+        <div className="p-6 sm:p-8 overflow-y-auto flex-1 text-[#F5EBE1] space-y-6">
           
           {/* STEP 1: Child Name & Age Group */}
           {step === 1 && (
@@ -158,14 +158,14 @@ export const TasteQuizModal: React.FC<TasteQuizModalProps> = ({
               <div className="text-center sm:text-left">
                 <span className="text-xs font-bold text-orange-400 uppercase tracking-wider">Step 1</span>
                 <h4 className="text-xl sm:text-2xl font-black text-white mt-1">Who is this tasty tiffin for?</h4>
-                <p className="text-xs sm:text-sm text-slate-400 mt-1">
+                <p className="text-xs sm:text-sm text-[#D4C5B5] mt-1">
                   Tell us your child’s name and school stage so we can calculate exact portion dimensions.
                 </p>
               </div>
 
               {/* Child Name Input */}
               <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-wider text-slate-300">
+                <label className="text-xs font-bold uppercase tracking-wider text-[#D4C5B5]">
                   Child's First Name (Optional)
                 </label>
                 <input
@@ -173,13 +173,13 @@ export const TasteQuizModal: React.FC<TasteQuizModalProps> = ({
                   placeholder="e.g. Liam, Arya, Zayd"
                   value={childName}
                   onChange={(e) => setChildName(e.target.value)}
-                  className="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-2xl text-white placeholder-slate-500 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 text-sm"
+                  className="w-full px-4 py-3 bg-[#15100C] border border-orange-500/20 rounded-2xl text-white placeholder-[#8C7B6D] focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 text-sm"
                 />
               </div>
 
               {/* Age Group Selector */}
               <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-wider text-slate-300">
+                <label className="text-xs font-bold uppercase tracking-wider text-[#D4C5B5]">
                   School Stage / Age Bracket
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -198,12 +198,12 @@ export const TasteQuizModal: React.FC<TasteQuizModalProps> = ({
                       className={`p-3.5 rounded-2xl border text-center transition-all ${
                         ageGroup === item.id
                           ? 'bg-orange-950/80 border-orange-500 text-white shadow-lg shadow-orange-950/50'
-                          : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                          : 'bg-[#15100C] border-orange-500/20 text-[#D4C5B5] hover:border-orange-500/40 hover:bg-[#261E18]'
                       }`}
                     >
                       <div className="text-2xl mb-1">{item.icon}</div>
                       <div className="text-xs font-bold text-white">{item.label}</div>
-                      <div className="text-[11px] text-slate-400">{item.age}</div>
+                      <div className="text-[11px] text-[#A8988A]">{item.age}</div>
                     </button>
                   ))}
                 </div>
@@ -217,7 +217,7 @@ export const TasteQuizModal: React.FC<TasteQuizModalProps> = ({
               <div className="text-center sm:text-left">
                 <span className="text-xs font-bold text-orange-400 uppercase tracking-wider">Step 2</span>
                 <h4 className="text-xl sm:text-2xl font-black text-white mt-1">How would you describe their eating style?</h4>
-                <p className="text-xs sm:text-sm text-slate-400 mt-1">
+                <p className="text-xs sm:text-sm text-[#D4C5B5] mt-1">
                   We customize meal textures, sauces, and separation based on pickiness.
                 </p>
               </div>
@@ -258,21 +258,21 @@ export const TasteQuizModal: React.FC<TasteQuizModalProps> = ({
                     className={`p-4 rounded-2xl border text-left transition-all ${
                       eaterType === item.id
                         ? 'bg-orange-950/80 border-orange-500 text-white shadow-md shadow-orange-950/50'
-                        : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                        : 'bg-[#15100C] border-orange-500/20 text-[#D4C5B5] hover:border-orange-500/40 hover:bg-[#261E18]'
                     }`}
                   >
                     <div className="flex items-center gap-2 mb-1.5">
                       <span className="text-xl">{item.icon}</span>
                       <span className="text-sm font-bold text-white">{item.title}</span>
                     </div>
-                    <p className="text-xs text-slate-400 leading-relaxed">{item.desc}</p>
+                    <p className="text-xs text-[#D4C5B5] leading-relaxed">{item.desc}</p>
                   </button>
                 ))}
               </div>
 
               {/* Spice Tolerance */}
               <div className="space-y-2 pt-2">
-                <label className="text-xs font-bold uppercase tracking-wider text-slate-300">
+                <label className="text-xs font-bold uppercase tracking-wider text-[#D4C5B5]">
                   Spice Tolerance
                 </label>
                 <div className="grid grid-cols-3 gap-2">
@@ -290,7 +290,7 @@ export const TasteQuizModal: React.FC<TasteQuizModalProps> = ({
                       className={`p-2.5 rounded-xl text-xs font-semibold text-center border transition-all ${
                         spiceLevel === item.id
                           ? 'bg-amber-600 text-white border-amber-500'
-                          : 'bg-slate-900 border-slate-800 text-slate-400 hover:bg-slate-800'
+                          : 'bg-[#15100C] border-orange-500/20 text-[#D4C5B5] hover:bg-[#261E18]'
                       }`}
                     >
                       {item.label}
@@ -307,7 +307,7 @@ export const TasteQuizModal: React.FC<TasteQuizModalProps> = ({
               <div className="text-center sm:text-left">
                 <span className="text-xs font-bold text-orange-400 uppercase tracking-wider">Step 3</span>
                 <h4 className="text-xl sm:text-2xl font-black text-white mt-1">Any allergies or dietary needs?</h4>
-                <p className="text-xs sm:text-sm text-slate-400 mt-1">
+                <p className="text-xs sm:text-sm text-[#D4C5B5] mt-1">
                   Our kitchen maintains strict 100% nut-free quarantine and certified batch testing.
                 </p>
               </div>
@@ -330,7 +330,7 @@ export const TasteQuizModal: React.FC<TasteQuizModalProps> = ({
                       className={`p-3 rounded-2xl border text-left text-xs font-bold transition-all flex items-center justify-between ${
                         isChecked
                           ? 'bg-orange-950/80 border-orange-500 text-orange-200'
-                          : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'
+                          : 'bg-[#15100C] border-orange-500/20 text-[#D4C5B5] hover:border-orange-500/40 hover:bg-[#261E18]'
                       }`}
                     >
                       <span>{item.label}</span>
@@ -363,28 +363,28 @@ export const TasteQuizModal: React.FC<TasteQuizModalProps> = ({
                 <h4 className="text-2xl sm:text-3xl font-black text-white mt-2">
                   {recommendation.planTitle}
                 </h4>
-                <p className="text-xs sm:text-sm text-slate-300 max-w-lg mx-auto mt-2 leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#D4C5B5] max-w-lg mx-auto mt-2 leading-relaxed">
                   {recommendation.planDesc}
                 </p>
               </div>
 
               {/* Matched Profile Summary Pill */}
-              <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 text-left grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div className="bg-[#15100C] border border-orange-500/20 rounded-2xl p-4 text-left grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-500 block">Child</span>
+                  <span className="text-[10px] uppercase font-bold text-[#A8988A] block">Child</span>
                   <span className="font-extrabold text-white text-sm">
                     {childName.trim() || 'Your Kid'} ({ageGroup})
                   </span>
                 </div>
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-500 block">Eating Profile</span>
+                  <span className="text-[10px] uppercase font-bold text-[#A8988A] block">Eating Profile</span>
                   <span className="font-extrabold text-orange-400 text-sm capitalize">
                     {eaterType} Eater
                   </span>
                 </div>
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-500 block">Allergen Flags</span>
-                  <span className="font-extrabold text-slate-300 text-sm">
+                  <span className="text-[10px] uppercase font-bold text-[#A8988A] block">Allergen Flags</span>
+                  <span className="font-extrabold text-[#D4C5B5] text-sm">
                     {selectedAllergens.length} active filters
                   </span>
                 </div>
@@ -404,7 +404,7 @@ export const TasteQuizModal: React.FC<TasteQuizModalProps> = ({
 
                 <button
                   onClick={handleCopyCoupon}
-                  className="px-3.5 py-2 rounded-xl bg-slate-900 border border-orange-500/40 text-orange-300 hover:bg-slate-800 text-xs font-bold flex items-center gap-1.5 transition-colors"
+                  className="px-3.5 py-2 rounded-xl bg-[#15100C] border border-orange-500/40 text-orange-300 hover:bg-[#261E18] text-xs font-bold flex items-center gap-1.5 transition-colors"
                 >
                   {copiedCoupon ? <CheckCircle2 className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
                   <span>{copiedCoupon ? 'Code Copied!' : 'Copy Code'}</span>
@@ -417,11 +417,11 @@ export const TasteQuizModal: React.FC<TasteQuizModalProps> = ({
         </div>
 
         {/* Footer Navigation Buttons */}
-        <div className="px-6 py-4 border-t border-slate-800 bg-slate-900/90 flex items-center justify-between">
+        <div className="px-6 py-4 border-t border-orange-500/20 bg-[#261E18] flex items-center justify-between">
           {step > 1 && step < 4 ? (
             <button
               onClick={handlePrevStep}
-              className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold flex items-center gap-1.5 transition-colors"
+              className="px-4 py-2.5 rounded-xl bg-[#15100C] hover:bg-[#2F251E] text-[#D4C5B5] border border-orange-500/20 text-xs font-bold flex items-center gap-1.5 transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back</span>

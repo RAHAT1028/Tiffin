@@ -129,13 +129,13 @@ export const NutribotChat: React.FC<NutribotChatProps> = ({ isOpen, onClose }) =
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-end sm:justify-center p-0 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-end sm:justify-center p-0 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div 
-        className="bg-slate-900 w-full sm:max-w-lg h-[90vh] sm:h-[650px] rounded-t-3xl sm:rounded-3xl shadow-2xl border border-slate-800 flex flex-col overflow-hidden animate-in slide-in-from-bottom duration-300"
+        className="bg-[#1C1712] w-full sm:max-w-lg h-[90vh] sm:h-[650px] rounded-t-3xl sm:rounded-3xl shadow-2xl border border-orange-500/30 flex flex-col overflow-hidden animate-in slide-in-from-bottom duration-300"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Chat Header */}
-        <div className="p-4 sm:p-5 bg-gradient-to-r from-slate-950 via-slate-900 to-orange-950/50 text-white flex items-center justify-between border-b border-slate-800 shadow-md">
+        <div className="p-4 sm:p-5 bg-[#261E18] text-white flex items-center justify-between border-b border-orange-500/20 shadow-md">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center text-white shadow-sm font-bold">
               <Bot className="w-5 h-5" />
@@ -147,21 +147,21 @@ export const NutribotChat: React.FC<NutribotChatProps> = ({ isOpen, onClose }) =
                   AI Paediatric Advisor
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400">Project JK • Smart School Tiffin</p>
+              <p className="text-[11px] text-[#A8988A]">Project JK • Smart School Tiffin</p>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={() => setMessages(INITIAL_MESSAGES)}
-              className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+              className="p-2 rounded-xl text-[#D4C5B5] hover:text-white hover:bg-[#15100C] transition-colors border border-orange-500/20"
               title="Reset Conversation"
             >
               <RotateCcw className="w-4 h-4" />
             </button>
             <button
               onClick={onClose}
-              className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+              className="p-2 rounded-xl text-[#D4C5B5] hover:text-white hover:bg-[#15100C] transition-colors border border-orange-500/20"
             >
               <X className="w-5 h-5" />
             </button>
@@ -169,7 +169,7 @@ export const NutribotChat: React.FC<NutribotChatProps> = ({ isOpen, onClose }) =
         </div>
 
         {/* Chat Messages List */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 bg-slate-950">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 bg-[#15100C]">
           {messages.map((msg) => (
             <div
               key={msg.id}
@@ -185,7 +185,7 @@ export const NutribotChat: React.FC<NutribotChatProps> = ({ isOpen, onClose }) =
                 className={`max-w-[82%] rounded-2xl p-4 text-xs sm:text-sm leading-relaxed shadow-md ${
                   msg.sender === 'user'
                     ? 'bg-orange-600 text-white rounded-br-none'
-                    : 'bg-slate-900 border border-slate-800 text-slate-200 rounded-tl-none'
+                    : 'bg-[#261E18] border border-orange-500/20 text-[#F5EBE1] rounded-tl-none'
                 }`}
               >
                 {/* Render markdown formatting */}
@@ -196,19 +196,19 @@ export const NutribotChat: React.FC<NutribotChatProps> = ({ isOpen, onClose }) =
                       <p 
                         key={i} 
                         dangerouslySetInnerHTML={{ __html: formattedLine }} 
-                        className={line.startsWith('-') || line.startsWith('•') ? 'pl-2 text-slate-300 font-medium' : ''}
+                        className={line.startsWith('-') || line.startsWith('•') ? 'pl-2 text-[#D4C5B5] font-medium' : ''}
                       />
                     );
                   })}
                 </div>
 
-                <span className={`text-[10px] block mt-2 font-medium ${msg.sender === 'user' ? 'text-orange-200 text-right' : 'text-slate-500'}`}>
+                <span className={`text-[10px] block mt-2 font-medium ${msg.sender === 'user' ? 'text-orange-200 text-right' : 'text-[#8C7B6D]'}`}>
                   {msg.timestamp}
                 </span>
               </div>
 
               {msg.sender === 'user' && (
-                <div className="w-8 h-8 rounded-xl bg-slate-800 text-orange-400 border border-slate-700 flex items-center justify-center flex-shrink-0 text-xs font-bold shadow-xs mt-1">
+                <div className="w-8 h-8 rounded-xl bg-[#261E18] text-orange-400 border border-orange-500/30 flex items-center justify-center flex-shrink-0 text-xs font-bold shadow-xs mt-1">
                   <User className="w-4 h-4" />
                 </div>
               )}
@@ -220,8 +220,8 @@ export const NutribotChat: React.FC<NutribotChatProps> = ({ isOpen, onClose }) =
               <div className="w-8 h-8 rounded-xl bg-orange-600 text-white flex items-center justify-center flex-shrink-0 text-xs font-bold">
                 <Bot className="w-4 h-4" />
               </div>
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xs">
-                <div className="flex items-center gap-2 text-slate-400 text-xs font-medium">
+              <div className="bg-[#261E18] border border-orange-500/20 rounded-2xl p-4 shadow-xs">
+                <div className="flex items-center gap-2 text-[#D4C5B5] text-xs font-medium">
                   <span className="w-2 h-2 rounded-full bg-orange-500 animate-ping"></span>
                   <span>JK Nutribot is crafting personalized meal advice...</span>
                 </div>
@@ -233,12 +233,12 @@ export const NutribotChat: React.FC<NutribotChatProps> = ({ isOpen, onClose }) =
         </div>
 
         {/* Preset Prompt Suggestions */}
-        <div className="p-3 bg-slate-900 border-t border-slate-800 flex gap-2 overflow-x-auto no-scrollbar">
+        <div className="p-3 bg-[#261E18] border-t border-orange-500/20 flex gap-2 overflow-x-auto no-scrollbar">
           {PRESET_PROMPTS.map((prompt, idx) => (
             <button
               key={idx}
               onClick={() => handleSendMessage(prompt)}
-              className="whitespace-nowrap px-3 py-1.5 rounded-xl bg-slate-950 hover:bg-orange-950/60 hover:border-orange-500/40 text-slate-300 hover:text-orange-300 text-xs font-semibold border border-slate-800 transition-colors flex-shrink-0"
+              className="whitespace-nowrap px-3 py-1.5 rounded-xl bg-[#15100C] hover:bg-[#2F251E] hover:border-orange-500/40 text-[#D4C5B5] hover:text-orange-300 text-xs font-semibold border border-orange-500/20 transition-colors flex-shrink-0"
             >
               {prompt}
             </button>
@@ -251,14 +251,14 @@ export const NutribotChat: React.FC<NutribotChatProps> = ({ isOpen, onClose }) =
             e.preventDefault();
             handleSendMessage();
           }}
-          className="p-3 sm:p-4 bg-slate-900 border-t border-slate-800 flex items-center gap-2"
+          className="p-3 sm:p-4 bg-[#261E18] border-t border-orange-500/20 flex items-center gap-2"
         >
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask about allergies, calorie needs, meal swaps..."
-            className="flex-1 px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+            className="flex-1 px-4 py-3 rounded-xl bg-[#15100C] border border-orange-500/20 text-white placeholder-[#8C7B6D] text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
           />
           <button
             type="submit"

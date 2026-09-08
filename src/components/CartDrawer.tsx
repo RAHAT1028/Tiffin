@@ -45,22 +45,22 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     <div className="fixed inset-0 z-50 overflow-hidden">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-slate-950/80 backdrop-blur-xs transition-opacity"
+        className="absolute inset-0 bg-black/80 backdrop-blur-xs transition-opacity"
         onClick={onClose}
       />
 
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-slate-900 border-l border-slate-800 shadow-2xl flex flex-col justify-between text-white">
+        <div className="w-screen max-w-md bg-[#1C1712] border-l border-orange-500/20 shadow-2xl flex flex-col justify-between text-white">
           
           {/* Header */}
-          <div className="p-6 border-b border-slate-800 flex items-center justify-between bg-slate-950">
+          <div className="p-6 border-b border-orange-500/20 flex items-center justify-between bg-[#261E18]">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-2xl bg-orange-950/80 border border-orange-500/30 text-orange-400 flex items-center justify-center font-bold">
                 <ShoppingBag className="w-5 h-5" />
               </div>
               <div>
                 <h3 className="font-extrabold text-white text-base">Your Tiffin Box Order</h3>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-[#D4C5B5]">
                   {cartItems.length} individual items • {subscription ? '1 active subscription' : 'No active subscription'}
                 </p>
               </div>
@@ -68,7 +68,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
             <button
               onClick={onClose}
-              className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+              className="p-2 rounded-xl text-[#D4C5B5] hover:text-white hover:bg-[#15100C] transition-colors border border-orange-500/20"
             >
               <X className="w-5 h-5" />
             </button>
@@ -84,20 +84,20 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   <CheckCircle2 className="w-10 h-10" />
                 </div>
                 <h4 className="text-2xl font-extrabold text-white">Order & Subscription Activated!</h4>
-                <p className="text-xs sm:text-sm text-slate-300 max-w-xs mx-auto leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#D4C5B5] max-w-xs mx-auto leading-relaxed">
                   Thank you! Your order has been scheduled. First hot tiffin delivery will arrive at your child's classroom by 11:35 AM on the next scheduled school day.
                 </p>
-                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-left text-xs space-y-2 max-w-xs mx-auto">
+                <div className="p-4 rounded-2xl bg-[#15100C] border border-orange-500/20 text-left text-xs space-y-2 max-w-xs mx-auto">
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Order Reference:</span>
+                    <span className="text-[#A8988A]">Order Reference:</span>
                     <span className="font-bold text-white">#JK-2026-8942</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Total Charged:</span>
+                    <span className="text-[#A8988A]">Total Charged:</span>
                     <span className="font-bold text-orange-400">${grandTotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Status:</span>
+                    <span className="text-[#A8988A]">Status:</span>
                     <span className="font-bold text-orange-400">Active & Dispatched to Kitchen</span>
                   </div>
                 </div>
@@ -124,16 +124,16 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         <h4 className="font-bold text-white text-sm mt-1.5 capitalize">
                           {subscription.config.plan} Nourish Plan ({subscription.config.daysPerWeek} Days/Week)
                         </h4>
-                        <p className="text-xs text-slate-300 mt-0.5">
+                        <p className="text-xs text-[#D4C5B5] mt-0.5">
                           Child: <span className="font-semibold text-orange-300">{subscription.profile.name}</span> ({subscription.profile.gradeClass})
                         </p>
-                        <p className="text-[11px] text-slate-400">
+                        <p className="text-[11px] text-[#A8988A]">
                           {subscription.profile.schoolName}
                         </p>
                       </div>
                       <button
                         onClick={onClearSubscription}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-950/60 transition-colors"
+                        className="p-1.5 rounded-lg text-[#D4C5B5] hover:text-rose-400 hover:bg-rose-950/60 transition-colors"
                         title="Remove subscription"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -141,7 +141,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     </div>
 
                     <div className="mt-3 pt-3 border-t border-orange-500/20 flex items-center justify-between text-xs">
-                      <span className="text-slate-400 font-medium">Weekly Billing:</span>
+                      <span className="text-[#A8988A] font-medium">Weekly Billing:</span>
                       <span className="font-extrabold text-orange-400 text-sm">
                         ${subscription.weeklyTotal.toFixed(2)}
                       </span>
@@ -152,13 +152,13 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 {/* Individual Daily Meals List */}
                 {cartItems.length > 0 && (
                   <div className="space-y-3">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-[#D4C5B5]">
                       Individual Day Tiffins
                     </h4>
                     {cartItems.map((item, idx) => (
                       <div
                         key={idx}
-                        className="p-3 rounded-2xl border border-slate-800 bg-slate-950 flex items-center justify-between gap-3 shadow-md"
+                        className="p-3 rounded-2xl border border-orange-500/20 bg-[#261E18] flex items-center justify-between gap-3 shadow-md"
                       >
                         <img
                           src={item.imageUrl}
@@ -167,13 +167,13 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         />
                         <div className="flex-1 min-w-0">
                           <h5 className="font-bold text-white text-xs truncate">{item.name}</h5>
-                          <span className="text-[11px] text-slate-400 font-medium">{item.dayOfWeek} • {item.category} plan</span>
+                          <span className="text-[11px] text-[#A8988A] font-medium">{item.dayOfWeek} • {item.category} plan</span>
                         </div>
                         <div className="flex items-center gap-2">
                           <span className="font-extrabold text-xs text-orange-400">${item.pricePerDay.toFixed(2)}</span>
                           <button
                             onClick={() => onRemoveItem(idx)}
-                            className="p-1 text-slate-400 hover:text-rose-400 transition-colors"
+                            className="p-1 text-[#D4C5B5] hover:text-rose-400 transition-colors"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -185,17 +185,17 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
                 {/* Empty State */}
                 {!subscription && cartItems.length === 0 && (
-                  <div className="py-16 text-center text-slate-500 space-y-3">
-                    <ShoppingBag className="w-12 h-12 mx-auto text-slate-600" />
-                    <p className="font-bold text-slate-300 text-sm">Your tiffin box is currently empty</p>
-                    <p className="text-xs text-slate-500 max-w-xs mx-auto">
+                  <div className="py-16 text-center text-[#8C7B6D] space-y-3">
+                    <ShoppingBag className="w-12 h-12 mx-auto text-[#8C7B6D]" />
+                    <p className="font-bold text-[#D4C5B5] text-sm">Your tiffin box is currently empty</p>
+                    <p className="text-xs text-[#8C7B6D] max-w-xs mx-auto">
                       Select meals from the weekly menu or use our Customise Tiffin builder to start a healthy lunch subscription.
                     </p>
                   </div>
                 )}
 
                 {/* Guarantee Note */}
-                <div className="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 text-xs text-slate-400 flex items-start gap-2.5">
+                <div className="p-3.5 rounded-2xl bg-[#15100C] border border-orange-500/20 text-xs text-[#D4C5B5] flex items-start gap-2.5">
                   <ShieldCheck className="w-4 h-4 text-orange-400 flex-shrink-0 mt-0.5" />
                   <span>Free stainless steel insulated box included with every active subscription. No packaging deposit required.</span>
                 </div>
@@ -206,9 +206,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
           {/* Footer Checkout Summary */}
           {!orderConfirmed && (
-            <div className="p-6 border-t border-slate-800 bg-slate-950 space-y-4">
+            <div className="p-6 border-t border-orange-500/20 bg-[#261E18] space-y-4">
               <div className="flex items-baseline justify-between">
-                <span className="text-sm font-bold text-slate-400">Estimated Total:</span>
+                <span className="text-sm font-bold text-[#A8988A]">Estimated Total:</span>
                 <span className="text-3xl font-extrabold text-orange-400">${grandTotal.toFixed(2)}</span>
               </div>
 

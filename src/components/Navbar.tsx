@@ -83,25 +83,25 @@ export const Navbar: React.FC<NavbarProps> = ({
                   JK
                 </span>
               </div>
-              <p className="text-[10px] text-slate-400 font-medium whitespace-nowrap hidden sm:block leading-none mt-0.5">
+              <p className="text-[10px] text-[#A8988A] font-medium whitespace-nowrap hidden sm:block leading-none mt-0.5">
                 Warm & Fresh School Lunches
               </p>
             </div>
           </a>
 
           {/* Desktop Navigation Pill Capsule (Clean, single-line, whitespace-nowrap) */}
-          <nav className="hidden xl:flex items-center gap-1 bg-slate-900/70 backdrop-blur-md px-3 py-1.5 rounded-full border border-slate-800/80 shadow-inner">
+          <nav className="hidden xl:flex items-center gap-1 bg-[#15100C]/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-orange-500/20 shadow-inner">
             <a 
               href="#menu" 
               onClick={(e) => scrollToSection(e, '#menu')}
-              className="px-3 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all whitespace-nowrap"
+              className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all whitespace-nowrap"
             >
               Weekly Menu
             </a>
             <a 
               href="#visualizer" 
               onClick={(e) => scrollToSection(e, '#visualizer')}
-              className="px-3 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-1.5 whitespace-nowrap"
+              className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all flex items-center gap-1.5 whitespace-nowrap"
             >
               <Layers className="w-3.5 h-3.5 text-orange-400" />
               <span>Bento Builder</span>
@@ -109,7 +109,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a 
               href="#calculator" 
               onClick={(e) => scrollToSection(e, '#calculator')}
-              className="px-3 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-1.5 whitespace-nowrap"
+              className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all flex items-center gap-1.5 whitespace-nowrap"
             >
               <Scale className="w-3.5 h-3.5 text-orange-400" />
               <span>Nutrition Calc</span>
@@ -117,21 +117,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a 
               href="#plans" 
               onClick={(e) => scrollToSection(e, '#plans')}
-              className="px-3 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all whitespace-nowrap"
+              className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all whitespace-nowrap"
             >
               Plans
             </a>
             <a 
               href="#customizer" 
               onClick={(e) => scrollToSection(e, '#customizer')}
-              className="px-3 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all whitespace-nowrap"
+              className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all whitespace-nowrap"
             >
               Customise
             </a>
             <a 
               href="#tracker" 
               onClick={(e) => scrollToSection(e, '#tracker')}
-              className="px-3 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-1.5 whitespace-nowrap"
+              className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all flex items-center gap-1.5 whitespace-nowrap"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
@@ -142,7 +142,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a 
               href="#faq" 
               onClick={(e) => scrollToSection(e, '#faq')}
-              className="px-3 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all whitespace-nowrap"
+              className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all whitespace-nowrap"
             >
               FAQ
             </a>
@@ -156,8 +156,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={toggleSound}
               className={`p-2 rounded-full border text-xs transition-colors flex-shrink-0 ${
                 soundEnabled 
-                  ? 'bg-slate-900 border-slate-800 text-orange-400 hover:text-orange-300' 
-                  : 'bg-slate-900 border-slate-800 text-slate-500 hover:text-slate-400'
+                  ? 'bg-[#261E18] border-orange-500/30 text-orange-400 hover:text-orange-300' 
+                  : 'bg-[#261E18] border-orange-500/20 text-[#8C7B6D] hover:text-[#D4C5B5]'
               }`}
               title={soundEnabled ? 'Sound Enabled (Click to Mute)' : 'Sound Muted (Click to Unmute)'}
             >
@@ -182,7 +182,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 sfx.playPop();
                 onOpenNutribot();
               }}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold bg-orange-950/60 text-orange-300 hover:bg-orange-900/60 border border-orange-500/40 transition-all hover:shadow-sm hover:shadow-orange-500/20 group whitespace-nowrap flex-shrink-0"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold bg-orange-950/80 text-orange-300 hover:bg-orange-900/80 border border-orange-500/40 transition-all hover:shadow-sm hover:shadow-orange-500/20 group whitespace-nowrap flex-shrink-0"
             >
               <Sparkles className="w-3.5 h-3.5 text-orange-400 group-hover:rotate-12 transition-transform" />
               <span>Ask Nutribot</span>
@@ -210,7 +210,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex xl:hidden items-center gap-2">
             <button
               onClick={toggleSound}
-              className="p-2 rounded-full bg-slate-900 text-slate-400 border border-slate-800"
+              className="p-2 rounded-full bg-[#261E18] text-[#D4C5B5] border border-orange-500/25"
               title="Toggle sound"
             >
               {soundEnabled ? <Volume2 className="w-4 h-4 text-orange-400" /> : <VolumeX className="w-4 h-4" />}
@@ -238,7 +238,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 sfx.playPop();
                 setMobileMenuOpen(!mobileMenuOpen);
               }}
-              className="p-2 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:text-white"
+              className="p-2 rounded-xl bg-[#261E18] text-[#D4C5B5] border border-orange-500/25 hover:text-white"
               aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6 text-orange-400" /> : <Menu className="w-6 h-6" />}
@@ -255,7 +255,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a 
               href="#menu" 
               onClick={(e) => scrollToSection(e, '#menu')}
-              className="text-slate-200 hover:text-orange-400 py-2.5 border-b border-slate-900 flex items-center justify-between"
+              className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10 flex items-center justify-between"
             >
               <span>Weekly Lunch Menu</span>
               <span className="text-xs text-orange-500">View dishes →</span>
@@ -263,7 +263,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a 
               href="#visualizer" 
               onClick={(e) => scrollToSection(e, '#visualizer')}
-              className="text-slate-200 hover:text-orange-400 py-2.5 border-b border-slate-900 flex items-center gap-2"
+              className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10 flex items-center gap-2"
             >
               <Layers className="w-4 h-4 text-orange-500" />
               <span>Interactive Bento Builder</span>
@@ -271,7 +271,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a 
               href="#calculator" 
               onClick={(e) => scrollToSection(e, '#calculator')}
-              className="text-slate-200 hover:text-orange-400 py-2.5 border-b border-slate-900 flex items-center gap-2"
+              className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10 flex items-center gap-2"
             >
               <Scale className="w-4 h-4 text-orange-500" />
               <span>Kid Nutrition & Macro Calculator</span>
@@ -279,21 +279,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a 
               href="#plans" 
               onClick={(e) => scrollToSection(e, '#plans')}
-              className="text-slate-200 hover:text-orange-400 py-2.5 border-b border-slate-900"
+              className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10"
             >
               Meal Plans & Pricing
             </a>
             <a 
               href="#customizer" 
               onClick={(e) => scrollToSection(e, '#customizer')}
-              className="text-slate-200 hover:text-orange-400 py-2.5 border-b border-slate-900"
+              className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10"
             >
               Customise Your Child's Tiffin
             </a>
             <a 
               href="#tracker" 
               onClick={(e) => scrollToSection(e, '#tracker')}
-              className="text-slate-200 hover:text-orange-400 py-2.5 border-b border-slate-900 flex items-center gap-2"
+              className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10 flex items-center gap-2"
             >
               <Truck className="w-4 h-4 text-orange-500" />
               <span>Live Thermal & Van Tracker</span>
@@ -301,7 +301,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a 
               href="#faq" 
               onClick={(e) => scrollToSection(e, '#faq')}
-              className="text-slate-200 hover:text-orange-400 py-2.5 flex items-center gap-2"
+              className="text-[#F5EBE1] hover:text-orange-400 py-2.5 flex items-center gap-2"
             >
               <HelpCircle className="w-4 h-4 text-orange-500" />
               <span>Frequently Asked Questions</span>

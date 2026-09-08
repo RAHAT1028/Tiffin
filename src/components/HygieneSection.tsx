@@ -35,7 +35,7 @@ export const HygieneSection: React.FC = () => {
   ];
 
   return (
-    <section id="hygiene" className="py-20 bg-[#1C1712] text-white relative">
+    <section id="hygiene" className="py-20 bg-[#1C1712] text-[#F5EBE1] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -43,10 +43,10 @@ export const HygieneSection: React.FC = () => {
           <span className="text-xs font-bold uppercase tracking-widest text-orange-400 bg-orange-950/80 border border-orange-500/30 px-3 py-1 rounded-full">
             Uncompromising Food Safety
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-3 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#F5EBE1] mt-3 tracking-tight">
             How we guarantee hygiene, safety & warmth.
           </h2>
-          <p className="text-slate-400 text-sm sm:text-base mt-2">
+          <p className="text-[#D4C5B5] text-sm sm:text-base mt-2">
             Parents trust us with their children's daily nourishment. Here is how we ensure every meal is cooked fresh, packed sterile, and served piping warm.
           </p>
         </div>
@@ -58,15 +58,15 @@ export const HygieneSection: React.FC = () => {
             return (
               <div
                 key={idx}
-                className="p-6 rounded-3xl bg-slate-900/80 border border-slate-800 hover:bg-slate-900 hover:shadow-2xl hover:border-orange-500/50 transition-all duration-300 group"
+                className="p-6 rounded-3xl bg-[#261E18] border border-orange-500/20 hover:bg-[#2F251E] hover:shadow-2xl hover:border-orange-500/50 transition-all duration-300 group"
               >
                 <div className="w-12 h-12 rounded-2xl bg-orange-950/80 border border-orange-500/30 text-orange-400 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-orange-600 group-hover:text-white transition-all shadow-xs">
                   <Icon className="w-6 h-6" />
                 </div>
-                <h3 className="font-extrabold text-white text-base mb-2">
+                <h3 className="font-extrabold text-[#F5EBE1] text-base mb-2">
                   {pillar.title}
                 </h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <p className="text-xs text-[#D4C5B5] leading-relaxed">
                   {pillar.description}
                 </p>
               </div>
