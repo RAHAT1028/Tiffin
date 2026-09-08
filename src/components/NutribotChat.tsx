@@ -22,7 +22,7 @@ const INITIAL_MESSAGES: ChatMessage[] = [
   {
     id: 'welcome',
     sender: 'bot',
-    text: "Hello! I am **JK Nutribot**, your AI School Lunch Nutritionist & Meal Advisor. 🥦🍎\n\nHow can I help you today? I can recommend allergen-safe meal plans, calculate macros for your child's age, or explain our thermal delivery and schedule flexibility.",
+    text: "Hello! I am **JK Nutribot**, your AI School Lunch Nutritionist & Meal Advisor. 🍱✨\n\nHow can I help you today? I can recommend allergen-safe meal plans, calculate macros for your child's age, or explain our thermal delivery and schedule flexibility.",
     timestamp: 'Just now',
     suggestedMeals: ['Paneer Veggie Pulao', 'Chicken Teriyaki Bento', 'Baked Turkey Meatballs']
   }
@@ -96,7 +96,7 @@ export const NutribotChat: React.FC<NutribotChatProps> = ({ isOpen, onClose }) =
         throw new Error('API request failed');
       }
     } catch (err) {
-      // Intelligent fallback expert paediatric nutrition answers
+      // Paediatric nutrition answers
       const lower = messageText.toLowerCase();
       let fallbackText = "Thank you for reaching out! ";
 
@@ -129,39 +129,39 @@ export const NutribotChat: React.FC<NutribotChatProps> = ({ isOpen, onClose }) =
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-end sm:justify-center p-0 sm:p-4 bg-slate-950/50 backdrop-blur-xs animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-end sm:justify-center p-0 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
       <div 
-        className="bg-white w-full sm:max-w-lg h-[90vh] sm:h-[650px] rounded-t-3xl sm:rounded-3xl shadow-2xl border border-slate-200 flex flex-col overflow-hidden animate-in slide-in-from-bottom duration-300"
+        className="bg-slate-900 w-full sm:max-w-lg h-[90vh] sm:h-[650px] rounded-t-3xl sm:rounded-3xl shadow-2xl border border-slate-800 flex flex-col overflow-hidden animate-in slide-in-from-bottom duration-300"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Chat Header */}
-        <div className="p-4 sm:p-5 bg-gradient-to-r from-slate-900 to-slate-800 text-white flex items-center justify-between shadow-md">
+        <div className="p-4 sm:p-5 bg-gradient-to-r from-slate-950 via-slate-900 to-orange-950/50 text-white flex items-center justify-between border-b border-slate-800 shadow-md">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 shadow-sm font-bold">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center text-white shadow-sm font-bold">
               <Bot className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-extrabold text-sm sm:text-base">JK Nutribot</h3>
-                <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-400/30">
+                <h3 className="font-extrabold text-sm sm:text-base text-white">JK Nutribot</h3>
+                <span className="px-2 py-0.5 rounded-full bg-orange-950 text-orange-400 text-[10px] font-bold border border-orange-500/30">
                   AI Paediatric Advisor
                 </span>
               </div>
-              <p className="text-[11px] text-slate-300">Project JK • Smart School Tiffin</p>
+              <p className="text-[11px] text-slate-400">Project JK • Smart School Tiffin</p>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={() => setMessages(INITIAL_MESSAGES)}
-              className="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/60 transition-colors"
+              className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
               title="Reset Conversation"
             >
               <RotateCcw className="w-4 h-4" />
             </button>
             <button
               onClick={onClose}
-              className="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-700/60 transition-colors"
+              className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -169,47 +169,46 @@ export const NutribotChat: React.FC<NutribotChatProps> = ({ isOpen, onClose }) =
         </div>
 
         {/* Chat Messages List */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 bg-slate-50">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 bg-slate-950">
           {messages.map((msg) => (
             <div
               key={msg.id}
               className={`flex gap-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               {msg.sender === 'bot' && (
-                <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center flex-shrink-0 text-xs font-bold shadow-xs mt-1">
+                <div className="w-8 h-8 rounded-xl bg-orange-600 text-white flex items-center justify-center flex-shrink-0 text-xs font-bold shadow-xs mt-1">
                   <Bot className="w-4 h-4" />
                 </div>
               )}
 
               <div
-                className={`max-w-[82%] rounded-2xl p-4 text-xs sm:text-sm leading-relaxed shadow-xs ${
+                className={`max-w-[82%] rounded-2xl p-4 text-xs sm:text-sm leading-relaxed shadow-md ${
                   msg.sender === 'user'
-                    ? 'bg-slate-900 text-white rounded-br-none'
-                    : 'bg-white border border-slate-200/90 text-slate-800 rounded-tl-none'
+                    ? 'bg-orange-600 text-white rounded-br-none'
+                    : 'bg-slate-900 border border-slate-800 text-slate-200 rounded-tl-none'
                 }`}
               >
-                {/* Render simple markdown bolding and bullet points */}
+                {/* Render markdown formatting */}
                 <div className="whitespace-pre-wrap space-y-1">
                   {msg.text.split('\n').map((line, i) => {
-                    // Check bold markers
-                    const formattedLine = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    const formattedLine = line.replace(/\*\*(.*?)\*\*/g, '<strong class="text-orange-300">$1</strong>');
                     return (
                       <p 
                         key={i} 
                         dangerouslySetInnerHTML={{ __html: formattedLine }} 
-                        className={line.startsWith('-') || line.startsWith('•') ? 'pl-2 text-slate-700 font-medium' : ''}
+                        className={line.startsWith('-') || line.startsWith('•') ? 'pl-2 text-slate-300 font-medium' : ''}
                       />
                     );
                   })}
                 </div>
 
-                <span className={`text-[10px] block mt-2 font-medium ${msg.sender === 'user' ? 'text-slate-400 text-right' : 'text-slate-400'}`}>
+                <span className={`text-[10px] block mt-2 font-medium ${msg.sender === 'user' ? 'text-orange-200 text-right' : 'text-slate-500'}`}>
                   {msg.timestamp}
                 </span>
               </div>
 
               {msg.sender === 'user' && (
-                <div className="w-8 h-8 rounded-xl bg-slate-800 text-white flex items-center justify-center flex-shrink-0 text-xs font-bold shadow-xs mt-1">
+                <div className="w-8 h-8 rounded-xl bg-slate-800 text-orange-400 border border-slate-700 flex items-center justify-center flex-shrink-0 text-xs font-bold shadow-xs mt-1">
                   <User className="w-4 h-4" />
                 </div>
               )}
@@ -218,12 +217,12 @@ export const NutribotChat: React.FC<NutribotChatProps> = ({ isOpen, onClose }) =
 
           {loading && (
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center flex-shrink-0 text-xs font-bold">
+              <div className="w-8 h-8 rounded-xl bg-orange-600 text-white flex items-center justify-center flex-shrink-0 text-xs font-bold">
                 <Bot className="w-4 h-4" />
               </div>
-              <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs">
-                <div className="flex items-center gap-2 text-slate-500 text-xs font-medium">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xs">
+                <div className="flex items-center gap-2 text-slate-400 text-xs font-medium">
+                  <span className="w-2 h-2 rounded-full bg-orange-500 animate-ping"></span>
                   <span>JK Nutribot is crafting personalized meal advice...</span>
                 </div>
               </div>
@@ -234,12 +233,12 @@ export const NutribotChat: React.FC<NutribotChatProps> = ({ isOpen, onClose }) =
         </div>
 
         {/* Preset Prompt Suggestions */}
-        <div className="p-3 bg-white border-t border-slate-100 flex gap-2 overflow-x-auto no-scrollbar">
+        <div className="p-3 bg-slate-900 border-t border-slate-800 flex gap-2 overflow-x-auto no-scrollbar">
           {PRESET_PROMPTS.map((prompt, idx) => (
             <button
               key={idx}
               onClick={() => handleSendMessage(prompt)}
-              className="whitespace-nowrap px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-emerald-50 hover:border-emerald-200 text-slate-700 hover:text-emerald-800 text-xs font-semibold border border-slate-200 transition-colors flex-shrink-0"
+              className="whitespace-nowrap px-3 py-1.5 rounded-xl bg-slate-950 hover:bg-orange-950/60 hover:border-orange-500/40 text-slate-300 hover:text-orange-300 text-xs font-semibold border border-slate-800 transition-colors flex-shrink-0"
             >
               {prompt}
             </button>
@@ -252,19 +251,19 @@ export const NutribotChat: React.FC<NutribotChatProps> = ({ isOpen, onClose }) =
             e.preventDefault();
             handleSendMessage();
           }}
-          className="p-3 sm:p-4 bg-white border-t border-slate-200 flex items-center gap-2"
+          className="p-3 sm:p-4 bg-slate-900 border-t border-slate-800 flex items-center gap-2"
         >
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask about allergies, calorie needs, meal swaps..."
-            className="flex-1 px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white"
+            className="flex-1 px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
           />
           <button
             type="submit"
             disabled={!input.trim() || loading}
-            className="p-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-bold transition-all shadow-md shadow-emerald-600/20"
+            className="p-3 rounded-xl bg-orange-600 hover:bg-orange-500 disabled:opacity-50 text-white font-bold transition-all shadow-md shadow-orange-600/30 active:scale-95"
           >
             <Send className="w-4 h-4" />
           </button>

@@ -70,7 +70,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#fbfaf8] text-slate-900 font-sans selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#030712] text-slate-100 font-sans selection:bg-orange-500 selection:text-white">
       
       {/* Navigation */}
       <Navbar
@@ -120,17 +120,17 @@ export const App: React.FC = () => {
       {/* Floating AI Nutribot Bubble (bottom right) */}
       <button
         onClick={() => setNutribotOpen(true)}
-        className="fixed bottom-6 right-6 z-40 bg-gradient-to-tr from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white p-4 rounded-full shadow-2xl shadow-emerald-600/40 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 group border-2 border-white"
+        className="fixed bottom-6 right-6 z-40 bg-gradient-to-tr from-orange-600 via-amber-600 to-orange-500 hover:from-orange-500 hover:to-amber-500 text-white p-4 rounded-full shadow-2xl shadow-orange-600/40 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 group border-2 border-orange-400/40"
         aria-label="Ask AI Nutritionist"
       >
-        <Sparkles className="w-6 h-6 animate-spin-slow group-hover:rotate-45 transition-transform" />
+        <Sparkles className="w-6 h-6 group-hover:rotate-45 transition-transform text-white" />
         <span className="hidden sm:inline font-extrabold text-xs pr-1">Ask AI Nutribot</span>
       </button>
 
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 left-6 z-50 bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-slate-700 text-xs sm:text-sm font-semibold flex items-center gap-2.5 animate-in slide-in-from-left duration-200">
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <div className="fixed bottom-6 left-6 z-50 bg-slate-900 border border-orange-500/40 text-white px-5 py-3.5 rounded-2xl shadow-2xl text-xs sm:text-sm font-semibold flex items-center gap-2.5 animate-in slide-in-from-left duration-200">
+          <span className="w-2.5 h-2.5 rounded-full bg-orange-400 animate-pulse"></span>
           <span>{toastMessage}</span>
         </div>
       )}
