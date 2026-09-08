@@ -43,9 +43,26 @@ const DEFAULT_DEMO_PARENT: AuthUser = {
 };
 
 export const App: React.FC = () => {
-  // Family Members State
-  const [familyMembers, setFamilyMembers] = useState<FamilyMember[]>(INITIAL_FAMILY_MEMBERS);
-  const [activeMember, setActiveMember] = useState<FamilyMember>(INITIAL_FAMILY_MEMBERS[0]);
+  // Family Members State with LocalStorage
+  const [familyMembers, setFamilyMembers] = useState<FamilyMember[]>(() => {
+    try {
+      const saved = localStorage.getItem('smart_tiffin_family_members');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {}
+    return INITIAL_FAMILY_MEMBERS;
+  });
+
+  const [activeMember, setActiveMember] = useState<FamilyMember>(() => {
+    try {
+      const saved = localStorage.getItem('smart_tiffin_family_members');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.length > 0) return parsed[0];
+      }
+    } catch (e) {}
+    return INITIAL_FAMILY_MEMBERS[0];
+  });
+
   const [familyModalOpen, setFamilyModalOpen] = useState(false);
 
   // Cart State (wrapped with family recipient details)
@@ -56,8 +73,15 @@ export const App: React.FC = () => {
     weeklyTotal: number;
   } | null>(null);
 
-  // Auth State
-  const [currentUser, setCurrentUser] = useState<AuthUser | null>(DEFAULT_DEMO_PARENT);
+  // Auth State with LocalStorage
+  const [currentUser, setCurrentUser] = useState<AuthUser | null>(() => {
+    try {
+      const saved = localStorage.getItem('smart_tiffin_current_user');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {}
+    return DEFAULT_DEMO_PARENT;
+  });
+
   const [authOpen, setAuthOpen] = useState(false);
 
   const [cartOpen, setCartOpen] = useState(false);
@@ -78,13 +102,58 @@ export const App: React.FC = () => {
   const handleLoginSuccess = (user: AuthUser) => {
     setCurrentUser(user);
     setAuthOpen(false);
-    showToast(`Welcome back, ${user.name}!`);
+
+    try {
+      localStorage.setItem('smart_tiffin_current_user', JSON.stringify(user));
+    } catch (e) {}
+
+    // If user has family members / newly registered child, sync them
+    if (user.familyMembers && user.familyMembers.length > 0) {
+      // Merge with existing or set
+      const newChild = user.familyMembers[0];
+      setFamilyMembers((prev) => {
+        const filtered = prev.filter(m => m.id !== newChild.id && m.name.toLowerCase() !== newChild.name.toLowerCase());
+        const combined = [newChild, ...filtered];
+        try {
+          localStorage.setItem('smart_tiffin_family_members', JSON.stringify(combined));
+        } catch (e) {}
+        return combined;
+      });
+      setActiveMember(newChild);
+    }
+
+    showToast(`Welcome, ${user.name}! ($${user.walletBalance.toFixed(2)} in Wallet)`);
   };
 
   const handleLogout = () => {
     setCurrentUser(null);
+    try {
+      localStorage.removeItem('smart_tiffin_current_user');
+    } catch (e) {}
     setAccountOpen(false);
     showToast('You have been logged out.');
+  };
+
+  const handleUpdateUser = (updatedUser: AuthUser) => {
+    setCurrentUser(updatedUser);
+    try {
+      localStorage.setItem('smart_tiffin_current_user', JSON.stringify(updatedUser));
+    } catch (e) {}
+  };
+
+  const handleUpdateFamilyMembers = (updatedMembers: FamilyMember[]) => {
+    setFamilyMembers(updatedMembers);
+    try {
+      localStorage.setItem('smart_tiffin_family_members', JSON.stringify(updatedMembers));
+    } catch (e) {}
+    if (updatedMembers.length > 0) {
+      const match = updatedMembers.find(m => m.id === activeMember.id);
+      if (match) {
+        setActiveMember(match);
+      } else {
+        setActiveMember(updatedMembers[0]);
+      }
+    }
   };
 
   // Add meal attributed to a specific family member
@@ -391,7 +460,15 @@ export const App: React.FC = () => {
       <AccountModal
         isOpen={accountOpen}
         onClose={() => setAccountOpen(false)}
+        currentUser={currentUser}
+        familyMembers={familyMembers}
         onLogout={handleLogout}
+        onUpdateUser={handleUpdateUser}
+        onUpdateFamilyMembers={handleUpdateFamilyMembers}
+        onOpenAuth={() => {
+          setAccountOpen(false);
+          setAuthOpen(true);
+        }}
         onSwitchPlanGlobal={(plan) => {
           setCustomizerPlan(plan);
           showToast(`Switched active subscription plan to ${plan.toUpperCase()}!`);

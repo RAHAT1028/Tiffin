@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   X,
   User,
@@ -26,118 +26,79 @@ import {
   RefreshCw,
   BellRing,
   Heart,
-  LogOut
+  LogOut,
+  LogIn,
+  Save,
+  Trash2
 } from 'lucide-react';
-import { ParentAccount, MealCategory, Allergen } from '../types';
+import { ParentAccount, ParentAccountChild, MealCategory, Allergen, AuthUser, FamilyMember } from '../types';
 import { sfx } from '../utils/audio';
 
 interface AccountModalProps {
   isOpen: boolean;
   onClose: () => void;
+  currentUser?: AuthUser | null;
+  familyMembers?: FamilyMember[];
   onSwitchPlanGlobal?: (plan: MealCategory) => void;
   onLogout?: () => void;
+  onUpdateUser?: (updatedUser: AuthUser) => void;
+  onUpdateFamilyMembers?: (updatedMembers: FamilyMember[]) => void;
+  onOpenAuth?: () => void;
 }
 
-const INITIAL_PARENT_ACCOUNT: ParentAccount = {
-  id: 'acc-parent-9921',
-  parentName: 'Dr. Sarah Jenkins',
-  email: 'sarah.jenkins@familymail.com',
-  phone: '+44 (0) 7700 900822',
-  avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80',
-  walletBalance: 28.50,
-  activePlan: 'standard',
-  billingCycle: 'weekly',
-  autoRenew: true,
-  nextBillingDate: 'Monday, Sep 15, 2026',
-  membershipTier: 'Gold VIP',
-  paymentMethod: {
-    brand: 'visa',
-    last4: '4242',
-    expiry: '08/28'
+const DEFAULT_INVOICES = [
+  {
+    id: 'INV-2026-0901',
+    date: 'Sep 01, 2026',
+    amount: 32.50,
+    description: 'Standard Plan - 5 Days Hot Tiffin Delivery',
+    status: 'paid' as const
   },
-  children: [
-    {
-      id: 'child-1',
-      name: 'Oliver Jenkins',
-      age: 8,
-      schoolName: 'St. Mary Academy',
-      gradeClass: 'Class 3B',
-      lunchLocker: 'Locker #42 (Yellow Wing)',
-      allergies: ['nuts'],
-      dietaryPreferences: ['Halal', 'Mild Spice Only'],
-      portionSize: 'regular',
-      activeDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-      isPausedToday: false,
-      notes: 'Please separate dips; cut fruits into bite-size pieces. High protein preferred.'
-    },
-    {
-      id: 'child-2',
-      name: 'Maya Jenkins',
-      age: 5,
-      schoolName: 'St. Mary Nursery Wing',
-      gradeClass: 'Reception Red',
-      lunchLocker: 'Cubby #12',
-      allergies: ['nuts', 'dairy'],
-      dietaryPreferences: ['Vegetarian', 'Nut-Free Certified'],
-      portionSize: 'regular',
-      activeDays: ['Monday', 'Wednesday', 'Friday'],
-      isPausedToday: false,
-      notes: 'Dairy sensitive - please use plant-based milk and seed-based spreads only.'
-    }
-  ],
-  recentInvoices: [
-    {
-      id: 'INV-2026-0901',
-      date: 'Sep 01, 2026',
-      amount: 32.50,
-      description: 'Standard Plan - 5 Days Hot Tiffin Delivery (Oliver)',
-      status: 'paid'
-    },
-    {
-      id: 'INV-2026-0825',
-      date: 'Aug 25, 2026',
-      amount: 19.50,
-      description: 'Standard Plan - 3 Days Hot Tiffin Delivery (Maya)',
-      status: 'paid'
-    },
-    {
-      id: 'INV-2026-0818',
-      date: 'Aug 18, 2026',
-      amount: 6.50,
-      description: 'Refund: 7:00 AM Sick Day Pause Credit (Oliver)',
-      status: 'refunded'
-    }
-  ],
-  recentDeliveries: [
-    {
-      id: 'del-01',
-      date: 'Today, 11:35 AM',
-      mealName: 'Grilled Herb Chicken & Avocado Wrap',
-      childName: 'Oliver Jenkins',
-      tempArrival: '68.2°C (Optimal)',
-      status: 'In Transit',
-      childFeedback: 'Lunchbox handed to Teacher Evans at 11:28 AM'
-    },
-    {
-      id: 'del-02',
-      date: 'Yesterday, 11:32 AM',
-      mealName: 'Tokyo Teriyaki Glazed Salmon & Bento',
-      childName: 'Oliver Jenkins',
-      tempArrival: '67.8°C (Verified)',
-      status: 'Delivered On Time',
-      childFeedback: '100% Finished • Oliver gave 5 stars ⭐'
-    },
-    {
-      id: 'del-03',
-      date: 'Friday, 11:30 AM',
-      mealName: 'Mild Paneer Veggie Pulao Bowl',
-      childName: 'Maya Jenkins',
-      tempArrival: '69.1°C (Verified)',
-      status: 'Delivered On Time',
-      childFeedback: 'Clean Tiffin returned for sanitization'
-    }
-  ]
-};
+  {
+    id: 'INV-2026-0825',
+    date: 'Aug 25, 2026',
+    amount: 19.50,
+    description: 'Standard Plan - 3 Days Hot Tiffin Delivery',
+    status: 'paid' as const
+  },
+  {
+    id: 'INV-2026-0818',
+    date: 'Aug 18, 2026',
+    amount: 6.50,
+    description: 'Refund: 7:00 AM Sick Day Morning Pause Credit',
+    status: 'refunded' as const
+  }
+];
+
+const DEFAULT_DELIVERIES = [
+  {
+    id: 'del-01',
+    date: 'Today, 11:35 AM',
+    mealName: 'Grilled Herb Chicken & Avocado Wrap',
+    childName: 'Student',
+    tempArrival: '68.2°C (Optimal)',
+    status: 'In Transit' as const,
+    childFeedback: 'Insulated Bento received at school gate'
+  },
+  {
+    id: 'del-02',
+    date: 'Yesterday, 11:32 AM',
+    mealName: 'Tokyo Teriyaki Glazed Salmon & Bento',
+    childName: 'Student',
+    tempArrival: '67.8°C (Verified)',
+    status: 'Delivered On Time' as const,
+    childFeedback: '100% Finished • 5 stars rating ⭐'
+  },
+  {
+    id: 'del-03',
+    date: 'Friday, 11:30 AM',
+    mealName: 'Mild Paneer Veggie Pulao Bowl',
+    childName: 'Student',
+    tempArrival: '69.1°C (Verified)',
+    status: 'Delivered On Time' as const,
+    childFeedback: 'Clean Tiffin returned for thermal sanitization'
+  }
+];
 
 const PLAN_RATES: Record<MealCategory, { name: string; price: number; desc: string }> = {
   basic: {
@@ -172,23 +133,183 @@ const WEEK_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] as co
 export const AccountModal: React.FC<AccountModalProps> = ({
   isOpen,
   onClose,
-  onSwitchPlanGlobal
+  currentUser,
+  familyMembers = [],
+  onSwitchPlanGlobal,
+  onLogout,
+  onUpdateUser,
+  onUpdateFamilyMembers,
+  onOpenAuth
 }) => {
-  const [account, setAccount] = useState<ParentAccount>(INITIAL_PARENT_ACCOUNT);
+  const [account, setAccount] = useState<ParentAccount | null>(null);
   const [selectedChildIndex, setSelectedChildIndex] = useState<number>(0);
-  const [activeTab, setActiveTab] = useState<'plan' | 'child' | 'deliveries' | 'billing'>('plan');
+  const [activeTab, setActiveTab] = useState<'plan' | 'child' | 'deliveries' | 'billing' | 'profile'>('plan');
+  
+  // Voucher state
   const [voucherInput, setVoucherInput] = useState('');
   const [voucherMsg, setVoucherMsg] = useState<{ text: string; isError: boolean } | null>(null);
   const [saveSuccessMsg, setSaveSuccessMsg] = useState<string | null>(null);
 
+  // New Child Inline Form
+  const [isAddingChild, setIsAddingChild] = useState(false);
+  const [newChildName, setNewChildName] = useState('');
+  const [newChildSchool, setNewChildSchool] = useState('St. Mary Academy');
+  const [newChildGrade, setNewChildGrade] = useState('Class 3B');
+
+  // Edit Parent Profile fields
+  const [editName, setEditName] = useState('');
+  const [editEmail, setEditEmail] = useState('');
+  const [editPhone, setEditPhone] = useState('');
+
+  // Synchronize account state whenever currentUser or familyMembers or isOpen changes
+  useEffect(() => {
+    if (!currentUser) {
+      setAccount(null);
+      return;
+    }
+
+    setEditName(currentUser.name);
+    setEditEmail(currentUser.email);
+    setEditPhone(currentUser.phone || '+44 (0) 7700 900822');
+
+    // Build children from familyMembers or fallback
+    let mappedChildren: ParentAccountChild[] = [];
+    
+    if (familyMembers && familyMembers.length > 0) {
+      mappedChildren = familyMembers.map((m, idx) => ({
+        id: m.id || `child-${idx}`,
+        name: m.name,
+        age: m.age || 8,
+        schoolName: m.deliveryLocation?.includes('•') ? m.deliveryLocation.split('•')[0].trim() : (m.deliveryLocation || 'St. Mary Academy'),
+        gradeClass: m.deliveryLocation?.includes('•') ? (m.deliveryLocation.split('•')[1] || 'Class 3B').trim() : 'Class 3B',
+        lunchLocker: `Locker #${idx * 14 + 22} (Yellow Wing)`,
+        allergies: m.allergies || ['nuts'],
+        dietaryPreferences: m.dietaryPreferences || ['Nut-Free Certified'],
+        portionSize: 'regular',
+        activeDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        isPausedToday: false,
+        notes: 'Nut-free certified meal, sealed thermal container.'
+      }));
+    } else {
+      mappedChildren = [
+        {
+          id: 'child-default-1',
+          name: `${currentUser.name.split(' ')[0]}'s Child`,
+          age: 8,
+          schoolName: 'St. Mary Academy',
+          gradeClass: 'Class 3B',
+          lunchLocker: 'Locker #42',
+          allergies: ['nuts'],
+          dietaryPreferences: ['Nut-Free Certified'],
+          portionSize: 'regular',
+          activeDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+          isPausedToday: false,
+          notes: 'Standard high-protein lunch.'
+        }
+      ];
+    }
+
+    const currentDeliveries = DEFAULT_DELIVERIES.map(d => ({
+      ...d,
+      childName: mappedChildren[0]?.name || 'Student'
+    }));
+
+    setAccount({
+      id: currentUser.id || 'acc-parent-active',
+      parentName: currentUser.name,
+      email: currentUser.email,
+      phone: currentUser.phone || '+44 (0) 7700 900822',
+      avatar: currentUser.avatar || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80',
+      walletBalance: typeof currentUser.walletBalance === 'number' ? currentUser.walletBalance : 28.50,
+      activePlan: currentUser.activePlan || 'standard',
+      billingCycle: 'weekly',
+      autoRenew: true,
+      nextBillingDate: 'Monday, Sep 15, 2026',
+      membershipTier: (currentUser.membershipTier as any) || 'Gold VIP',
+      paymentMethod: {
+        brand: 'visa',
+        last4: '4242',
+        expiry: '08/28'
+      },
+      children: mappedChildren,
+      recentInvoices: DEFAULT_INVOICES,
+      recentDeliveries: currentDeliveries
+    });
+
+    if (selectedChildIndex >= mappedChildren.length) {
+      setSelectedChildIndex(0);
+    }
+  }, [currentUser, familyMembers, isOpen]);
+
   if (!isOpen) return null;
 
-  const currentChild = account.children[selectedChildIndex] || account.children[0];
-  const currentPlan = account.activePlan;
-  const currentRate = PLAN_RATES[currentPlan];
+  const showFeedback = (msg: string) => {
+    setSaveSuccessMsg(msg);
+    setTimeout(() => {
+      setSaveSuccessMsg(null);
+    }, 3500);
+  };
 
-  // Calculated weekly cost based on active days
-  const weeklyCost = currentRate.price * currentChild.activeDays.length;
+  // If no user is logged in, show Guest CTA screen
+  if (!currentUser || !account) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
+        <div 
+          className="bg-[#1C1712] rounded-3xl max-w-md w-full p-6 sm:p-8 text-center border border-orange-500/30 text-[#F5EBE1] shadow-2xl relative animate-in zoom-in-95 duration-200"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            onClick={() => {
+              sfx.playPop();
+              onClose();
+            }}
+            className="absolute top-4 right-4 p-2 rounded-full bg-[#15100C] text-[#D4C5B5] hover:text-white border border-orange-500/30"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          <div className="w-16 h-16 rounded-3xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center text-white mx-auto shadow-xl shadow-orange-600/30 mb-4">
+            <User className="w-8 h-8" />
+          </div>
+
+          <h3 className="text-xl font-black text-[#F5EBE1]">Parent Account Portal</h3>
+          <p className="text-xs text-[#D4C5B5] mt-2 mb-6">
+            Sign in to access your child's weekly tiffin schedules, real-time thermal telemetry, 7:00 AM pause refunds, and your Smart Tiffin Wallet.
+          </p>
+
+          <button
+            onClick={() => {
+              sfx.playSuccess();
+              onClose();
+              if (onOpenAuth) onOpenAuth();
+            }}
+            className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-extrabold text-sm shadow-lg shadow-orange-600/30 transition-all flex items-center justify-center gap-2 active:scale-95 shimmer-effect"
+          >
+            <LogIn className="w-4 h-4" />
+            <span>Sign In or Register (+$10 Bonus)</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const currentChild = account.children[selectedChildIndex] || account.children[0] || {
+    id: 'child-1',
+    name: 'Oliver Jenkins',
+    age: 8,
+    schoolName: 'St. Mary Academy',
+    gradeClass: 'Class 3B',
+    lunchLocker: 'Locker #42',
+    allergies: ['nuts'],
+    dietaryPreferences: ['Halal', 'Mild Spice Only'],
+    portionSize: 'regular',
+    activeDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    isPausedToday: false
+  };
+
+  const currentPlan = account.activePlan;
+  const currentRate = PLAN_RATES[currentPlan] || PLAN_RATES.standard;
+  const weeklyCost = currentRate.price * (currentChild.activeDays?.length || 5);
 
   const handleToggleDay = (day: typeof WEEK_DAYS[number]) => {
     sfx.playPop();
@@ -196,8 +317,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
     let newDays: typeof WEEK_DAYS[number][];
     if (active) {
       if (currentChild.activeDays.length <= 1) {
-        // Prevent 0 days - minimum 1 day required
-        return;
+        return; // Minimum 1 day required
       }
       newDays = currentChild.activeDays.filter((d) => d !== day);
     } else {
@@ -209,12 +329,16 @@ export const AccountModal: React.FC<AccountModalProps> = ({
       ...currentChild,
       activeDays: newDays
     };
+    
     setAccount({ ...account, children: updatedChildren });
   };
 
   const handleSelectPlan = (planKey: MealCategory) => {
     sfx.playSuccess();
     setAccount({ ...account, activePlan: planKey });
+    if (currentUser && onUpdateUser) {
+      onUpdateUser({ ...currentUser, activePlan: planKey });
+    }
     if (onSwitchPlanGlobal) {
       onSwitchPlanGlobal(planKey);
     }
@@ -226,14 +350,13 @@ export const AccountModal: React.FC<AccountModalProps> = ({
     const dayRate = PLAN_RATES[account.activePlan].price;
 
     if (!isCurrentlyPaused) {
-      // Pause today & refund to wallet
       sfx.playSuccess();
       const updatedBalance = Number((account.walletBalance + dayRate).toFixed(2));
       const updatedChildren = [...account.children];
       updatedChildren[selectedChildIndex] = {
         ...currentChild,
         isPausedToday: true,
-        pauseReason: 'Paused before 7:00 AM Cutoff'
+        pauseReason: 'Paused before 7:00 AM Morning Cutoff'
       };
 
       const newInvoice = {
@@ -244,16 +367,24 @@ export const AccountModal: React.FC<AccountModalProps> = ({
         status: 'refunded' as const
       };
 
-      setAccount({
+      const updatedAccount = {
         ...account,
         walletBalance: updatedBalance,
         children: updatedChildren,
         recentInvoices: [newInvoice, ...account.recentInvoices]
-      });
+      };
 
-      showFeedback(`Today's meal paused! $${dayRate.toFixed(2)} refunded to your Wallet.`);
+      setAccount(updatedAccount);
+
+      if (currentUser && onUpdateUser) {
+        onUpdateUser({
+          ...currentUser,
+          walletBalance: updatedBalance
+        });
+      }
+
+      showFeedback(`Today's lunch paused! +$${dayRate.toFixed(2)} credited to your Wallet.`);
     } else {
-      // Resume today
       sfx.playPop();
       const updatedChildren = [...account.children];
       updatedChildren[selectedChildIndex] = {
@@ -286,27 +417,116 @@ export const AccountModal: React.FC<AccountModalProps> = ({
     setAccount({ ...account, children: updatedChildren });
   };
 
+  const handleSaveChildProfile = () => {
+    sfx.playSuccess();
+    if (onUpdateFamilyMembers && familyMembers) {
+      const updatedFam = familyMembers.map((m, idx) => {
+        if (idx === selectedChildIndex || m.id === currentChild.id) {
+          return {
+            ...m,
+            name: currentChild.name,
+            deliveryLocation: `${currentChild.schoolName} • ${currentChild.gradeClass} (${currentChild.lunchLocker})`,
+            allergies: currentChild.allergies
+          };
+        }
+        return m;
+      });
+      onUpdateFamilyMembers(updatedFam);
+    }
+    showFeedback(`Child Profile for ${currentChild.name} updated successfully!`);
+  };
+
+  const handleAddNewChild = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newChildName.trim()) return;
+
+    sfx.playSuccess();
+    const newChildObj: ParentAccountChild = {
+      id: `child-${Date.now()}`,
+      name: newChildName.trim(),
+      age: 7,
+      schoolName: newChildSchool,
+      gradeClass: newChildGrade,
+      lunchLocker: `Locker #${Math.floor(Math.random() * 50 + 10)}`,
+      allergies: ['nuts'],
+      dietaryPreferences: ['Nut-Free Certified'],
+      portionSize: 'regular',
+      activeDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      isPausedToday: false
+    };
+
+    const newFamilyMember: FamilyMember = {
+      id: newChildObj.id,
+      name: newChildObj.name,
+      relation: 'Child',
+      age: 7,
+      deliveryLocation: `${newChildSchool} • ${newChildGrade}`,
+      allergies: ['nuts'],
+      dietaryPreferences: ['Nut-Free Certified'],
+      avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80',
+      colorTheme: 'amber',
+      defaultPlan: 'standard'
+    };
+
+    const updatedChildren = [...account.children, newChildObj];
+    setAccount({ ...account, children: updatedChildren });
+    setSelectedChildIndex(updatedChildren.length - 1);
+
+    if (onUpdateFamilyMembers) {
+      onUpdateFamilyMembers([...familyMembers, newFamilyMember]);
+    }
+
+    setNewChildName('');
+    setIsAddingChild(false);
+    showFeedback(`Added ${newChildObj.name} to your registered students!`);
+  };
+
+  const handleSaveParentProfile = (e: React.FormEvent) => {
+    e.preventDefault();
+    sfx.playSuccess();
+    const updatedAccount = {
+      ...account,
+      parentName: editName.trim() || account.parentName,
+      email: editEmail.trim() || account.email,
+      phone: editPhone.trim() || account.phone
+    };
+    setAccount(updatedAccount);
+
+    if (currentUser && onUpdateUser) {
+      onUpdateUser({
+        ...currentUser,
+        name: updatedAccount.parentName,
+        email: updatedAccount.email,
+        phone: updatedAccount.phone
+      });
+    }
+
+    showFeedback('Parent Profile information updated successfully!');
+  };
+
   const handleApplyVoucher = (e: React.FormEvent) => {
     e.preventDefault();
     const code = voucherInput.trim().toUpperCase();
     if (!code) return;
 
-    if (code === 'TIFFIN15' || code === 'SAVE15') {
+    if (code === 'TIFFIN15' || code === 'SAVE15' || code === 'WELCOME10') {
       sfx.playSuccess();
       const bonus = 10.00;
-      setAccount((prev) => ({
-        ...prev,
-        walletBalance: Number((prev.walletBalance + bonus).toFixed(2))
-      }));
-      setVoucherMsg({ text: '🎉 Promo Applied! +$10.00 added to your Tiffin Wallet.', isError: false });
+      const newBal = Number((account.walletBalance + bonus).toFixed(2));
+      setAccount({ ...account, walletBalance: newBal });
+      if (currentUser && onUpdateUser) {
+        onUpdateUser({ ...currentUser, walletBalance: newBal });
+      }
+      setVoucherMsg({ text: '🎉 Promo Applied! +$10.00 credited to your Tiffin Wallet.', isError: false });
       setVoucherInput('');
     } else if (code === 'HEALTHYKID' || code === 'FREEDAY') {
       sfx.playSuccess();
       const bonus = 6.50;
-      setAccount((prev) => ({
-        ...prev,
-        walletBalance: Number((prev.walletBalance + bonus).toFixed(2))
-      }));
+      const newBal = Number((account.walletBalance + bonus).toFixed(2));
+      setAccount({ ...account, walletBalance: newBal });
+      if (currentUser && onUpdateUser) {
+        onUpdateUser({ ...currentUser, walletBalance: newBal });
+      }
       setVoucherMsg({ text: '🎉 Free Lunch Day credited! +$6.50 added to wallet.', isError: false });
       setVoucherInput('');
     } else {
@@ -315,15 +535,8 @@ export const AccountModal: React.FC<AccountModalProps> = ({
     }
   };
 
-  const showFeedback = (msg: string) => {
-    setSaveSuccessMsg(msg);
-    setTimeout(() => {
-      setSaveSuccessMsg(null);
-    }, 3500);
-  };
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
       <div
         className="bg-[#1C1712] rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-hidden shadow-2xl border border-orange-500/25 text-[#F5EBE1] flex flex-col relative animate-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
@@ -338,7 +551,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                 alt={account.parentName}
                 className="w-12 h-12 rounded-2xl object-cover ring-2 ring-orange-500/40"
               />
-              <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-[#1C1712] rounded-full" title="Active Account"></span>
+              <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-[#1C1712] rounded-full" title="Active Parent Session"></span>
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -355,12 +568,27 @@ export const AccountModal: React.FC<AccountModalProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
             {/* Wallet quick badge */}
-            <div className="hidden sm:flex flex-col items-end bg-[#15100C] px-3.5 py-1.5 rounded-2xl border border-orange-500/20">
+            <div className="flex flex-col items-end bg-[#15100C] px-3.5 py-1.5 rounded-2xl border border-orange-500/20">
               <span className="text-[10px] uppercase font-bold text-[#A8988A]">Lunch Wallet Balance</span>
               <span className="text-sm font-black text-amber-400">${account.walletBalance.toFixed(2)}</span>
             </div>
+
+            {/* Logout button in header */}
+            {onLogout && (
+              <button
+                onClick={() => {
+                  sfx.playPop();
+                  onLogout();
+                }}
+                className="p-2.5 rounded-2xl bg-[#15100C] hover:bg-rose-950/80 text-[#8C7B6D] hover:text-rose-300 border border-orange-500/20 transition-all"
+                title="Sign Out"
+                aria-label="Sign Out"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
+            )}
 
             {/* Close button */}
             <button
@@ -384,20 +612,34 @@ export const AccountModal: React.FC<AccountModalProps> = ({
             </span>
             {account.children.map((child, idx) => (
               <button
-                key={child.id}
+                key={child.id || idx}
                 onClick={() => {
                   sfx.playPop();
                   setSelectedChildIndex(idx);
                 }}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${selectedChildIndex === idx
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap ${
+                  selectedChildIndex === idx
                     ? 'bg-orange-600 text-white shadow-md shadow-orange-600/30 ring-1 ring-orange-400/40'
                     : 'bg-[#261E18] text-[#D4C5B5] hover:bg-[#2F251E] hover:text-white border border-orange-500/20'
-                  }`}
+                }`}
               >
                 <span>🎒 {child.name}</span>
                 <span className="text-[10px] opacity-80">({child.gradeClass})</span>
               </button>
             ))}
+
+            {/* Add Child Mini Button */}
+            <button
+              onClick={() => {
+                sfx.playPop();
+                setIsAddingChild(!isAddingChild);
+              }}
+              className="px-2.5 py-1.5 rounded-xl text-xs font-bold bg-[#261E18] text-orange-400 hover:text-white hover:bg-orange-600/30 border border-orange-500/30 flex items-center gap-1 whitespace-nowrap"
+              title="Add another student / child profile"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span>Add Child</span>
+            </button>
           </div>
 
           {/* 7:00 AM Emergency Pause Switch */}
@@ -412,10 +654,11 @@ export const AccountModal: React.FC<AccountModalProps> = ({
             </div>
             <button
               onClick={handleTogglePauseToday}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 ${currentChild.isPausedToday
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 ${
+                currentChild.isPausedToday
                   ? 'bg-emerald-700 hover:bg-emerald-600 text-white shadow-sm'
                   : 'bg-rose-950/90 hover:bg-rose-900 border border-rose-600/50 text-rose-200'
-                }`}
+              }`}
             >
               {currentChild.isPausedToday ? (
                 <>
@@ -432,13 +675,59 @@ export const AccountModal: React.FC<AccountModalProps> = ({
           </div>
         </div>
 
+        {/* Quick Add Child Drawer */}
+        {isAddingChild && (
+          <div className="px-5 sm:px-6 py-3.5 bg-[#201812] border-b border-orange-500/25 animate-in slide-in-from-top-2">
+            <form onSubmit={handleAddNewChild} className="flex flex-col sm:flex-row items-center gap-3">
+              <input
+                type="text"
+                required
+                placeholder="Child's Full Name (e.g. Maya Jenkins)"
+                value={newChildName}
+                onChange={(e) => setNewChildName(e.target.value)}
+                className="w-full sm:flex-1 bg-[#15100C] border border-orange-500/25 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+              />
+              <input
+                type="text"
+                placeholder="School (e.g. St. Mary Academy)"
+                value={newChildSchool}
+                onChange={(e) => setNewChildSchool(e.target.value)}
+                className="w-full sm:w-48 bg-[#15100C] border border-orange-500/25 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+              />
+              <input
+                type="text"
+                placeholder="Grade (e.g. Class 2A)"
+                value={newChildGrade}
+                onChange={(e) => setNewChildGrade(e.target.value)}
+                className="w-full sm:w-28 bg-[#15100C] border border-orange-500/25 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+              />
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <button
+                  type="submit"
+                  className="flex-1 sm:flex-initial px-4 py-2 bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs rounded-xl shadow-sm"
+                >
+                  Save Student
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsAddingChild(false)}
+                  className="px-3 py-2 bg-[#15100C] text-[#8C7B6D] hover:text-white text-xs rounded-xl"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+
         {/* Tab Navigation */}
         <div className="flex items-center px-5 sm:px-6 bg-[#261E18] border-b border-orange-500/20 gap-2 overflow-x-auto">
           {[
             { id: 'plan', label: 'Subscription & Days', icon: Calendar },
             { id: 'child', label: 'Child Profile & Allergens', icon: User },
             { id: 'deliveries', label: 'Delivery Telemetry', icon: Truck },
-            { id: 'billing', label: 'Wallet & Billing', icon: CreditCard },
+            { id: 'billing', label: 'Wallet & Invoices', icon: CreditCard },
+            { id: 'profile', label: 'Parent Details', icon: Edit3 },
           ].map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -449,10 +738,11 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                   sfx.playPop();
                   setActiveTab(tab.id as any);
                 }}
-                className={`py-3.5 px-3 sm:px-4 text-xs font-bold border-b-2 transition-all flex items-center gap-2 whitespace-nowrap ${isActive
+                className={`py-3.5 px-3 sm:px-4 text-xs font-bold border-b-2 transition-all flex items-center gap-2 whitespace-nowrap ${
+                  isActive
                     ? 'border-orange-500 text-orange-400 bg-orange-950/30'
                     : 'border-transparent text-[#D4C5B5] hover:text-white hover:bg-[#2F251E]'
-                  }`}
+                }`}
               >
                 <Icon className={`w-4 h-4 ${isActive ? 'text-orange-400' : 'text-[#A8988A]'}`} />
                 <span>{tab.label}</span>
@@ -484,10 +774,10 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                       Active School Plan
                     </span>
                     <h4 className="text-xl font-extrabold text-[#F5EBE1] mt-0.5">
-                      {PLAN_RATES[account.activePlan].name}
+                      {currentRate.name}
                     </h4>
                     <p className="text-xs text-[#D4C5B5] mt-1">
-                      {PLAN_RATES[account.activePlan].desc}
+                      {currentRate.desc}
                     </p>
                   </div>
                   <div className="bg-[#15100C] p-4 rounded-2xl border border-orange-500/20 text-left sm:text-right flex-shrink-0">
@@ -510,10 +800,11 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                         <div
                           key={pKey}
                           onClick={() => handleSelectPlan(pKey)}
-                          className={`p-4 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between ${isSelected
+                          className={`p-4 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between ${
+                            isSelected
                               ? 'bg-orange-950/40 border-orange-500 shadow-md shadow-orange-950/40 ring-1 ring-orange-500/30'
                               : 'bg-[#15100C] border-orange-500/20 hover:border-orange-500/40 hover:bg-[#2F251E]'
-                            }`}
+                          }`}
                         >
                           <div>
                             <div className="flex items-center justify-between mb-1">
@@ -553,10 +844,11 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                       <button
                         key={day}
                         onClick={() => handleToggleDay(day)}
-                        className={`p-3.5 rounded-2xl border text-center transition-all flex flex-col items-center justify-center gap-1 ${isSelected
+                        className={`p-3.5 rounded-2xl border text-center transition-all flex flex-col items-center justify-center gap-1 ${
+                          isSelected
                             ? 'bg-orange-600 border-orange-500 text-white font-bold shadow-md shadow-orange-600/30'
                             : 'bg-[#15100C] border-orange-500/20 text-[#A8988A] hover:text-[#D4C5B5] hover:bg-[#2F251E]'
-                          }`}
+                        }`}
                       >
                         <span className="text-xs font-bold">{day.slice(0, 3)}</span>
                         <span className="text-[10px] opacity-90">{isSelected ? `$${currentRate.price.toFixed(2)}` : 'Off'}</span>
@@ -569,7 +861,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                 </div>
 
                 <div className="mt-4 pt-4 border-t border-orange-500/20 flex flex-col sm:flex-row items-center justify-between text-xs text-[#A8988A] gap-2">
-                  <span>💡 Tip: Adjusting days instantly recalculates your weekly invoice without cancellation fees.</span>
+                  <span>💡 Tip: Adjusting days automatically recalculates your weekly invoice with no cancellation fees.</span>
                   <button
                     onClick={() => {
                       sfx.playSuccess();
@@ -675,10 +967,11 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                       <button
                         key={alg.key}
                         onClick={() => handleToggleAllergen(alg.key)}
-                        className={`p-3 rounded-2xl border text-left transition-all flex items-center justify-between ${isAllergic
+                        className={`p-3 rounded-2xl border text-left transition-all flex items-center justify-between ${
+                          isAllergic
                             ? 'bg-rose-950/80 border-rose-600 text-rose-200 font-bold'
                             : 'bg-[#15100C] border-orange-500/20 text-[#D4C5B5] hover:bg-[#2F251E]'
-                          }`}
+                        }`}
                       >
                         <span className="text-xs">{alg.label}</span>
                         {isAllergic && <AlertTriangle className="w-3.5 h-3.5 text-rose-400 flex-shrink-0" />}
@@ -704,10 +997,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
 
                 <div className="flex justify-end pt-2">
                   <button
-                    onClick={() => {
-                      sfx.playSuccess();
-                      showFeedback(`Child Profile for ${currentChild.name} updated successfully!`);
-                    }}
+                    onClick={handleSaveChildProfile}
                     className="px-6 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs shadow-md shadow-orange-600/30"
                   >
                     Save Child Profile
@@ -741,10 +1031,11 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <span className="font-extrabold text-xs text-[#F5EBE1]">{del.mealName}</span>
-                          <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${del.status === 'In Transit'
+                          <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${
+                            del.status === 'In Transit'
                               ? 'bg-orange-950 text-orange-300 border border-orange-500/40 animate-pulse'
                               : 'bg-emerald-950 text-emerald-300 border border-emerald-600/50'
-                            }`}>
+                          }`}>
                             {del.status}
                           </span>
                         </div>
@@ -808,14 +1099,14 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                       ${account.walletBalance.toFixed(2)}
                     </h4>
                     <p className="text-xs text-[#D4C5B5] mt-1">
-                      Auto-credited whenever a meal is paused or rescheduled before 7:00 AM.
+                      Auto-credited whenever a meal is paused before 7:00 AM or promotional vouchers are redeemed.
                     </p>
                   </div>
                   <div className="pt-4 mt-4 border-t border-orange-500/20 flex items-center gap-2">
                     <button
                       onClick={() => {
                         sfx.playSuccess();
-                        showFeedback('Wallet funds will be automatically deducted from next Monday invoice!');
+                        showFeedback('Wallet balance will automatically discount your next school delivery bill!');
                       }}
                       className="px-4 py-2 rounded-xl bg-orange-600 text-white font-bold text-xs shadow-sm hover:bg-orange-500"
                     >
@@ -831,7 +1122,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                       Redeem Voucher / Credit Code
                     </span>
                     <p className="text-xs text-[#D4C5B5] mt-1">
-                      Have a school referral or promo code? Enter it below.
+                      Have a school referral or promotion code? Enter it below.
                     </p>
                     <form onSubmit={handleApplyVoucher} className="mt-3 flex gap-2">
                       <input
@@ -871,7 +1162,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                       Visa ending in {account.paymentMethod.last4}
                     </h5>
                     <p className="text-xs text-[#A8988A]">
-                      Expires {account.paymentMethod.expiry} • Next automatic billing on {account.nextBillingDate}
+                      Expires {account.paymentMethod.expiry} • Next automatic renewal on {account.nextBillingDate}
                     </p>
                   </div>
                 </div>
@@ -905,9 +1196,10 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                       </div>
                       <div className="flex items-center gap-3">
                         <span className="font-black text-sm text-orange-400">${inv.amount.toFixed(2)}</span>
-                        <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${inv.status === 'paid' ? 'bg-emerald-950 text-emerald-300 border border-emerald-600/40' :
+                        <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${
+                          inv.status === 'paid' ? 'bg-emerald-950 text-emerald-300 border border-emerald-600/40' :
                             'bg-amber-950 text-amber-300 border border-amber-500/40'
-                          }`}>
+                        }`}>
                           {inv.status.toUpperCase()}
                         </span>
                       </div>
@@ -916,6 +1208,65 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                 </div>
               </div>
 
+            </div>
+          )}
+
+          {/* TAB 5: PARENT PROFILE DETAILS */}
+          {activeTab === 'profile' && (
+            <div className="space-y-6">
+              <div className="bg-[#261E18] rounded-3xl p-6 border border-orange-500/25 shadow-xl space-y-5">
+                <h4 className="text-base font-extrabold text-[#F5EBE1] flex items-center gap-2">
+                  <User className="w-5 h-5 text-orange-400" />
+                  <span>Parent Account Profile Information</span>
+                </h4>
+
+                <form onSubmit={handleSaveParentProfile} className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-xs font-bold text-[#A8988A] block mb-1.5">Parent Full Name</label>
+                      <input
+                        type="text"
+                        required
+                        value={editName}
+                        onChange={(e) => setEditName(e.target.value)}
+                        className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-xs font-bold text-[#A8988A] block mb-1.5">Phone Number</label>
+                      <input
+                        type="tel"
+                        required
+                        value={editPhone}
+                        onChange={(e) => setEditPhone(e.target.value)}
+                        className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-bold text-[#A8988A] block mb-1.5">Email Address</label>
+                    <input
+                      type="email"
+                      required
+                      value={editEmail}
+                      onChange={(e) => setEditEmail(e.target.value)}
+                      className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+                    />
+                  </div>
+
+                  <div className="pt-2 flex justify-end">
+                    <button
+                      type="submit"
+                      className="px-6 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs shadow-md shadow-orange-600/30 flex items-center gap-2"
+                    >
+                      <Save className="w-4 h-4" />
+                      <span>Save Profile Changes</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           )}
 

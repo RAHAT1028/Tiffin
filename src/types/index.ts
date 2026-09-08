@@ -179,4 +179,6 @@ export interface AuthUser {
   membershipTier: string;
   walletBalance: number;
   familyMembers?: FamilyMember[];
+  registeredChildren?: ParentAccountChild[];
+  activePlan?: MealCategory;
 }
