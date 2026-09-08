@@ -108,19 +108,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </a>
 
-          {/* Desktop Navigation Pill Capsule (Clean, single-line, whitespace-nowrap) */}
-          <nav className="hidden xl:flex items-center gap-1 bg-[#15100C]/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-orange-500/20 shadow-inner">
+          {/* Desktop Navigation Pill Capsule (Concise, balanced, never crowded) */}
+          <nav className="hidden lg:flex items-center gap-0.5 bg-[#15100C]/90 backdrop-blur-md px-2 py-1 rounded-full border border-orange-500/20 shadow-inner">
             <a
               href="#menu"
               onClick={(e) => scrollToSection(e, '#menu')}
               className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all whitespace-nowrap"
             >
-              Weekly Menu
+              Menu
             </a>
             <a
               href="#restaurants"
               onClick={(e) => scrollToSection(e, '#restaurants')}
-              className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all flex items-center gap-1.5 whitespace-nowrap"
+              className="px-3 py-1.5 rounded-full text-xs font-semibold text-orange-300 hover:text-white hover:bg-orange-600/20 transition-all flex items-center gap-1.5 whitespace-nowrap"
             >
               <ChefHat className="w-3.5 h-3.5 text-orange-400" />
               <span>Top Kitchens</span>
@@ -134,14 +134,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Bento Builder</span>
             </a>
             <a
-              href="#calculator"
-              onClick={(e) => scrollToSection(e, '#calculator')}
-              className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all flex items-center gap-1.5 whitespace-nowrap"
-            >
-              <Scale className="w-3.5 h-3.5 text-orange-400" />
-              <span>Nutrition Calc</span>
-            </a>
-            <a
               href="#plans"
               onClick={(e) => scrollToSection(e, '#plans')}
               className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all whitespace-nowrap"
@@ -149,29 +141,15 @@ export const Navbar: React.FC<NavbarProps> = ({
               Plans
             </a>
             <a
-              href="#customizer"
-              onClick={(e) => scrollToSection(e, '#customizer')}
-              className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all whitespace-nowrap"
-            >
-              Customise
-            </a>
-            <a
               href="#tracker"
               onClick={(e) => scrollToSection(e, '#tracker')}
               className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all flex items-center gap-1.5 whitespace-nowrap"
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
               <span>Live Tracker</span>
-            </a>
-            <a
-              href="#faq"
-              onClick={(e) => scrollToSection(e, '#faq')}
-              className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all whitespace-nowrap"
-            >
-              FAQ
             </a>
           </nav>
 
@@ -187,7 +165,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               title={soundEnabled ? 'Sound Enabled (Click to Mute)' : 'Sound Muted (Click to Unmute)'}
             >
-              {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+              {soundEnabled ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
             </button>
 
             {/* Family Hub & Members Button */}
@@ -196,8 +174,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 sfx.playPop();
                 if (onOpenFamilyHub) onOpenFamilyHub();
               }}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold bg-[#261E18] text-[#D4C5B5] hover:text-white hover:bg-[#2E241E] border border-orange-500/30 transition-all hover:scale-105 active:scale-95 whitespace-nowrap flex-shrink-0 group shadow-sm"
-              title="Manage Family Members, Allergies & Classrooms"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-[#261E18] text-[#D4C5B5] hover:text-white hover:bg-[#2E241E] border border-orange-500/30 transition-all hover:scale-105 active:scale-95 whitespace-nowrap flex-shrink-0 group shadow-sm"
+              title="Manage Family Members & Allergen Passports"
             >
               {activeMember ? (
                 <img
@@ -208,62 +186,46 @@ export const Navbar: React.FC<NavbarProps> = ({
               ) : (
                 <Users className="w-3.5 h-3.5 text-orange-400" />
               )}
-              <span className="hidden sm:inline">
-                {activeMember ? activeMember.name.split(' ')[0] : 'Family Hub'}
+              <span className="font-extrabold text-white">
+                {activeMember ? activeMember.name.split(' ')[0] : 'Family'}
               </span>
               <span className="px-1.5 py-0.2 rounded-full bg-orange-950 text-orange-400 text-[10px] font-black border border-orange-500/30">
                 {familyMembersCount}
               </span>
             </button>
 
-            {/* 30s Taste Quiz button */}
-            <button
-              onClick={() => {
-                sfx.playPop();
-                onOpenQuiz();
-              }}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold bg-amber-500/15 text-amber-300 hover:bg-amber-500/25 border border-amber-500/40 transition-all hover:scale-105 active:scale-95 whitespace-nowrap flex-shrink-0"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>Taste Quiz</span>
-            </button>
-
-            {/* AI Nutribot button */}
+            {/* AI Nutribot Icon Button (Compact) */}
             <button
               onClick={() => {
                 sfx.playPop();
                 onOpenNutribot();
               }}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold bg-orange-950/80 text-orange-300 hover:bg-orange-900/80 border border-orange-500/40 transition-all hover:shadow-sm hover:shadow-orange-500/20 group whitespace-nowrap flex-shrink-0"
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-bold bg-orange-950/80 text-orange-300 hover:bg-orange-900/80 border border-orange-500/40 transition-all hover:shadow-sm hover:shadow-orange-500/20 group whitespace-nowrap flex-shrink-0"
+              title="Ask JK AI Nutritionist"
             >
               <Sparkles className="w-3.5 h-3.5 text-orange-400 group-hover:rotate-12 transition-transform" />
-              <span>Ask Nutribot</span>
+              <span className="hidden xl:inline">Nutribot</span>
             </button>
 
             {/* Parent Account or Sign In button (Desktop) */}
             {currentUser ? (
-              <div className="flex items-center gap-1.5 bg-[#261E18] p-1 pr-2.5 rounded-full border border-orange-500/30 hover:border-orange-500/60 transition-all shadow-sm group">
+              <div className="flex items-center gap-1 bg-[#261E18] p-1 pr-2 rounded-full border border-orange-500/30 hover:border-orange-500/60 transition-all shadow-sm group">
                 <button
                   onClick={() => {
                     sfx.playPop();
                     onOpenAccount();
                   }}
-                  className="flex items-center gap-2 text-left"
+                  className="flex items-center gap-1.5 text-left"
                   title="Open Parent Account & Subscription Portal"
                 >
                   <img
                     src={currentUser.avatar}
                     alt={currentUser.name}
-                    className="w-7 h-7 rounded-full object-cover ring-1 ring-orange-400"
+                    className="w-6 h-6 rounded-full object-cover ring-1 ring-orange-400"
                   />
-                  <div className="flex flex-col">
-                    <span className="text-[11px] font-extrabold text-[#F5EBE1] group-hover:text-white leading-tight whitespace-nowrap">
-                      {currentUser.name}
-                    </span>
-                    <span className="text-[9px] font-black text-orange-400 uppercase tracking-wider leading-none whitespace-nowrap">
-                      {currentUser.membershipTier} • ${currentUser.walletBalance.toFixed(2)}
-                    </span>
-                  </div>
+                  <span className="text-[11px] font-extrabold text-[#F5EBE1] group-hover:text-white whitespace-nowrap">
+                    {currentUser.name.split(' ')[0]}
+                  </span>
                 </button>
                 {onLogout && (
                   <button
@@ -271,10 +233,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                       sfx.playPop();
                       onLogout();
                     }}
-                    className="ml-1 p-1 rounded-full text-[#8C7B6D] hover:text-rose-400 hover:bg-[#15100C] transition-colors"
+                    className="ml-0.5 p-1 rounded-full text-[#8C7B6D] hover:text-rose-400 hover:bg-[#15100C] transition-colors"
                     title="Sign Out"
                   >
-                    <LogOut className="w-3.5 h-3.5" />
+                    <LogOut className="w-3 h-3" />
                   </button>
                 )}
               </div>
@@ -284,10 +246,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                   sfx.playPop();
                   onOpenAuth();
                 }}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-[#261E18] text-orange-300 hover:text-white hover:bg-orange-600/30 border border-orange-500/40 transition-all hover:scale-105 active:scale-95 whitespace-nowrap flex-shrink-0 shadow-sm animate-glow-orange"
+                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#261E18] text-orange-300 hover:text-white hover:bg-orange-600/30 border border-orange-500/40 transition-all hover:scale-105 active:scale-95 whitespace-nowrap flex-shrink-0 shadow-sm"
               >
                 <LogIn className="w-3.5 h-3.5 text-orange-400" />
-                <span>Parent Sign In</span>
+                <span>Sign In</span>
               </button>
             )}
 
@@ -297,7 +259,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 sfx.playPop();
                 onOpenCart();
               }}
-              className="relative py-2 px-4 rounded-full bg-orange-600 text-white hover:bg-orange-500 transition-all shadow-md shadow-orange-600/30 flex items-center gap-2 text-xs font-bold active:scale-95 whitespace-nowrap flex-shrink-0"
+              className="relative py-2 px-4 rounded-full bg-orange-600 text-white hover:bg-orange-500 transition-all shadow-md shadow-orange-600/30 hover:shadow-orange-600/50 flex items-center gap-2 text-xs font-extrabold active:scale-95 whitespace-nowrap flex-shrink-0 shimmer-effect"
             >
               <ShoppingBag className="w-4 h-4" />
               <span>Cart</span>
