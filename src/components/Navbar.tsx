@@ -11,7 +11,8 @@ import {
   VolumeX, 
   HelpCircle,
   Scale,
-  Layers
+  Layers,
+  Flame
 } from 'lucide-react';
 import { sfx } from '../utils/audio';
 
@@ -59,42 +60,48 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-slate-950/95 backdrop-blur-md shadow-lg shadow-black/60 border-b border-slate-800/80 py-3' : 'bg-transparent py-4 sm:py-5'
+      isScrolled ? 'bg-slate-950/95 backdrop-blur-md shadow-lg shadow-black/80 border-b border-slate-800/80 py-2.5' : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-4'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-4">
           
           {/* Logo */}
           <a 
             href="#" 
             onClick={(e) => scrollToSection(e, '#')}
-            className="flex items-center gap-3 group"
+            className="flex items-center gap-2.5 group flex-shrink-0"
           >
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center text-white shadow-md shadow-orange-500/25 group-hover:scale-105 transition-transform">
-              <UtensilsCrossed className="w-5 h-5 sm:w-6 sm:h-6" />
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center text-white shadow-md shadow-orange-500/25 group-hover:scale-105 transition-transform flex-shrink-0">
+              <UtensilsCrossed className="w-5 h-5" />
             </div>
-            <div>
+            <div className="flex flex-col">
               <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-lg sm:text-xl tracking-tight text-white font-display">Smart<span className="text-orange-500">Tiffin</span></span>
-                <span className="text-[9px] sm:text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-orange-950/80 text-orange-400 border border-orange-500/30 uppercase tracking-wider">JK</span>
+                <span className="font-black text-lg tracking-tight text-white font-display whitespace-nowrap">
+                  Smart<span className="text-orange-500">Tiffin</span>
+                </span>
+                <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-orange-950/80 text-orange-400 border border-orange-500/30 uppercase tracking-wider">
+                  JK
+                </span>
               </div>
-              <p className="text-[10px] sm:text-[11px] text-slate-400 font-medium">Warm & Wholesome School Lunches</p>
+              <p className="text-[10px] text-slate-400 font-medium whitespace-nowrap hidden sm:block leading-none mt-0.5">
+                Warm & Fresh School Lunches
+              </p>
             </div>
           </a>
 
-          {/* Desktop Navigation (Visible on lg / xl screens) */}
-          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs xl:text-sm font-semibold text-slate-300">
+          {/* Desktop Navigation Pill Capsule (Clean, single-line, whitespace-nowrap) */}
+          <nav className="hidden xl:flex items-center gap-1 bg-slate-900/70 backdrop-blur-md px-3 py-1.5 rounded-full border border-slate-800/80 shadow-inner">
             <a 
               href="#menu" 
               onClick={(e) => scrollToSection(e, '#menu')}
-              className="hover:text-orange-400 transition-colors py-1"
+              className="px-3 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all whitespace-nowrap"
             >
-              Menu
+              Weekly Menu
             </a>
             <a 
               href="#visualizer" 
               onClick={(e) => scrollToSection(e, '#visualizer')}
-              className="hover:text-orange-400 transition-colors flex items-center gap-1 py-1"
+              className="px-3 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-1.5 whitespace-nowrap"
             >
               <Layers className="w-3.5 h-3.5 text-orange-400" />
               <span>Bento Builder</span>
@@ -102,7 +109,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a 
               href="#calculator" 
               onClick={(e) => scrollToSection(e, '#calculator')}
-              className="hover:text-orange-400 transition-colors flex items-center gap-1 py-1"
+              className="px-3 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-1.5 whitespace-nowrap"
             >
               <Scale className="w-3.5 h-3.5 text-orange-400" />
               <span>Nutrition Calc</span>
@@ -110,21 +117,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a 
               href="#plans" 
               onClick={(e) => scrollToSection(e, '#plans')}
-              className="hover:text-orange-400 transition-colors py-1"
+              className="px-3 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all whitespace-nowrap"
             >
               Plans
             </a>
             <a 
               href="#customizer" 
               onClick={(e) => scrollToSection(e, '#customizer')}
-              className="hover:text-orange-400 transition-colors py-1"
+              className="px-3 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all whitespace-nowrap"
             >
               Customise
             </a>
             <a 
               href="#tracker" 
               onClick={(e) => scrollToSection(e, '#tracker')}
-              className="hover:text-orange-400 transition-colors flex items-center gap-1.5 py-1"
+              className="px-3 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-1.5 whitespace-nowrap"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
@@ -135,24 +142,24 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a 
               href="#faq" 
               onClick={(e) => scrollToSection(e, '#faq')}
-              className="hover:text-orange-400 transition-colors py-1"
+              className="px-3 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all whitespace-nowrap"
             >
               FAQ
             </a>
           </nav>
 
           {/* Right Action buttons (Desktop) */}
-          <div className="hidden md:flex items-center gap-2.5">
+          <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
             
             {/* Audio Toggle */}
             <button
               onClick={toggleSound}
-              className={`p-2 rounded-xl border text-xs transition-colors ${
+              className={`p-2 rounded-full border text-xs transition-colors flex-shrink-0 ${
                 soundEnabled 
                   ? 'bg-slate-900 border-slate-800 text-orange-400 hover:text-orange-300' 
                   : 'bg-slate-900 border-slate-800 text-slate-500 hover:text-slate-400'
               }`}
-              title={soundEnabled ? 'Sound Effects Enabled (Click to Mute)' : 'Sound Effects Muted (Click to Unmute)'}
+              title={soundEnabled ? 'Sound Enabled (Click to Mute)' : 'Sound Muted (Click to Unmute)'}
             >
               {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
             </button>
@@ -163,7 +170,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 sfx.playPop();
                 onOpenQuiz();
               }}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 border border-amber-500/30 transition-all hover:scale-105 active:scale-95"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold bg-amber-500/15 text-amber-300 hover:bg-amber-500/25 border border-amber-500/40 transition-all hover:scale-105 active:scale-95 whitespace-nowrap flex-shrink-0"
             >
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
               <span>Taste Quiz</span>
@@ -175,7 +182,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 sfx.playPop();
                 onOpenNutribot();
               }}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-orange-950/60 text-orange-300 hover:bg-orange-900/60 border border-orange-500/40 transition-all hover:shadow-sm hover:shadow-orange-500/20 group"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold bg-orange-950/60 text-orange-300 hover:bg-orange-900/60 border border-orange-500/40 transition-all hover:shadow-sm hover:shadow-orange-500/20 group whitespace-nowrap flex-shrink-0"
             >
               <Sparkles className="w-3.5 h-3.5 text-orange-400 group-hover:rotate-12 transition-transform" />
               <span>Ask Nutribot</span>
@@ -187,23 +194,23 @@ export const Navbar: React.FC<NavbarProps> = ({
                 sfx.playPop();
                 onOpenCart();
               }}
-              className="relative p-2 rounded-xl bg-orange-600 text-white hover:bg-orange-500 transition-all shadow-md shadow-orange-600/30 flex items-center gap-2 text-xs font-bold px-3.5 active:scale-95"
+              className="relative py-2 px-4 rounded-full bg-orange-600 text-white hover:bg-orange-500 transition-all shadow-md shadow-orange-600/30 flex items-center gap-2 text-xs font-bold active:scale-95 whitespace-nowrap flex-shrink-0"
             >
               <ShoppingBag className="w-4 h-4" />
               <span>Cart</span>
               {cartCount > 0 && (
-                <span className="ml-1 px-1.5 py-0.2 text-[11px] font-extrabold bg-white text-orange-600 rounded-full animate-bounce">
+                <span className="ml-0.5 px-1.5 py-0.2 text-[10px] font-black bg-white text-orange-600 rounded-full animate-bounce">
                   {cartCount}
                 </span>
               )}
             </button>
           </div>
 
-          {/* Mobile & Tablet hamburger + cart bar (Visible on < lg screens) */}
-          <div className="flex lg:hidden items-center gap-2">
+          {/* Mobile & Tablet Top Bar (< xl screens) */}
+          <div className="flex xl:hidden items-center gap-2">
             <button
               onClick={toggleSound}
-              className="p-2 rounded-xl bg-slate-900 text-slate-400 border border-slate-800"
+              className="p-2 rounded-full bg-slate-900 text-slate-400 border border-slate-800"
               title="Toggle sound"
             >
               {soundEnabled ? <Volume2 className="w-4 h-4 text-orange-400" /> : <VolumeX className="w-4 h-4" />}
@@ -220,7 +227,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <ShoppingBag className="w-4 h-4" />
               <span className="text-xs font-bold sm:inline hidden">Cart</span>
               {cartCount > 0 && (
-                <span className="px-1.5 py-0.2 text-[10px] font-bold bg-white text-orange-600 rounded-full">
+                <span className="px-1.5 py-0.2 text-[10px] font-black bg-white text-orange-600 rounded-full">
                   {cartCount}
                 </span>
               )}
@@ -241,14 +248,14 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* Mobile / Tablet Dropdown Menu */}
+      {/* Mobile / Tablet Dropdown Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-slate-950/98 backdrop-blur-2xl border-b border-slate-800 px-6 py-6 shadow-2xl transition-all animate-in slide-in-from-top-2 duration-200">
-          <div className="flex flex-col gap-3 text-sm font-semibold">
+        <div className="xl:hidden bg-slate-950/98 backdrop-blur-2xl border-b border-slate-800 px-6 py-6 shadow-2xl transition-all animate-in slide-in-from-top-2 duration-200">
+          <div className="flex flex-col gap-2 text-sm font-semibold">
             <a 
               href="#menu" 
               onClick={(e) => scrollToSection(e, '#menu')}
-              className="text-slate-200 hover:text-orange-400 py-2 border-b border-slate-900 flex items-center justify-between"
+              className="text-slate-200 hover:text-orange-400 py-2.5 border-b border-slate-900 flex items-center justify-between"
             >
               <span>Weekly Lunch Menu</span>
               <span className="text-xs text-orange-500">View dishes →</span>
@@ -256,7 +263,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a 
               href="#visualizer" 
               onClick={(e) => scrollToSection(e, '#visualizer')}
-              className="text-slate-200 hover:text-orange-400 py-2 border-b border-slate-900 flex items-center gap-2"
+              className="text-slate-200 hover:text-orange-400 py-2.5 border-b border-slate-900 flex items-center gap-2"
             >
               <Layers className="w-4 h-4 text-orange-500" />
               <span>Interactive Bento Builder</span>
@@ -264,7 +271,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a 
               href="#calculator" 
               onClick={(e) => scrollToSection(e, '#calculator')}
-              className="text-slate-200 hover:text-orange-400 py-2 border-b border-slate-900 flex items-center gap-2"
+              className="text-slate-200 hover:text-orange-400 py-2.5 border-b border-slate-900 flex items-center gap-2"
             >
               <Scale className="w-4 h-4 text-orange-500" />
               <span>Kid Nutrition & Macro Calculator</span>
@@ -272,21 +279,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a 
               href="#plans" 
               onClick={(e) => scrollToSection(e, '#plans')}
-              className="text-slate-200 hover:text-orange-400 py-2 border-b border-slate-900"
+              className="text-slate-200 hover:text-orange-400 py-2.5 border-b border-slate-900"
             >
               Meal Plans & Pricing
             </a>
             <a 
               href="#customizer" 
               onClick={(e) => scrollToSection(e, '#customizer')}
-              className="text-slate-200 hover:text-orange-400 py-2 border-b border-slate-900"
+              className="text-slate-200 hover:text-orange-400 py-2.5 border-b border-slate-900"
             >
               Customise Your Child's Tiffin
             </a>
             <a 
               href="#tracker" 
               onClick={(e) => scrollToSection(e, '#tracker')}
-              className="text-slate-200 hover:text-orange-400 py-2 border-b border-slate-900 flex items-center gap-2"
+              className="text-slate-200 hover:text-orange-400 py-2.5 border-b border-slate-900 flex items-center gap-2"
             >
               <Truck className="w-4 h-4 text-orange-500" />
               <span>Live Thermal & Van Tracker</span>
@@ -294,7 +301,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a 
               href="#faq" 
               onClick={(e) => scrollToSection(e, '#faq')}
-              className="text-slate-200 hover:text-orange-400 py-2 flex items-center gap-2"
+              className="text-slate-200 hover:text-orange-400 py-2.5 flex items-center gap-2"
             >
               <HelpCircle className="w-4 h-4 text-orange-500" />
               <span>Frequently Asked Questions</span>
@@ -308,7 +315,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   sfx.playPop();
                   onOpenQuiz();
                 }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40"
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40"
               >
                 <Sparkles className="w-4 h-4 text-amber-400" />
                 Take 30-Second Taste Quiz (Get 15% OFF)
@@ -320,7 +327,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   sfx.playPop();
                   onOpenNutribot();
                 }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs font-semibold bg-orange-950/80 text-orange-300 border border-orange-500/40"
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-full text-xs font-semibold bg-orange-950/80 text-orange-300 border border-orange-500/40"
               >
                 <Sparkles className="w-4 h-4 text-orange-400" />
                 Ask JK Nutribot (AI Meal Advisor)
