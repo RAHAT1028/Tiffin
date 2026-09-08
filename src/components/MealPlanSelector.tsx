@@ -9,7 +9,7 @@ interface MealPlanSelectorProps {
 
 export const MealPlanSelector: React.FC<MealPlanSelectorProps> = ({ onSelectPlan }) => {
   return (
-    <section id="plans" className="py-20 bg-slate-50 relative">
+    <section id="plans" className="py-20 bg-gradient-to-b from-[#f7f5f0] via-[#f2eee3]/70 to-[#f7f5f0] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

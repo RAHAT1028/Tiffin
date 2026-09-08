@@ -9,6 +9,12 @@
   html {
     scroll-behavior: smooth;
     font-family: var(--font-sans);
+    background-color: #fbfaf8;
+  }
+
+  body {
+    background-color: #fbfaf8;
+    color: #0f172a;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -19,21 +25,21 @@
 
 /* Custom glowing effects and utilities */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
 }
 
 .glass-dark {
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(51, 65, 85, 0.6);
+  background: rgba(11, 19, 43, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(30, 41, 59, 0.8);
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #10b981 0%, #059669 40%, #0284c7 100%);
+  background: linear-gradient(135deg, #059669 0%, #0d9488 45%, #0284c7 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -44,11 +50,20 @@
 }
 
 .subtle-mesh {
-  background-color: #f8fafc;
+  background-color: #fbfaf8;
   background-image: 
-    radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.08) 0px, transparent 50%),
-    radial-gradient(at 50% 100%, rgba(249, 115, 22, 0.05) 0px, transparent 50%);
+    radial-gradient(at 10% 10%, rgba(16, 185, 129, 0.12) 0px, transparent 50%),
+    radial-gradient(at 90% 15%, rgba(245, 158, 11, 0.10) 0px, transparent 50%),
+    radial-gradient(at 50% 55%, rgba(14, 165, 233, 0.08) 0px, transparent 60%),
+    radial-gradient(at 80% 90%, rgba(16, 185, 129, 0.10) 0px, transparent 55%);
+}
+
+.warm-cream-bg {
+  background-color: #f5f2eb;
+}
+
+.soft-section-bg {
+  background: linear-gradient(180deg, #fbfaf8 0%, #f4f0e6 100%);
 }
 
 /* Animated pulse ring for live tracking */

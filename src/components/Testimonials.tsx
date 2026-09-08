@@ -4,7 +4,7 @@ import { Star, Quote, Heart, School, ShieldCheck } from 'lucide-react';
 
 export const Testimonials: React.FC = () => {
   return (
-    <section className="py-20 bg-slate-50 relative">
+    <section className="py-20 bg-gradient-to-b from-[#f7f5f0] to-[#f0ece1] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

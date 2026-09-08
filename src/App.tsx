@@ -70,7 +70,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#fbfaf8] text-slate-900 font-sans selection:bg-emerald-500 selection:text-white">
       
       {/* Navigation */}
       <Navbar
