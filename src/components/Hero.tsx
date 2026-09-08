@@ -69,7 +69,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onO
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 pt-4">
               <button
                 onClick={onOpenCustomizer}
-                className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-bold text-base shadow-lg shadow-orange-600/30 hover:shadow-xl hover:shadow-orange-600/40 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 group"
+                className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-bold text-base shadow-lg shadow-orange-600/30 hover:shadow-2xl hover:shadow-orange-600/50 hover:-translate-y-1 transition-all flex items-center justify-center gap-2 group shimmer-effect animate-glow-orange"
               >
                 <span>Customise Tiffin Subscription</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -78,16 +78,16 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onO
               {onOpenQuiz && (
                 <button
                   onClick={onOpenQuiz}
-                  className="w-full sm:w-auto px-5 py-4 rounded-2xl bg-[#261E18] hover:bg-[#30261F] text-amber-300 border border-amber-500/40 font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-5 py-4 rounded-2xl bg-[#261E18] hover:bg-[#30261F] text-amber-300 border border-amber-500/40 hover:border-amber-400 font-bold text-sm shadow-md hover:shadow-amber-500/20 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"
                 >
-                  <Sparkles className="w-4 h-4 text-amber-400" />
+                  <Sparkles className="w-4 h-4 text-amber-400 animate-spin-slow" />
                   <span>30s Taste Quiz</span>
                 </button>
               )}
 
               <a
                 href="#visualizer"
-                className="w-full sm:w-auto px-5 py-4 rounded-2xl bg-[#241D17] hover:bg-[#2C231C] text-[#D4C5B5] border border-amber-950/80 hover:text-white font-bold text-sm shadow-sm hover:shadow hover:border-orange-500/40 transition-all flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-5 py-4 rounded-2xl bg-[#241D17] hover:bg-[#2C231C] text-[#D4C5B5] border border-orange-500/20 hover:text-white hover:border-orange-500/50 font-bold text-sm shadow-sm hover:shadow-lg hover:shadow-orange-950/40 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"
               >
                 <span>🍱 Interactive Bento</span>
               </a>
@@ -114,7 +114,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onO
               <div className="h-6 w-px bg-amber-950/80 hidden sm:block"></div>
 
               <div className="flex items-center gap-2">
-                <Award className="w-4 h-4 text-orange-500" />
+                <Award className="w-4 h-4 text-orange-500 animate-pulse" />
                 <span className="font-medium text-[#D4C5B5]">ISO 22000 & School Board Approved</span>
               </div>
             </div>
@@ -123,13 +123,26 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onO
 
           {/* Right Column: Hero Visual Showcase */}
           <div className="lg:col-span-5 relative">
+            
+            {/* Ambient Background Aura */}
+            <div className="absolute -inset-4 bg-gradient-to-tr from-orange-600/20 via-amber-500/20 to-transparent blur-2xl rounded-3xl -z-10 pointer-events-none animate-pulse-glow-orange"></div>
+
+            {/* Top-Right Floating Nutrient Badge */}
+            <div className="hidden sm:flex absolute -top-5 -right-5 z-20 bg-[#15100C]/95 backdrop-blur-md px-3.5 py-2 rounded-2xl border border-amber-500/40 shadow-xl items-center gap-2 animate-float">
+              <span className="text-base">🥦</span>
+              <div>
+                <span className="text-[10px] uppercase font-bold text-amber-400 block">100% Certified</span>
+                <span className="text-xs font-black text-white">Nut-Free Kitchen</span>
+              </div>
+            </div>
+
             <div className="relative mx-auto max-w-md lg:max-w-none">
               
               {/* Main Card: Today's Featured Hot Tiffin */}
-              <div className="bg-[#261E18]/95 backdrop-blur-xl rounded-3xl p-5 shadow-2xl shadow-black/60 border border-orange-500/25 relative overflow-hidden">
+              <div className="bg-[#261E18]/95 backdrop-blur-xl rounded-3xl p-5 shadow-2xl shadow-black/80 border border-orange-500/30 relative overflow-hidden hover-glow-card">
                 
                 {/* Floating Thermal & Freshness Badge */}
-                <div className="absolute top-8 right-8 z-10 bg-[#15100C]/90 backdrop-blur-md text-white px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-lg border border-orange-500/30">
+                <div className="absolute top-8 right-8 z-10 bg-[#15100C]/90 backdrop-blur-md text-white px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-lg border border-orange-500/40 animate-glow-orange">
                   <ThermometerSun className="w-3.5 h-3.5 text-orange-400 animate-pulse" />
                   <span className="text-orange-300 font-bold">Serving Temp: 68°C</span>
                 </div>
@@ -144,7 +157,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onO
                   <div className="absolute inset-0 bg-gradient-to-t from-[#15100C]/90 via-[#15100C]/20 to-transparent"></div>
                   
                   <div className="absolute bottom-4 left-4 right-4 text-white">
-                    <span className="px-2.5 py-0.5 rounded-full bg-orange-600 text-[11px] font-bold uppercase tracking-wider shadow-sm">
+                    <span className="px-2.5 py-0.5 rounded-full bg-orange-600 text-[11px] font-bold uppercase tracking-wider shadow-sm animate-pulse">
                       Today's Special
                     </span>
                     <h3 className="text-xl font-bold mt-1 text-white">
@@ -158,15 +171,15 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onO
 
                 {/* Meal highlights bar */}
                 <div className="mt-4 pt-3 border-t border-amber-950/60 grid grid-cols-3 gap-2 text-center text-xs">
-                  <div className="bg-[#17120E] border border-orange-500/15 p-2.5 rounded-xl">
+                  <div className="bg-[#17120E] border border-orange-500/15 p-2.5 rounded-xl hover:border-orange-500/30 transition-colors">
                     <span className="text-[#9E8C7D] block text-[10px] uppercase font-bold">Calories</span>
                     <span className="font-extrabold text-white text-sm">420 kcal</span>
                   </div>
-                  <div className="bg-[#17120E] border border-orange-500/15 p-2.5 rounded-xl">
+                  <div className="bg-[#17120E] border border-orange-500/15 p-2.5 rounded-xl hover:border-orange-500/30 transition-colors">
                     <span className="text-[#9E8C7D] block text-[10px] uppercase font-bold">Protein</span>
                     <span className="font-extrabold text-orange-400 text-sm">16g</span>
                   </div>
-                  <div className="bg-[#17120E] border border-orange-500/15 p-2.5 rounded-xl">
+                  <div className="bg-[#17120E] border border-orange-500/15 p-2.5 rounded-xl hover:border-orange-500/30 transition-colors">
                     <span className="text-[#9E8C7D] block text-[10px] uppercase font-bold">Allergens</span>
                     <span className="font-extrabold text-[#D4C5B5] text-xs">Nut-Free</span>
                   </div>
@@ -175,8 +188,8 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onO
                 {/* Live Delivery Status Simulator pill */}
                 <div className="mt-4 bg-gradient-to-r from-orange-950/50 via-[#1C1712] to-[#15100C] border border-orange-500/30 rounded-2xl p-3.5 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-orange-600 text-white flex items-center justify-center flex-shrink-0 shadow-sm shadow-orange-600/30">
-                      <Clock className="w-5 h-5" />
+                    <div className="w-9 h-9 rounded-xl bg-orange-600 text-white flex items-center justify-center flex-shrink-0 shadow-md shadow-orange-600/40">
+                      <Clock className="w-5 h-5 animate-pulse" />
                     </div>
                     <div>
                       <div className="flex items-center gap-1.5">
@@ -194,7 +207,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onO
               </div>
 
               {/* Floating review card */}
-              <div className="hidden sm:flex absolute -bottom-6 -left-6 bg-[#261E18]/95 backdrop-blur-xl rounded-2xl p-3.5 shadow-2xl border border-orange-500/25 items-center gap-3 max-w-[260px]">
+              <div className="hidden sm:flex absolute -bottom-6 -left-6 z-20 bg-[#261E18]/95 backdrop-blur-xl rounded-2xl p-3.5 shadow-2xl border border-orange-500/35 items-center gap-3 max-w-[260px] animate-float-reverse">
                 <div className="w-10 h-10 rounded-full bg-orange-950/80 border border-orange-500/30 flex items-center justify-center text-orange-400 font-bold text-sm flex-shrink-0">
                   <HeartHandshake className="w-5 h-5" />
                 </div>

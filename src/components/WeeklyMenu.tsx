@@ -153,7 +153,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
           {filteredMeals.map((meal) => (
             <div
               key={meal.id}
-              className="bg-[#261E18] rounded-3xl border border-orange-500/20 shadow-xl hover:shadow-2xl hover:shadow-orange-950/40 hover:border-orange-500/50 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between overflow-hidden group"
+              className="bg-[#261E18] rounded-3xl border border-orange-500/20 shadow-xl hover:shadow-2xl hover:shadow-orange-950/50 hover:border-orange-500/50 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between overflow-hidden group hover-glow-card"
             >
               {/* Image & Badges */}
               <div>
@@ -161,7 +161,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
                   <img
                     src={meal.imageUrl}
                     alt={meal.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#15100C] via-[#15100C]/30 to-transparent"></div>
                   
@@ -175,8 +175,8 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
                     </span>
                   </div>
 
-                  {/* Price Chip */}
-                  <div className="absolute top-3 right-3 bg-[#15100C]/90 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-extrabold text-orange-400 border border-orange-500/30 shadow-md">
+                  {/* Price Chip with Glow */}
+                  <div className="absolute top-3 right-3 bg-[#15100C]/90 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-extrabold text-orange-400 border border-orange-500/30 shadow-md group-hover:border-orange-400 group-hover:text-amber-300 transition-colors">
                     ${meal.pricePerDay.toFixed(2)}/day
                   </div>
 
@@ -207,7 +207,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
                     <ul className="text-xs text-[#D4C5B5] space-y-1">
                       {meal.includedItems.slice(0, 3).map((item, idx) => (
                         <li key={idx} className="flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-orange-500 shadow-xs"></span>
                           <span className="line-clamp-1">{item}</span>
                         </li>
                       ))}
@@ -220,9 +220,9 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
                   </div>
 
                   {/* Nutrition Highlights Bar */}
-                  <div className="mt-4 p-2.5 rounded-xl bg-[#17120E] border border-orange-500/15 flex items-center justify-between text-xs text-[#D4C5B5]">
+                  <div className="mt-4 p-2.5 rounded-xl bg-[#17120E] border border-orange-500/15 flex items-center justify-between text-xs text-[#D4C5B5] group-hover:border-orange-500/30 transition-colors">
                     <div className="flex items-center gap-1 font-bold text-white">
-                      <Flame className="w-3.5 h-3.5 text-orange-500" />
+                      <Flame className="w-3.5 h-3.5 text-orange-500 animate-pulse" />
                       <span>{meal.nutrition.calories} kcal</span>
                     </div>
                     <div className="font-semibold text-orange-400">
@@ -240,14 +240,14 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
               <div className="p-6 pt-0 flex items-center gap-2">
                 <button
                   onClick={() => setActiveMealModal(meal)}
-                  className="flex-1 py-2.5 px-3 rounded-xl border border-amber-950/80 text-[#D4C5B5] hover:text-white hover:bg-[#2E241E] hover:border-orange-500/40 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors"
+                  className="flex-1 py-2.5 px-3 rounded-xl border border-orange-500/20 text-[#D4C5B5] hover:text-white hover:bg-[#2E241E] hover:border-orange-500/50 font-bold text-xs flex items-center justify-center gap-1.5 transition-all active:scale-95"
                 >
                   <Eye className="w-3.5 h-3.5 text-orange-400" />
                   <span>Nutrition & Chef Notes</span>
                 </button>
                 <button
                   onClick={() => onAddToCart(meal)}
-                  className="p-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs transition-all shadow-md shadow-orange-600/20 active:scale-95"
+                  className="p-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs transition-all shadow-md shadow-orange-600/30 hover:shadow-orange-600/50 hover:scale-105 active:scale-95 shimmer-effect"
                   title="Add this meal"
                 >
                   <Plus className="w-4 h-4" />

@@ -148,10 +148,10 @@ export const InteractiveTiffinVisualizer: React.FC<InteractiveTiffinVisualizerPr
               <div 
                 onClick={() => { sfx.playPop(); setActiveTab('main'); }}
                 className={`col-span-2 relative rounded-2xl overflow-hidden aspect-[16/7] border-2 cursor-pointer group transition-all ${
-                  activeTab === 'main' ? 'border-orange-500 shadow-lg shadow-orange-600/30' : 'border-orange-500/20 hover:border-orange-500/50'
+                  activeTab === 'main' ? 'border-orange-500 shadow-xl shadow-orange-600/40 ring-2 ring-orange-500/50 animate-glow-orange' : 'border-orange-500/20 hover:border-orange-500/60'
                 }`}
               >
-                <img src={selectedMain.image} alt={selectedMain.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <img src={selectedMain.image} alt={selectedMain.name} className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#15100C] via-[#15100C]/40 to-transparent"></div>
                 <div className="absolute top-2.5 left-2.5 bg-orange-600 text-white font-extrabold text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-md shadow-sm">
                   1. Main Course
@@ -161,7 +161,7 @@ export const InteractiveTiffinVisualizer: React.FC<InteractiveTiffinVisualizerPr
                     <h4 className="font-extrabold text-sm text-white line-clamp-1">{selectedMain.name}</h4>
                     <span className="text-[11px] text-orange-300 font-semibold">{selectedMain.protein}g Protein • {selectedMain.calories} kcal</span>
                   </div>
-                  <span className="text-[10px] font-bold bg-[#15100C]/90 text-[#D4C5B5] px-2 py-1 rounded-md border border-orange-500/25">Click to change</span>
+                  <span className="text-[10px] font-bold bg-[#15100C]/90 text-orange-300 px-2 py-1 rounded-md border border-orange-500/30">Click to change</span>
                 </div>
               </div>
 
@@ -169,10 +169,10 @@ export const InteractiveTiffinVisualizer: React.FC<InteractiveTiffinVisualizerPr
               <div 
                 onClick={() => { sfx.playPop(); setActiveTab('side'); }}
                 className={`relative rounded-2xl overflow-hidden aspect-square border-2 cursor-pointer group transition-all ${
-                  activeTab === 'side' ? 'border-orange-500 shadow-lg shadow-orange-600/30' : 'border-orange-500/20 hover:border-orange-500/50'
+                  activeTab === 'side' ? 'border-orange-500 shadow-xl shadow-orange-600/40 ring-2 ring-orange-500/50 animate-glow-orange' : 'border-orange-500/20 hover:border-orange-500/60'
                 }`}
               >
-                <img src={selectedSide.image} alt={selectedSide.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <img src={selectedSide.image} alt={selectedSide.name} className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#15100C] via-[#15100C]/40 to-transparent"></div>
                 <div className="absolute top-2 left-2 bg-amber-600 text-white font-extrabold text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded-md">
                   2. Warm Grain
@@ -187,10 +187,10 @@ export const InteractiveTiffinVisualizer: React.FC<InteractiveTiffinVisualizerPr
               <div 
                 onClick={() => { sfx.playPop(); setActiveTab('veggie'); }}
                 className={`relative rounded-2xl overflow-hidden aspect-square border-2 cursor-pointer group transition-all ${
-                  activeTab === 'veggie' ? 'border-orange-500 shadow-lg shadow-orange-600/30' : 'border-orange-500/20 hover:border-orange-500/50'
+                  activeTab === 'veggie' ? 'border-orange-500 shadow-xl shadow-orange-600/40 ring-2 ring-orange-500/50 animate-glow-orange' : 'border-orange-500/20 hover:border-orange-500/60'
                 }`}
               >
-                <img src={selectedVeggie.image} alt={selectedVeggie.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <img src={selectedVeggie.image} alt={selectedVeggie.name} className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#15100C] via-[#15100C]/40 to-transparent"></div>
                 <div className="absolute top-2 left-2 bg-orange-700 text-white font-extrabold text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded-md">
                   3. Veggie Dipper
@@ -205,10 +205,10 @@ export const InteractiveTiffinVisualizer: React.FC<InteractiveTiffinVisualizerPr
               <div 
                 onClick={() => { sfx.playPop(); setActiveTab('fruit'); }}
                 className={`col-span-2 relative rounded-2xl overflow-hidden aspect-[16/6] border-2 cursor-pointer group transition-all ${
-                  activeTab === 'fruit' ? 'border-orange-500 shadow-lg shadow-orange-600/30' : 'border-orange-500/20 hover:border-orange-500/50'
+                  activeTab === 'fruit' ? 'border-orange-500 shadow-xl shadow-orange-600/40 ring-2 ring-orange-500/50 animate-glow-orange' : 'border-orange-500/20 hover:border-orange-500/60'
                 }`}
               >
-                <img src={selectedFruit.image} alt={selectedFruit.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <img src={selectedFruit.image} alt={selectedFruit.name} className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#15100C] via-[#15100C]/40 to-transparent"></div>
                 <div className="absolute top-2.5 left-2.5 bg-amber-500 text-[#15100C] font-extrabold text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-md">
                   4. Fruit & Vitamin Booster
@@ -324,7 +324,7 @@ export const InteractiveTiffinVisualizer: React.FC<InteractiveTiffinVisualizerPr
             <div className="pt-2">
               <button
                 onClick={handleAddToCart}
-                className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-extrabold text-sm shadow-xl shadow-orange-600/30 hover:shadow-orange-600/50 transition-all flex items-center justify-center gap-2 active:scale-95"
+                className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-extrabold text-sm shadow-xl shadow-orange-600/30 hover:shadow-2xl hover:shadow-orange-600/50 hover:scale-[1.01] transition-all flex items-center justify-center gap-2 active:scale-95 shimmer-effect animate-glow-orange"
               >
                 <Utensils className="w-4 h-4" />
                 <span>Add This Custom 4-Compartment Tiffin ($6.80/day)</span>

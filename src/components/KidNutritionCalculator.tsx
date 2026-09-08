@@ -290,9 +290,9 @@ export const KidNutritionCalculator: React.FC<KidNutritionCalculatorProps> = ({ 
             </div>
 
             {/* Huge Calorie Hero */}
-            <div className="bg-[#15100C] rounded-2xl p-5 border border-orange-500/20 text-center relative overflow-hidden">
+            <div className="bg-[#15100C] rounded-2xl p-5 border border-orange-500/30 text-center relative overflow-hidden animate-glow-orange">
               <div className="text-4xl sm:text-5xl font-black text-white font-display tracking-tight flex items-center justify-center gap-2">
-                <Flame className="w-8 h-8 text-orange-500" />
+                <Flame className="w-8 h-8 text-orange-500 animate-pulse" />
                 <span>{nutrition.calories}</span>
                 <span className="text-lg font-bold text-[#A8988A]">kcal</span>
               </div>
@@ -311,14 +311,14 @@ export const KidNutritionCalculator: React.FC<KidNutritionCalculatorProps> = ({ 
               <div className="space-y-1">
                 <div className="flex justify-between text-xs font-bold">
                   <span className="text-[#D4C5B5] flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-orange-500"></span>
+                    <span className="w-2.5 h-2.5 rounded-full bg-orange-500 shadow-xs"></span>
                     Protein (Muscle & Tissue Repair)
                   </span>
                   <span className="text-orange-400 font-extrabold">{nutrition.proteinGrams}g</span>
                 </div>
-                <div className="h-2 w-full bg-[#15100C] rounded-full overflow-hidden">
+                <div className="h-2.5 w-full bg-[#15100C] rounded-full overflow-hidden p-0.5 border border-orange-500/20">
                   <div 
-                    className="h-full bg-gradient-to-r from-orange-600 to-amber-500 rounded-full transition-all duration-500"
+                    className="h-full bg-gradient-to-r from-orange-600 via-orange-500 to-amber-400 rounded-full transition-all duration-500 shadow-sm shadow-orange-500/50"
                     style={{ width: `${Math.min(100, (nutrition.proteinGrams / 35) * 100)}%` }}
                   ></div>
                 </div>
@@ -328,14 +328,14 @@ export const KidNutritionCalculator: React.FC<KidNutritionCalculatorProps> = ({ 
               <div className="space-y-1">
                 <div className="flex justify-between text-xs font-bold">
                   <span className="text-[#D4C5B5] flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                    <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-xs"></span>
                     Complex Carbs (Steady Classroom Glucose)
                   </span>
                   <span className="text-amber-300 font-extrabold">{nutrition.carbsGrams}g</span>
                 </div>
-                <div className="h-2 w-full bg-[#15100C] rounded-full overflow-hidden">
+                <div className="h-2.5 w-full bg-[#15100C] rounded-full overflow-hidden p-0.5 border border-amber-500/20">
                   <div 
-                    className="h-full bg-gradient-to-r from-amber-500 to-yellow-400 rounded-full transition-all duration-500"
+                    className="h-full bg-gradient-to-r from-amber-500 to-yellow-400 rounded-full transition-all duration-500 shadow-sm shadow-amber-400/50"
                     style={{ width: `${Math.min(100, (nutrition.carbsGrams / 80) * 100)}%` }}
                   ></div>
                 </div>
@@ -345,14 +345,14 @@ export const KidNutritionCalculator: React.FC<KidNutritionCalculatorProps> = ({ 
               <div className="space-y-1">
                 <div className="flex justify-between text-xs font-bold">
                   <span className="text-[#D4C5B5] flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-xs"></span>
                     Healthy Fats (Omega-3 Brain Development)
                   </span>
                   <span className="text-emerald-300 font-extrabold">{nutrition.fatsGrams}g</span>
                 </div>
-                <div className="h-2 w-full bg-[#15100C] rounded-full overflow-hidden">
+                <div className="h-2.5 w-full bg-[#15100C] rounded-full overflow-hidden p-0.5 border border-emerald-500/20">
                   <div 
-                    className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-500"
+                    className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full transition-all duration-500 shadow-sm shadow-emerald-400/50"
                     style={{ width: `${Math.min(100, (nutrition.fatsGrams / 25) * 100)}%` }}
                   ></div>
                 </div>
@@ -361,20 +361,20 @@ export const KidNutritionCalculator: React.FC<KidNutritionCalculatorProps> = ({ 
 
             {/* Micronutrient Mini-Cards */}
             <div className="grid grid-cols-2 gap-2 text-center text-xs">
-              <div className="bg-[#15100C] p-2.5 rounded-xl border border-orange-500/20">
+              <div className="bg-[#15100C] p-2.5 rounded-xl border border-orange-500/20 hover:border-orange-500/40 transition-colors">
                 <span className="text-[10px] uppercase font-bold text-[#A8988A] block">Hydration Target</span>
                 <span className="font-extrabold text-sky-400 text-sm">{nutrition.hydrationMl} ml</span>
               </div>
-              <div className="bg-[#15100C] p-2.5 rounded-xl border border-orange-500/20">
+              <div className="bg-[#15100C] p-2.5 rounded-xl border border-orange-500/20 hover:border-orange-500/40 transition-colors">
                 <span className="text-[10px] uppercase font-bold text-[#A8988A] block">Calcium & Bone</span>
                 <span className="font-extrabold text-purple-400 text-sm">{nutrition.calciumMg} mg</span>
               </div>
             </div>
 
             {/* Recommended Plan Result Box */}
-            <div className="bg-gradient-to-tr from-orange-950/90 to-amber-950/60 border border-orange-500/40 rounded-2xl p-4 space-y-3">
+            <div className="bg-gradient-to-tr from-orange-950/90 to-amber-950/60 border border-orange-500/40 rounded-2xl p-4 space-y-3 shadow-lg shadow-orange-950/40">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-orange-400" />
+                <Sparkles className="w-4 h-4 text-orange-400 animate-pulse" />
                 <span className="text-xs font-bold text-orange-300 uppercase">Recommended Tiffin Plan:</span>
               </div>
 
@@ -389,7 +389,7 @@ export const KidNutritionCalculator: React.FC<KidNutritionCalculatorProps> = ({ 
 
               <button
                 onClick={handleApplyPlan}
-                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-bold text-xs shadow-lg shadow-orange-600/30 flex items-center justify-center gap-2 group transition-all"
+                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-bold text-xs shadow-lg shadow-orange-600/30 hover:shadow-orange-600/50 flex items-center justify-center gap-2 group transition-all shimmer-effect active:scale-95"
               >
                 <span>Select & Customize This Plan</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

@@ -41,16 +41,16 @@ export const MealPlanSelector: React.FC<MealPlanSelectorProps> = ({ onSelectPlan
           {MEAL_PLANS.map((plan) => (
             <div
               key={plan.id}
-              className={`rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 relative ${
+              className={`rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 relative hover-glow-card ${
                 plan.isPopular
-                  ? 'bg-gradient-to-b from-[#2F251E] to-[#261E18] shadow-2xl shadow-orange-950/50 border-2 border-orange-500 md:-translate-y-2'
-                  : 'bg-[#261E18] shadow-xl border border-orange-500/20 hover:border-orange-500/40 hover:shadow-2xl'
+                  ? 'bg-gradient-to-b from-[#2F251E] to-[#261E18] shadow-2xl shadow-orange-950/60 border-2 border-orange-500 md:-translate-y-2 animate-glow-orange'
+                  : 'bg-[#261E18] shadow-xl border border-orange-500/20 hover:border-orange-500/50 hover:shadow-2xl'
               }`}
             >
               {/* Popular Badge */}
               {plan.isPopular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 text-white text-xs font-extrabold uppercase tracking-wider px-4 py-1 rounded-full shadow-lg shadow-orange-600/30 flex items-center gap-1">
-                  <Star className="w-3.5 h-3.5 fill-current" />
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 text-white text-xs font-extrabold uppercase tracking-wider px-4 py-1.5 rounded-full shadow-lg shadow-orange-600/40 flex items-center gap-1 animate-pulse">
+                  <Star className="w-3.5 h-3.5 fill-current text-amber-200" />
                   <span>{plan.badge}</span>
                 </div>
               )}
@@ -69,7 +69,7 @@ export const MealPlanSelector: React.FC<MealPlanSelectorProps> = ({ onSelectPlan
                 <p className="text-xs text-[#D4C5B5] mb-6 min-h-[36px]">{plan.description}</p>
 
                 {/* Pricing Display */}
-                <div className="mb-6 p-4 rounded-2xl bg-[#15100C] border border-orange-500/20">
+                <div className="mb-6 p-4 rounded-2xl bg-[#15100C] border border-orange-500/20 hover:border-orange-500/40 transition-colors">
                   <div className="flex items-baseline gap-1">
                     <span className="text-4xl font-extrabold text-white">${plan.price.toFixed(2)}</span>
                     <span className="text-sm font-semibold text-[#9E8C7D]">/ day</span>
@@ -97,7 +97,7 @@ export const MealPlanSelector: React.FC<MealPlanSelectorProps> = ({ onSelectPlan
                   </span>
                   {plan.features.map((feature, idx) => (
                     <div key={idx} className="flex items-start gap-2.5 text-xs text-[#D4C5B5]">
-                      <div className="w-4 h-4 rounded-full bg-orange-950 text-orange-400 border border-orange-500/40 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <div className="w-4 h-4 rounded-full bg-orange-950 text-orange-400 border border-orange-500/40 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-xs">
                         <Check className="w-3.5 h-3.5" />
                       </div>
                       <span>{feature}</span>
@@ -109,10 +109,10 @@ export const MealPlanSelector: React.FC<MealPlanSelectorProps> = ({ onSelectPlan
               {/* Action Button */}
               <button
                 onClick={() => onSelectPlan(plan.id as MealCategory)}
-                className={`w-full py-3.5 px-6 rounded-2xl font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-sm ${
+                className={`w-full py-3.5 px-6 rounded-2xl font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-md ${
                   plan.isPopular
-                    ? 'bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white shadow-lg shadow-orange-600/30'
-                    : 'bg-[#15100C] hover:bg-[#2F251E] text-white border border-orange-500/25 hover:border-orange-500/50'
+                    ? 'bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white shadow-lg shadow-orange-600/40 hover:shadow-2xl hover:shadow-orange-600/50 hover:scale-[1.02] active:scale-95 shimmer-effect'
+                    : 'bg-[#15100C] hover:bg-[#2F251E] text-white border border-orange-500/25 hover:border-orange-500/50 hover:scale-[1.02] active:scale-95'
                 }`}
               >
                 <span>Select {plan.name}</span>
