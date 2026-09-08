@@ -30,25 +30,33 @@ const MAINS: CompartmentOption[] = [
   { id: 'm1', name: 'Grilled Herb Chicken Strips', category: 'main', calories: 240, protein: 26, carbs: 4, fats: 8, image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=400&q=80', badge: 'High-Protein' },
   { id: 'm2', name: 'Mild Golden Paneer Cubes', category: 'main', calories: 220, protein: 14, carbs: 6, fats: 14, image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&q=80', badge: 'Vegetarian' },
   { id: 'm3', name: 'Teriyaki Wild Salmon Fillet', category: 'main', calories: 280, protein: 28, carbs: 8, fats: 12, image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80', badge: 'Omega-3' },
-  { id: 'm4', name: 'Lean Turkey Herb Meatballs', category: 'main', calories: 210, protein: 24, carbs: 5, fats: 7, image: 'https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=400&q=80', badge: 'Halal' }
+  { id: 'm4', name: 'Lean Turkey Herb Meatballs', category: 'main', calories: 210, protein: 24, carbs: 5, fats: 7, image: 'https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=400&q=80', badge: 'Halal' },
+  { id: 'm5', name: 'Honey-BBQ Glazed Pulled Chicken', category: 'main', calories: 230, protein: 25, carbs: 7, fats: 6, image: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=400&q=80', badge: 'Kids Favorite' },
+  { id: 'm6', name: 'Crisp Herb-Baked Falafel Bites', category: 'main', calories: 195, protein: 12, carbs: 18, fats: 7, image: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=400&q=80', badge: 'Plant-Protein' }
 ];
 
 const SIDES: CompartmentOption[] = [
-  { id: 's1', name: 'Steamed Calrose Furikake Rice', category: 'side', calories: 160, protein: 4, carbs: 34, fats: 1, image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=400&q=80' },
+  { id: 's1', name: 'Steamed Calrose Furikake Rice', category: 'side', calories: 160, protein: 4, carbs: 34, fats: 1, image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=400&q=80', badge: 'Japanese Bento' },
   { id: 's2', name: 'Tri-Color Fluffy Quinoa', category: 'side', calories: 140, protein: 6, carbs: 26, fats: 2, image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=80', badge: 'Gluten-Free' },
-  { id: 's3', name: 'Oven-Baked Sweet Potato Wedges', category: 'side', calories: 130, protein: 2, carbs: 29, fats: 1, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=80' }
+  { id: 's3', name: 'Oven-Baked Sweet Potato Wedges', category: 'side', calories: 130, protein: 2, carbs: 29, fats: 1, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=80', badge: 'Low-GI' },
+  { id: 's4', name: 'Saffron Fragrant Basmati Rice', category: 'side', calories: 155, protein: 3, carbs: 33, fats: 1, image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=400&q=80', badge: 'Golden Basmati' },
+  { id: 's5', name: 'Whole-Wheat Mini Macaroni', category: 'side', calories: 145, protein: 5, carbs: 28, fats: 1, image: 'https://images.unsplash.com/photo-1543339308-43e59d6b73a6?auto=format&fit=crop&w=400&q=80', badge: 'Whole-Grain' }
 ];
 
 const VEGGIES: CompartmentOption[] = [
-  { id: 'v1', name: 'Steamed Sea-Salt Edamame Pods', category: 'veggie', calories: 70, protein: 6, carbs: 5, fats: 3, image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80' },
-  { id: 'v2', name: 'Crisp Cucumber & Carrot Dippers', category: 'veggie', calories: 45, protein: 2, carbs: 8, fats: 1, image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&q=80' },
-  { id: 'v3', name: 'Tenderstem Broccoli & Sweet Corn', category: 'veggie', calories: 55, protein: 3, carbs: 9, fats: 1, image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=400&q=80' }
+  { id: 'v1', name: 'Steamed Sea-Salt Edamame Pods', category: 'veggie', calories: 70, protein: 6, carbs: 5, fats: 3, image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80', badge: 'Nutrient-Dense' },
+  { id: 'v2', name: 'Crisp Cucumber & Carrot Dippers', category: 'veggie', calories: 45, protein: 2, carbs: 8, fats: 1, image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&q=80', badge: 'Crunchy' },
+  { id: 'v3', name: 'Tenderstem Broccoli & Sweet Corn', category: 'veggie', calories: 55, protein: 3, carbs: 9, fats: 1, image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=400&q=80', badge: 'Vitamin C' },
+  { id: 'v4', name: 'Maple Glazed Rainbow Carrots', category: 'veggie', calories: 50, protein: 1, carbs: 11, fats: 0, image: 'https://images.unsplash.com/photo-1584947897591-628d08cb5c40?auto=format&fit=crop&w=400&q=80', badge: 'Sweet & Crisp' },
+  { id: 'v5', name: 'Sweet Mango & Pepper Salsa', category: 'veggie', calories: 48, protein: 1, carbs: 12, fats: 0, image: 'https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?auto=format&fit=crop&w=400&q=80', badge: 'Zesty Dip' }
 ];
 
 const FRUITS: CompartmentOption[] = [
   { id: 'f1', name: 'Fresh Organic Berry Medley', category: 'fruit', calories: 60, protein: 1, carbs: 14, fats: 0, image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80', badge: 'Antioxidants' },
-  { id: 'f2', name: 'Sweet Watermelon & Melon Cubes', category: 'fruit', calories: 50, protein: 1, carbs: 12, fats: 0, image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&q=80' },
-  { id: 'f3', name: 'Vanilla Bean Chia Seed Pot', category: 'fruit', calories: 90, protein: 3, carbs: 11, fats: 4, image: 'https://images.unsplash.com/photo-1633337474565-12c5b36487a0?auto=format&fit=crop&w=400&q=80', badge: 'Superfood' }
+  { id: 'f2', name: 'Sweet Watermelon & Cantaloupe Cubes', category: 'fruit', calories: 50, protein: 1, carbs: 12, fats: 0, image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&q=80', badge: 'Hydrating' },
+  { id: 'f3', name: 'Vanilla Bean Chia Seed Pot', category: 'fruit', calories: 90, protein: 3, carbs: 11, fats: 4, image: 'https://images.unsplash.com/photo-1633337474565-12c5b36487a0?auto=format&fit=crop&w=400&q=80', badge: 'Superfood' },
+  { id: 'f4', name: 'Dragonfruit & Golden Kiwi Slices', category: 'fruit', calories: 55, protein: 1, carbs: 13, fats: 0, image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=400&q=80', badge: 'Exotic Glow' },
+  { id: 'f5', name: 'Dark Cocoa Banana Oat Muffin', category: 'fruit', calories: 95, protein: 3, carbs: 15, fats: 2, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=400&q=80', badge: 'Oat Treat' }
 ];
 
 interface InteractiveTiffinVisualizerProps {

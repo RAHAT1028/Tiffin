@@ -20,7 +20,7 @@ export interface MealItem {
   pricePerDay: number;
   imageUrl: string;
   description: string;
-  dayOfWeek: 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday';
+  dayOfWeek: 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday';
   allergens: Allergen[];
   tags: string[];
   isVegetarian: boolean;

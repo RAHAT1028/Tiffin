@@ -19,13 +19,15 @@ interface WeeklyMenuProps {
   onAddToCart: (meal: MealItem) => void;
 }
 
-const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] as const;
+const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as const;
 
 export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
   const [selectedDay, setSelectedDay] = useState<typeof DAYS_OF_WEEK[number]>('Monday');
   const [selectedCategory, setSelectedCategory] = useState<'all' | MealCategory>('all');
   const [onlyVeg, setOnlyVeg] = useState(false);
   const [onlyNutFree, setOnlyNutFree] = useState(false);
+  const [onlyHalal, setOnlyHalal] = useState(false);
+  const [onlyHighProtein, setOnlyHighProtein] = useState(false);
   const [activeMealModal, setActiveMealModal] = useState<MealItem | null>(null);
 
   const handleDaySelect = (day: typeof DAYS_OF_WEEK[number]) => {
@@ -48,12 +50,24 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
     setOnlyNutFree(!onlyNutFree);
   };
 
+  const handleToggleHalal = () => {
+    sfx.playPop();
+    setOnlyHalal(!onlyHalal);
+  };
+
+  const handleToggleHighProtein = () => {
+    sfx.playPop();
+    setOnlyHighProtein(!onlyHighProtein);
+  };
+
   // Filter logic
   const filteredMeals = WEEKLY_MEALS.filter((meal) => {
     if (meal.dayOfWeek !== selectedDay) return false;
     if (selectedCategory !== 'all' && meal.category !== selectedCategory) return false;
     if (onlyVeg && !meal.isVegetarian) return false;
     if (onlyNutFree && !meal.isNutFree) return false;
+    if (onlyHalal && !meal.isHalal) return false;
+    if (onlyHighProtein && meal.nutrition.proteinGrams < 25) return false;
     return true;
   });
 
@@ -66,13 +80,13 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-950/80 border border-orange-500/30 text-orange-400 text-xs font-bold uppercase tracking-wider mb-2">
               <Calendar className="w-3.5 h-3.5" />
-              <span>Rotated Weekly by Paediatric Chefs</span>
+              <span>30+ Chef Meals Rotated Weekly by Paediatric Nutritionists</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
               Interactive Weekly Lunch Menu
             </h2>
             <p className="text-[#D4C5B5] text-sm sm:text-base mt-2 max-w-xl">
-              Fresh seasonal rotation with balanced carbs, lean proteins, vegetables, and zero trans fats.
+              Fresh seasonal rotation with balanced carbs, lean proteins, vegetables, and zero trans fats. Sealed hot at 72°C in insulated containers.
             </p>
           </div>
 
@@ -88,6 +102,29 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
             >
               <span>🥦 100% Vegetarian</span>
               {onlyVeg && <Check className="w-3.5 h-3.5" />}
+            </button>
+            <button
+              onClick={handleToggleHalal}
+              className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 ${
+                onlyHalal
+                  ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/20'
+                  : 'bg-[#261E18] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2E241E] hover:border-orange-500/40'
+              }`}
+            >
+              <span>✨ 100% Halal</span>
+              {onlyHalal && <Check className="w-3.5 h-3.5" />}
+            </button>
+            <button
+              onClick={handleToggleHighProtein}
+              className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 ${
+                onlyHighProtein
+                  ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/20'
+                  : 'bg-[#261E18] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2E241E] hover:border-orange-500/40'
+              }`}
+            >
+              <Flame className="w-3.5 h-3.5 text-orange-400" />
+              <span>High-Protein (25g+)</span>
+              {onlyHighProtein && <Check className="w-3.5 h-3.5" />}
             </button>
             <button
               onClick={handleToggleNutFree}
@@ -128,24 +165,31 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
           })}
         </div>
 
-        {/* Plan Category Filter */}
-        <div className="flex items-center gap-2 mb-8 overflow-x-auto pb-2">
-          <span className="text-xs font-bold text-[#9E8C7D] uppercase mr-2 flex items-center gap-1">
-            <Filter className="w-3.5 h-3.5 text-orange-400" /> Filter Plan:
-          </span>
-          {(['all', 'basic', 'standard', 'premium'] as const).map((cat) => (
-            <button
-              key={cat}
-              onClick={() => handleCategorySelect(cat)}
-              className={`px-4 py-1.5 rounded-xl text-xs font-bold capitalize transition-all ${
-                selectedCategory === cat
-                  ? 'bg-orange-600 text-white shadow-md shadow-orange-600/20'
-                  : 'bg-[#261E18] text-[#D4C5B5] border border-amber-950/80 hover:bg-[#2E241E] hover:border-orange-500/40'
-              }`}
-            >
-              {cat === 'all' ? 'All Plans' : `${cat} Plan`}
-            </button>
-          ))}
+        {/* Plan Category Filter & Dish Count */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0">
+            <span className="text-xs font-bold text-[#9E8C7D] uppercase mr-2 flex items-center gap-1">
+              <Filter className="w-3.5 h-3.5 text-orange-400" /> Filter Plan:
+            </span>
+            {(['all', 'basic', 'standard', 'premium'] as const).map((cat) => (
+              <button
+                key={cat}
+                onClick={() => handleCategorySelect(cat)}
+                className={`px-4 py-1.5 rounded-xl text-xs font-bold capitalize transition-all ${
+                  selectedCategory === cat
+                    ? 'bg-orange-600 text-white shadow-md shadow-orange-600/20'
+                    : 'bg-[#261E18] text-[#D4C5B5] border border-amber-950/80 hover:bg-[#2E241E] hover:border-orange-500/40'
+                }`}
+              >
+                {cat === 'all' ? 'All Plans' : `${cat} Plan`}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2 text-xs font-bold text-orange-400 bg-[#261E18] px-3.5 py-1.5 rounded-xl border border-orange-500/20 w-fit">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <span>Showing {filteredMeals.length} Fresh Tiffin Choices for {selectedDay}</span>
+          </div>
         </div>
 
         {/* Meals Grid */}
