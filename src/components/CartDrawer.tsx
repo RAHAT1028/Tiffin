@@ -9,13 +9,18 @@ import {
   ArrowRight, 
   Sparkles, 
   Calendar, 
-  Clock,
-  User,
-  Users,
-  Building2,
-  School,
-  HeartHandshake,
-  Tag
+  Clock, 
+  User, 
+  Users, 
+  Building2, 
+  School, 
+  Home,
+  MapPin, 
+  HeartHandshake, 
+  Tag,
+  Phone,
+  Edit3,
+  Check
 } from 'lucide-react';
 import { sfx } from '../utils/audio';
 
@@ -29,15 +34,37 @@ interface CartDrawerProps {
   familyMembers?: FamilyMember[];
 }
 
+const PARTNER_SCHOOL_OPTIONS = [
+  'St. Mary Academy (Zone A)',
+  'Oakridge International School (Zone A)',
+  'Kingsway Grammar Academy (Zone B)',
+  'Westminster Primary & Nursery (Zone B)',
+  'St. Jude Catholic School (Zone C)',
+  'Greenwich Community School (Zone D)',
+  'Cambridge International Foundation'
+];
+
 export const CartDrawer: React.FC<CartDrawerProps> = ({
   isOpen,
   onClose,
   cartItems,
   subscription,
   onRemoveItem,
-  onClearSubscription
+  onClearSubscription,
+  familyMembers = []
 }) => {
   const [orderConfirmed, setOrderConfirmed] = useState(false);
+
+  // Delivery Address State
+  const [deliveryType, setDeliveryType] = useState<'school' | 'home' | 'office'>('school');
+  const [schoolName, setSchoolName] = useState(PARTNER_SCHOOL_OPTIONS[0]);
+  const [classroomLocker, setClassroomLocker] = useState('Class 3B (Locker #14)');
+  const [homeStreetAddress, setHomeStreetAddress] = useState('Flat 4B, Maple Residency, Orchard Road');
+  const [homeCity, setHomeCity] = useState('London / Central District');
+  const [homePostcode, setHomePostcode] = useState('W1D 3NE');
+  const [officeBuilding, setOfficeBuilding] = useState('Metropolis Tech Tower • Level 6 Engineering Suite');
+  const [deliveryPhone, setDeliveryPhone] = useState('+44 (0) 7700 900822');
+  const [deliveryNotes, setDeliveryNotes] = useState('Please leave in designated warm yellow lockers before 11:30 AM.');
 
   if (!isOpen) return null;
 
@@ -49,6 +76,14 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   const isFamilyMultiOrder = distinctMemberIds.length >= 2;
   const familyDiscount = isFamilyMultiOrder ? Number((individualMealsTotal * 0.10).toFixed(2)) : 0;
   const grandTotal = Math.max(0, individualMealsTotal - familyDiscount + subscriptionTotal);
+
+  // Formatted destination string
+  const activeDeliveryDestination = 
+    deliveryType === 'school' 
+      ? `${schoolName} • ${classroomLocker}`
+      : deliveryType === 'home'
+        ? `${homeStreetAddress}, ${homeCity} (${homePostcode})`
+        : officeBuilding;
 
   const handleCheckout = () => {
     sfx.playSuccess();
@@ -75,7 +110,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               <div>
                 <h3 className="font-extrabold text-white text-base">Family Tiffin Box Cart</h3>
                 <p className="text-xs text-[#D4C5B5]">
-                  {cartItems.length} individual items • {distinctMemberIds.length} recipient{distinctMemberIds.length > 1 ? 's' : ''}
+                  {cartItems.length} items • {distinctMemberIds.length} recipient{distinctMemberIds.length > 1 ? 's' : ''}
                 </p>
               </div>
             </div>
@@ -92,36 +127,46 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
           </div>
 
           {/* Content Body */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-6">
+          <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6">
             
             {orderConfirmed ? (
               /* Success Confirmation Screen */
-              <div className="py-12 text-center space-y-4 animate-in zoom-in-95 duration-200">
+              <div className="py-8 text-center space-y-4 animate-in zoom-in-95 duration-200">
                 <div className="w-16 h-16 rounded-3xl bg-orange-950/80 border border-orange-500/40 text-orange-400 flex items-center justify-center mx-auto shadow-lg shadow-orange-950/40">
                   <CheckCircle2 className="w-10 h-10" />
                 </div>
                 <h4 className="text-2xl font-extrabold text-white">Family Lunch Delivery Confirmed!</h4>
                 <p className="text-xs sm:text-sm text-[#D4C5B5] max-w-xs mx-auto leading-relaxed">
-                  Hot insulated tiffin boxes will be delivered to each family member's registered school classroom or office desk by 11:35 AM.
+                  Hot insulated tiffin boxes have been dispatched and will arrive sealed at 72°C by 11:35 AM.
                 </p>
-                <div className="p-4 rounded-2xl bg-[#15100C] border border-orange-500/20 text-left text-xs space-y-2 max-w-xs mx-auto">
-                  <div className="flex justify-between">
+                
+                {/* Order & Address Card */}
+                <div className="p-4 rounded-2xl bg-[#15100C] border border-orange-500/20 text-left text-xs space-y-2.5 max-w-sm mx-auto">
+                  <div className="flex justify-between border-b border-orange-500/10 pb-2">
                     <span className="text-[#A8988A]">Order Reference:</span>
                     <span className="font-bold text-white">#JK-FAM-{Date.now().toString().slice(-4)}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-[#A8988A]">Family Recipients:</span>
-                    <span className="font-bold text-orange-300">{distinctMemberIds.length} Members</span>
+                  <div className="space-y-1">
+                    <span className="text-[#A8988A] block font-bold">📍 Delivery Destination:</span>
+                    <span className="text-orange-300 font-semibold block">{activeDeliveryDestination}</span>
+                    {deliveryNotes && (
+                      <span className="text-[11px] text-[#A8988A] italic block">Note: "{deliveryNotes}"</span>
+                    )}
+                  </div>
+                  <div className="flex justify-between border-t border-orange-500/10 pt-2">
+                    <span className="text-[#A8988A]">Driver Contact:</span>
+                    <span className="font-semibold text-[#D4C5B5]">{deliveryPhone}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-[#A8988A]">Total Charged:</span>
-                    <span className="font-bold text-orange-400">${grandTotal.toFixed(2)}</span>
+                    <span className="font-bold text-orange-400 text-sm">${grandTotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[#A8988A]">Thermal Status:</span>
+                    <span className="text-[#A8988A]">Thermal Sensor:</span>
                     <span className="font-bold text-emerald-400">Locked at 72°C in Van #04</span>
                   </div>
                 </div>
+
                 <button
                   onClick={() => {
                     sfx.playPop();
@@ -145,6 +190,181 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     <span className="font-black text-amber-300">-${familyDiscount.toFixed(2)}</span>
                   </div>
                 )}
+
+                {/* DELIVERY ADDRESS / DROP-OFF POINT SECTION */}
+                <div className="p-4 rounded-2xl bg-[#261E18] border border-orange-500/30 shadow-md space-y-3.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-extrabold text-[#F5EBE1] flex items-center gap-1.5 uppercase tracking-wider">
+                      <MapPin className="w-4 h-4 text-orange-400" />
+                      <span>Delivery Address & Location</span>
+                    </span>
+                    <span className="text-[10px] text-orange-400 font-bold bg-orange-950/80 px-2 py-0.5 rounded-full border border-orange-500/30">
+                      Required
+                    </span>
+                  </div>
+
+                  {/* Destination Type Toggle Tabs */}
+                  <div className="grid grid-cols-3 gap-1.5 p-1 bg-[#15100C] rounded-xl border border-orange-500/20 text-xs">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        sfx.playPop();
+                        setDeliveryType('school');
+                      }}
+                      className={`py-1.5 px-2 rounded-lg font-bold flex items-center justify-center gap-1 transition-all ${
+                        deliveryType === 'school'
+                          ? 'bg-orange-600 text-white shadow-xs'
+                          : 'text-[#A8988A] hover:text-white'
+                      }`}
+                    >
+                      <School className="w-3.5 h-3.5" />
+                      <span>School</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        sfx.playPop();
+                        setDeliveryType('home');
+                      }}
+                      className={`py-1.5 px-2 rounded-lg font-bold flex items-center justify-center gap-1 transition-all ${
+                        deliveryType === 'home'
+                          ? 'bg-orange-600 text-white shadow-xs'
+                          : 'text-[#A8988A] hover:text-white'
+                      }`}
+                    >
+                      <Home className="w-3.5 h-3.5" />
+                      <span>Home</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        sfx.playPop();
+                        setDeliveryType('office');
+                      }}
+                      className={`py-1.5 px-2 rounded-lg font-bold flex items-center justify-center gap-1 transition-all ${
+                        deliveryType === 'office'
+                          ? 'bg-orange-600 text-white shadow-xs'
+                          : 'text-[#A8988A] hover:text-white'
+                      }`}
+                    >
+                      <Building2 className="w-3.5 h-3.5" />
+                      <span>Office</span>
+                    </button>
+                  </div>
+
+                  {/* 1. School Address Fields */}
+                  {deliveryType === 'school' && (
+                    <div className="space-y-2.5 pt-1">
+                      <div>
+                        <label className="text-[10px] font-bold text-[#A8988A] block mb-1">Partner School Campus</label>
+                        <select
+                          value={schoolName}
+                          onChange={(e) => setSchoolName(e.target.value)}
+                          className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+                        >
+                          {PARTNER_SCHOOL_OPTIONS.map((s) => (
+                            <option key={s} value={s} className="bg-[#1C1712] text-white">
+                              {s}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="text-[10px] font-bold text-[#A8988A] block mb-1">Classroom / Delivery Drop Locker</label>
+                        <input
+                          type="text"
+                          value={classroomLocker}
+                          onChange={(e) => setClassroomLocker(e.target.value)}
+                          placeholder="e.g. Class 3B (Locker #14, Yellow Wing)"
+                          className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 2. Home Address Fields */}
+                  {deliveryType === 'home' && (
+                    <div className="space-y-2.5 pt-1">
+                      <div>
+                        <label className="text-[10px] font-bold text-[#A8988A] block mb-1">Street Address & House / Flat #</label>
+                        <input
+                          type="text"
+                          value={homeStreetAddress}
+                          onChange={(e) => setHomeStreetAddress(e.target.value)}
+                          placeholder="e.g. House 42, Road 7, Banani / Oxford Street"
+                          className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <label className="text-[10px] font-bold text-[#A8988A] block mb-1">City / Area</label>
+                          <input
+                            type="text"
+                            value={homeCity}
+                            onChange={(e) => setHomeCity(e.target.value)}
+                            placeholder="e.g. London / Dhaka"
+                            className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-[10px] font-bold text-[#A8988A] block mb-1">Postal Code</label>
+                          <input
+                            type="text"
+                            value={homePostcode}
+                            onChange={(e) => setHomePostcode(e.target.value)}
+                            placeholder="e.g. W1D 3NE"
+                            className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 3. Office Address Fields */}
+                  {deliveryType === 'office' && (
+                    <div className="space-y-2.5 pt-1">
+                      <div>
+                        <label className="text-[10px] font-bold text-[#A8988A] block mb-1">Office Building, Floor & Desk Location</label>
+                        <input
+                          type="text"
+                          value={officeBuilding}
+                          onChange={(e) => setOfficeBuilding(e.target.value)}
+                          placeholder="e.g. Metropolis Tower, Level 6 Engineering Desk"
+                          className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Contact Phone & Delivery Notes */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 border-t border-orange-500/15">
+                    <div>
+                      <label className="text-[10px] font-bold text-[#A8988A] block mb-1">Driver Contact Phone</label>
+                      <input
+                        type="tel"
+                        value={deliveryPhone}
+                        onChange={(e) => setDeliveryPhone(e.target.value)}
+                        placeholder="+44 7700 900822"
+                        className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3 py-1.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-[10px] font-bold text-[#A8988A] block mb-1">Gate / Drop-off Note</label>
+                      <input
+                        type="text"
+                        value={deliveryNotes}
+                        onChange={(e) => setDeliveryNotes(e.target.value)}
+                        placeholder="e.g. Gate code #1024, leave at desk"
+                        className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3 py-1.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+                      />
+                    </div>
+                  </div>
+                </div>
 
                 {/* Active Weekly Subscription Card */}
                 {subscription && (
@@ -294,6 +514,12 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     <span>-${familyDiscount.toFixed(2)}</span>
                   </div>
                 )}
+                <div className="flex justify-between text-[#A8988A] text-[11px] pt-1">
+                  <span>Destination:</span>
+                  <span className="text-orange-300 font-semibold truncate max-w-[220px]">
+                    {activeDeliveryDestination}
+                  </span>
+                </div>
                 <div className="flex items-baseline justify-between pt-2 border-t border-orange-500/20">
                   <span className="text-sm font-bold text-white">Grand Total:</span>
                   <span className="text-3xl font-extrabold text-orange-400">${grandTotal.toFixed(2)}</span>

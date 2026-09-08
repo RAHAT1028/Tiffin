@@ -75,6 +75,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
   const [password, setPassword] = useState('');
   const [childName, setChildName] = useState('');
   const [childAge, setChildAge] = useState('8');
@@ -233,6 +235,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         name: trimmedName,
         email: trimmedEmail.toLowerCase(),
         phone: phone.trim() || '+44 7700 900822',
+        address: address.trim() || 'Flat 4B, Maple Residency, Orchard Road',
+        city: city.trim() || 'Central District',
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
         role: 'parent',
         membershipTier: 'Silver VIP',
@@ -544,6 +548,30 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full bg-[#15100C] border border-orange-500/25 rounded-xl pl-9 pr-3 py-2 text-xs text-[#F5EBE1] placeholder-[#8C7B6D] focus:outline-none focus:border-orange-500"
+                  />
+                </div>
+              </div>
+
+              {/* Delivery Address Option */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div>
+                  <label className="text-[11px] font-bold text-[#A8988A] block mb-1">Delivery / Home Street Address</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Flat 4B, Orchard Road"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    className="w-full bg-[#15100C] border border-orange-500/25 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] placeholder-[#8C7B6D] focus:outline-none focus:border-orange-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-[11px] font-bold text-[#A8988A] block mb-1">City / Area</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. London / Dhaka"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    className="w-full bg-[#15100C] border border-orange-500/25 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] placeholder-[#8C7B6D] focus:outline-none focus:border-orange-500"
                   />
                 </div>
               </div>

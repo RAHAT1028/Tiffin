@@ -160,6 +160,10 @@ export const AccountModal: React.FC<AccountModalProps> = ({
   const [editName, setEditName] = useState('');
   const [editEmail, setEditEmail] = useState('');
   const [editPhone, setEditPhone] = useState('');
+  const [editAddress, setEditAddress] = useState('Flat 4B, Maple Residency, Orchard Road');
+  const [editCity, setEditCity] = useState('London / Central');
+  const [editPostalCode, setEditPostalCode] = useState('W1D 3NE');
+  const [editDeliveryNotes, setEditDeliveryNotes] = useState('Please ring bell 4B or leave with school reception.');
 
   // Synchronize account state whenever currentUser or familyMembers or isOpen changes
   useEffect(() => {
@@ -171,6 +175,10 @@ export const AccountModal: React.FC<AccountModalProps> = ({
     setEditName(currentUser.name);
     setEditEmail(currentUser.email);
     setEditPhone(currentUser.phone || '+44 (0) 7700 900822');
+    setEditAddress(currentUser.address || 'Flat 4B, Maple Residency, Orchard Road');
+    setEditCity(currentUser.city || 'London / Central');
+    setEditPostalCode(currentUser.postalCode || 'W1D 3NE');
+    setEditDeliveryNotes(currentUser.deliveryNotes || 'Please ring bell 4B or leave with school reception.');
 
     // Build children strictly for currentUser
     let mappedChildren: ParentAccountChild[] = [];
@@ -498,7 +506,11 @@ export const AccountModal: React.FC<AccountModalProps> = ({
       ...account,
       parentName: editName.trim() || account.parentName,
       email: editEmail.trim() || account.email,
-      phone: editPhone.trim() || account.phone
+      phone: editPhone.trim() || account.phone,
+      address: editAddress.trim(),
+      city: editCity.trim(),
+      postalCode: editPostalCode.trim(),
+      deliveryNotes: editDeliveryNotes.trim()
     };
     setAccount(updatedAccount);
 
@@ -507,11 +519,15 @@ export const AccountModal: React.FC<AccountModalProps> = ({
         ...currentUser,
         name: updatedAccount.parentName,
         email: updatedAccount.email,
-        phone: updatedAccount.phone
+        phone: updatedAccount.phone,
+        address: updatedAccount.address,
+        city: updatedAccount.city,
+        postalCode: updatedAccount.postalCode,
+        deliveryNotes: updatedAccount.deliveryNotes
       });
     }
 
-    showFeedback('Parent Profile information updated successfully!');
+    showFeedback('Parent Profile & Delivery Address updated successfully!');
   };
 
   const handleApplyVoucher = (e: React.FormEvent) => {
@@ -1266,13 +1282,66 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                     />
                   </div>
 
-                  <div className="pt-2 flex justify-end">
+                  {/* Delivery & Billing Address Section */}
+                  <div className="pt-2 border-t border-orange-500/20 space-y-3">
+                    <span className="text-xs font-bold text-orange-400 block uppercase tracking-wider">
+                      Home / Delivery Address
+                    </span>
+
+                    <div>
+                      <label className="text-xs font-bold text-[#A8988A] block mb-1.5">Street Address & Flat / House #</label>
+                      <input
+                        type="text"
+                        value={editAddress}
+                        onChange={(e) => setEditAddress(e.target.value)}
+                        placeholder="e.g. Flat 4B, Maple Residency, Orchard Road"
+                        className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs font-bold text-[#A8988A] block mb-1.5">City / Region</label>
+                        <input
+                          type="text"
+                          value={editCity}
+                          onChange={(e) => setEditCity(e.target.value)}
+                          placeholder="e.g. London / Dhaka"
+                          className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-bold text-[#A8988A] block mb-1.5">Postal Code</label>
+                        <input
+                          type="text"
+                          value={editPostalCode}
+                          onChange={(e) => setEditPostalCode(e.target.value)}
+                          placeholder="e.g. W1D 3NE"
+                          className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="text-xs font-bold text-[#A8988A] block mb-1.5">Default Driver Delivery Notes</label>
+                      <input
+                        type="text"
+                        value={editDeliveryNotes}
+                        onChange={(e) => setEditDeliveryNotes(e.target.value)}
+                        placeholder="e.g. Gate passcode #1024, leave in designated yellow locker"
+                        className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="pt-3 flex justify-end">
                     <button
                       type="submit"
                       className="px-6 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs shadow-md shadow-orange-600/30 flex items-center gap-2"
                     >
                       <Save className="w-4 h-4" />
-                      <span>Save Profile Changes</span>
+                      <span>Save Profile & Address</span>
                     </button>
                   </div>
                 </form>

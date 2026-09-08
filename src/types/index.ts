@@ -113,6 +113,10 @@ export interface ParentAccount {
   email: string;
   phone: string;
   avatar: string;
+  address?: string;
+  city?: string;
+  postalCode?: string;
+  deliveryNotes?: string;
   walletBalance: number;
   activePlan: MealCategory;
   billingCycle: 'weekly' | 'monthly' | 'term';
@@ -174,6 +178,10 @@ export interface AuthUser {
   name: string;
   email: string;
   phone?: string;
+  address?: string;
+  city?: string;
+  postalCode?: string;
+  deliveryNotes?: string;
   avatar: string;
   role: 'parent' | 'admin';
   membershipTier: string;
