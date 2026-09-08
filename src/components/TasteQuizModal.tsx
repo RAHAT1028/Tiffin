@@ -80,24 +80,19 @@ export const TasteQuizModal: React.FC<TasteQuizModalProps> = ({
     let icon = '🍱';
 
     if (eaterType === 'athlete') {
-      plan = 'sports';
-      planTitle = 'Varsity Athlete Protein Box';
+      plan = 'premium';
+      planTitle = 'Gourmet Fuel & Athlete Box';
       planDesc = 'High protein (28g+) with slow-burning complex grains for rigorous school sports and training.';
       icon = '⚡';
-    } else if (eaterType === 'picky') {
-      plan = 'standard';
-      planTitle = 'Mild Comfort Bento (Picky-Eater Approved)';
+    } else if (eaterType === 'picky' || ageGroup === 'early') {
+      plan = 'basic';
+      planTitle = 'Lite Comfort Bento (Picky-Eater Approved)';
       planDesc = 'Deconstructed finger foods, mild seasoning, and hidden veggie sauces that kids consistently finish 100%.';
       icon = '🌟';
-    } else if (selectedAllergens.includes('dairy') || selectedAllergens.includes('gluten')) {
-      plan = 'allergy-safe';
-      planTitle = 'Hypoallergenic Certified Tiffin';
-      planDesc = 'Cooked in our isolated allergen-safe kitchen with strict negative pressure quarantine and swab testing.';
-      icon = '🛡️';
     } else {
-      plan = 'vegetarian';
-      planTitle = 'Rainbow Plant-Power Bento';
-      planDesc = 'Packed with colorful organic vegetables, legumes, crunchy seeds, and high-antioxidant fruit pots.';
+      plan = 'standard';
+      planTitle = 'Active Balanced Bento Plus';
+      planDesc = 'Packed with colorful organic vegetables, balanced proteins, crunchy seeds, and high-antioxidant fruit pots.';
       icon = '🌱';
     }
 

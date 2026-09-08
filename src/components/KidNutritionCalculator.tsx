@@ -53,16 +53,16 @@ export const KidNutritionCalculator: React.FC<KidNutritionCalculatorProps> = ({ 
     let planReason = 'Perfect calorie & protein ratio for standard school stamina.';
 
     if (activity === 'athlete' || appetite === 'hearty') {
-      recommendedPlan = 'sports';
-      planBadge = 'Varsity Athlete & High Fuel';
+      recommendedPlan = 'premium';
+      planBadge = 'Gourmet Fuel & Varsity Athlete';
       planReason = `Elevated protein (${proteinGrams}g) & slow-release carbs to prevent 3 PM sports fatigue.`;
-    } else if (goal === 'immunity') {
-      recommendedPlan = 'allergy-safe';
-      planBadge = 'Hypoallergenic & Gut-Shield';
-      planReason = 'Prebiotic fibers, zinc, and certified allergen-quarantined kitchen prep.';
-    } else if (goal === 'focus') {
-      recommendedPlan = 'vegetarian';
-      planBadge = 'Plant-Powered Brain Fuel';
+    } else if (appetite === 'light' || age <= 5) {
+      recommendedPlan = 'basic';
+      planBadge = 'Lite Wholesome Bento';
+      planReason = 'Gentle, portion-controlled finger foods and mild flavors for young or light eaters.';
+    } else if (goal === 'focus' || goal === 'immunity') {
+      recommendedPlan = 'premium';
+      planBadge = 'Gourmet Brain-Power & Immunity Fuel';
       planReason = 'High antioxidants, omega-3 seeds, and sustained glucose delivery for afternoon focus.';
     }
 
