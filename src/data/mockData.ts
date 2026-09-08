@@ -889,35 +889,216 @@ export const PARTNER_SCHOOLS = [
   'Greenwood Heritage Academy (Zone D)'
 ];
 
+export const INITIAL_FAMILY_MEMBERS: FamilyMember[] = [
+  {
+    id: 'fam-1',
+    name: 'Oliver Jenkins',
+    relation: 'Child',
+    age: 8,
+    deliveryLocation: 'St. Mary Academy • Class 3B (Locker #14)',
+    allergies: ['nuts'],
+    dietaryPreferences: ['High-Protein', 'Halal', 'Mild Spices'],
+    avatar: 'https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=300&q=80',
+    colorTheme: 'orange',
+    defaultPlan: 'standard'
+  },
+  {
+    id: 'fam-2',
+    name: 'Maya Jenkins',
+    relation: 'Child',
+    age: 5,
+    deliveryLocation: 'St. Mary Nursery • Room 1A (Drop Box Blue)',
+    allergies: ['nuts', 'dairy'],
+    dietaryPreferences: ['Vegetarian', 'Finger-Food', 'Mild'],
+    avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80',
+    colorTheme: 'amber',
+    defaultPlan: 'basic'
+  },
+  {
+    id: 'fam-3',
+    name: 'Dr. Sarah Jenkins',
+    relation: 'Self',
+    deliveryLocation: 'St. Thomas Hospital • Paediatric Wing B (Desk 4)',
+    allergies: ['nuts'],
+    dietaryPreferences: ['Omega-3 Rich', 'Organic', 'Gourmet Bento'],
+    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80',
+    colorTheme: 'emerald',
+    defaultPlan: 'premium'
+  },
+  {
+    id: 'fam-4',
+    name: 'Mark Jenkins',
+    relation: 'Spouse',
+    deliveryLocation: 'Metropolis Tech City • Level 6 Engineering Suite',
+    allergies: ['nuts'],
+    dietaryPreferences: ['High-Protein (35g+)', 'Halal', 'No Added Sugar'],
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
+    colorTheme: 'blue',
+    defaultPlan: 'standard'
+  }
+];
+
+export const TOP_PARTNER_RESTAURANTS: PartnerRestaurant[] = [
+  {
+    id: 'rest-tokyo-bento',
+    name: 'Tokyo Artisan Bento Bar',
+    tagline: 'Authentic Japanese balanced child bentos, sushi maki & teriyaki',
+    cuisine: 'Japanese Bento & Healthy Asian',
+    rating: 4.95,
+    reviewCount: 1150,
+    bannerImage: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1000&q=80',
+    logo: '🍱',
+    headChef: 'Chef Kenji Sato (Former Ginza Bento Master)',
+    hygieneCertificate: '5/5 Stars National Clean Kitchen Rating',
+    prepTime: '25-35 mins',
+    specialty: 'Wild Atlantic Salmon, Tamagoyaki & Furikake Calrose Rice',
+    deliveryGuarantee: 'Insulated 3-Tier Japanese Bento • Sealed at 72°C',
+    badges: ['Michelin Background Chef', '100% Nut-Free Kitchen', 'Top Rated Bento'],
+    popularDishes: [
+      WEEKLY_MEALS[2], // Tokyo Teriyaki Glazed Salmon
+      WEEKLY_MEALS[15], // Japanese Katsu Chicken Curry
+      WEEKLY_MEALS[11], // Japanese Teriyaki Chicken Karaage
+      WEEKLY_MEALS[17]  // Chef Specialty Bento: Teriyaki Chicken & California Maki Rolls
+    ]
+  },
+  {
+    id: 'rest-nonna-italian',
+    name: "Nonna's Italian Heritage Trattoria",
+    tagline: 'Hand-stretched calzones, slow-simmered sugo & hidden-veggie pastas',
+    cuisine: 'Authentic Italian & Mediterranean',
+    rating: 4.92,
+    reviewCount: 980,
+    bannerImage: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1000&q=80',
+    logo: '🍝',
+    headChef: 'Chef Gianna Rossi (Bologna Culinary Institute)',
+    hygieneCertificate: '5/5 Stars Food Standards Agency Certified',
+    prepTime: '20-30 mins',
+    specialty: 'San Marzano Tomato Sugo & Hand-Made Wholemeal Pastas',
+    deliveryGuarantee: 'Double-wall insulated thermo-box • Preserved at 68°C',
+    badges: ['Farm-Fresh Produce', 'Hidden 7-Veggie Sauce', 'Kid Favorite Pasta'],
+    popularDishes: [
+      WEEKLY_MEALS[10], // Artisan Chicken Parmigiana & Handcrafted Fettuccine
+      WEEKLY_MEALS[16], // Artisan Neapolitan Margherita Calzone
+      WEEKLY_MEALS[3],  // Whole-Wheat Pasta Primavera
+      WEEKLY_MEALS[13]  // Slow-Braised Beef Ragu Lasagna Roll-Ups
+    ]
+  },
+  {
+    id: 'rest-saffron-royal',
+    name: 'Saffron Royal Kitchen & Dawat',
+    tagline: 'Fragrant saffron basmati, mild butter chicken & paneer pulao',
+    cuisine: 'Royal Mughlai & Indian Vegetarian',
+    rating: 4.89,
+    reviewCount: 1420,
+    bannerImage: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=1000&q=80',
+    logo: '🍛',
+    headChef: 'Chef Farhan Qureshi (Royal Indian Master Chef)',
+    hygieneCertificate: '100% Halal Certified • Zero Nut Cross-Contamination',
+    prepTime: '25-35 mins',
+    specialty: 'Cashew-Free Velvet Butter Chicken & Dum Pulao',
+    deliveryGuarantee: 'Vacuum Hot Handi Flask • Sealed at 75°C',
+    badges: ['100% Halal Verified', 'Cashew/Nut Free Kitchen', 'Over 1400+ 5-Star Reviews'],
+    popularDishes: [
+      WEEKLY_MEALS[0],  // Mild Paneer Veggie Pulao Bowl
+      WEEKLY_MEALS[9],  // Mild Butter Chicken with Fragrant Jeera Rice
+      WEEKLY_MEALS[5],  // Mediterranean Lamb Kofta & Saffron Rice Feast
+      WEEKLY_MEALS[1]   // Creamy Coconut Butternut Dal & Soft Wholemeal Roti
+    ]
+  },
+  {
+    id: 'rest-green-bowl',
+    name: 'Green Bowl Organic & Superfood Labs',
+    tagline: 'Vibrant clean eating, allergen-safe Mexican fiesta bowls & vegan tacos',
+    cuisine: 'Organic Superfood & Allergen-Safe',
+    rating: 4.94,
+    reviewCount: 860,
+    bannerImage: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1000&q=80',
+    logo: '🥗',
+    headChef: 'Dr. Chloe Miller (Pediatric Nutritionist & Chef)',
+    hygieneCertificate: 'Top-8 Allergen Quarantine Verified • 100% Organic',
+    prepTime: '15-25 mins',
+    specialty: 'Prebiotic Fiber Bowls, Guacamole & Baked Sweet Potato',
+    deliveryGuarantee: 'Dual-Zone Hot & Fresh Thermo Divider',
+    badges: ['Top-8 Allergen Safe', '100% Certified Organic', 'Paediatric Dietitian Approved'],
+    popularDishes: [
+      WEEKLY_MEALS[7],  // Mexican Burrito Fiesta Bowl
+      WEEKLY_MEALS[8],  // Rainbow Veggie Quesadilla & Black Bean Salsa
+      WEEKLY_MEALS[14], // BBQ Pulled Jackfruit & Sweetcorn Soft Tacos
+      WEEKLY_MEALS[12]  // Sweet Potato & French Green Lentil Shepherd’s Pie
+    ]
+  },
+  {
+    id: 'rest-little-beirut',
+    name: 'Little Beirut Mezze & Grill',
+    tagline: 'Flame-grilled lean shawarma bowls, herb falafel & warm wholemeal pitas',
+    cuisine: 'Lebanese & Eastern Mediterranean',
+    rating: 4.91,
+    reviewCount: 750,
+    bannerImage: 'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=1000&q=80',
+    logo: '🌯',
+    headChef: 'Chef Tarek Haddad (Beirut Culinary Guild)',
+    hygieneCertificate: '100% Halal Certified • Fresh Daily Produce',
+    prepTime: '20-30 mins',
+    specialty: 'Turmeric Basmati Rice, Baked Herb Falafel & Garlic Yoghurt',
+    deliveryGuarantee: 'Moisture-Wicking Warm Bento • Preserved at 70°C',
+    badges: ['100% Halal Verified', 'Olive Oil Marinated', 'High Protein Selection'],
+    popularDishes: [
+      WEEKLY_MEALS[11], // Middle Eastern Chicken Shawarma & Turmeric Rice
+      WEEKLY_MEALS[10], // Baked Sweet Potato Falafel & Hummus Pocket
+      WEEKLY_MEALS[1],  // Grilled Herb Chicken & Avocado Wrap
+      WEEKLY_MEALS[5]   // Mediterranean Lamb Kofta & Saffron Rice Feast
+    ]
+  },
+  {
+    id: 'rest-seoul-garden',
+    name: 'Seoul Garden Express & Bibimbap House',
+    tagline: 'Kid-friendly mild Korean BBQ bulgogi, bibimbap & crunchy karaage',
+    cuisine: 'Modern Korean & Asian Fusion',
+    rating: 4.96,
+    reviewCount: 1290,
+    bannerImage: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=1000&q=80',
+    logo: '🍲',
+    headChef: 'Chef Min-Jun Park (Seoul Master Chef)',
+    hygieneCertificate: '5/5 Stars Food Hygiene • Sesame-Segregated Woks',
+    prepTime: '25-35 mins',
+    specialty: 'Pear-Marinated Grass-Fed Bulgogi Beef & Sticky Pearl Rice',
+    deliveryGuarantee: 'Insulated Korean Dolsot Thermal Box • 72°C',
+    badges: ['Korean Master Chef', '100% Halal Beef & Poultry', 'Kids #1 Asian Choice'],
+    popularDishes: [
+      WEEKLY_MEALS[8],  // Korean Bulgogi Beef & Veggie Bibimbap
+      WEEKLY_MEALS[6],  // Rainbow Chicken & Veggie Stir-Fry Noodle Box
+      WEEKLY_MEALS[11], // Japanese Teriyaki Chicken Karaage Bento Box
+      WEEKLY_MEALS[15]  // Gourmet Cheeseburger Bento with Hand-Cut Potato Crisps
+    ]
+  }
+];
+
 export const PARENT_REVIEWS = [
   {
-    id: '1',
-    author: 'Sarah Jenkins',
-    childInfo: 'Mother of Oliver (Age 7, Primary 2)',
+    id: 'rev-1',
+    author: 'Rachel Sterling',
+    childInfo: 'Mother of Lucas (Age 8, St. Mary Academy)',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
     rating: 5,
-    date: '2 days ago',
-    comment: 'Project JK has been a lifesaver for our morning rush! Oliver used to return his lunchbox half full, but now he finishes every bite. The fact that the food arrives warm at 11:45 AM in their thermal boxes is unbelievable.',
-    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
-    planUsed: 'Standard Vitality'
+    planUsed: 'Standard Vitality',
+    comment: 'Smart Tiffin completely changed our morning routine! Lucas used to bring half-eaten soggy sandwiches back from school. Now his thermal container is empty every day, and I can order for both my son and my husband at work!'
   },
   {
-    id: '2',
-    author: 'David Chen',
-    childInfo: 'Father of Chloe & Ethan (Ages 10 & 13)',
-    rating: 5,
-    date: '1 week ago',
-    comment: 'My daughter has a severe peanut and sesame allergy. Finding a reliable lunch catering service that guarantees zero cross-contamination was impossible until we found Smart School Tiffin. The AI nutritionist also helped customize her meals perfectly!',
+    id: 'rev-2',
+    author: 'Dr. Tariq Al-Mansoor',
+    childInfo: 'Father of Zainab (Age 6, Riverside Bilingual)',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
-    planUsed: 'Premium Gourmet Bento'
+    rating: 5,
+    planUsed: 'Premium Gourmet Bento',
+    comment: 'The strict peanut-free certification and allergen passport give us total peace of mind. Ordering specialty dishes from top Japanese & Italian partner restaurants directly to the classroom is an incredible feature.'
   },
   {
-    id: '3',
-    author: 'Priya Sharma',
-    childInfo: 'Mother of Aarav (Age 5, Nursery)',
+    id: 'rev-3',
+    author: 'Emily Chen-Davies',
+    childInfo: 'Mother of Sophie & Ethan (Ages 7 & 10, Oakridge Grammar)',
+    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
     rating: 5,
-    date: '3 weeks ago',
-    comment: 'The ability to pause or change delivery on the day when Aarav caught a cold saved us money. The veggie paneer pulao and mac & cheese with hidden squash are genius recipes.',
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80',
-    planUsed: 'Basic Nourish'
+    planUsed: 'Multi-Family Member Bundle',
+    comment: 'Being able to manage separate allergen profiles and classrooms for both kids from one dashboard plus the 10% family discount makes Smart Tiffin unbeatable!'
   }
 ];

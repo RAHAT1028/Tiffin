@@ -13,9 +13,14 @@ import {
   Scale,
   Layers,
   Flame,
-  User
+  User,
+  Users,
+  ChefHat,
+  LogIn,
+  LogOut
 } from 'lucide-react';
 import { sfx } from '../utils/audio';
+import { AuthUser, FamilyMember } from '../types';
 
 interface NavbarProps {
   onOpenCart: () => void;
@@ -23,6 +28,12 @@ interface NavbarProps {
   onOpenNutribot: () => void;
   onOpenQuiz: () => void;
   onOpenAccount: () => void;
+  currentUser?: AuthUser | null;
+  onOpenAuth?: () => void;
+  onLogout?: () => void;
+  onOpenFamilyHub?: () => void;
+  familyMembersCount?: number;
+  activeMember?: FamilyMember | null;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -30,7 +41,13 @@ export const Navbar: React.FC<NavbarProps> = ({
   cartCount,
   onOpenNutribot,
   onOpenQuiz,
-  onOpenAccount
+  onOpenAccount,
+  currentUser,
+  onOpenAuth,
+  onLogout,
+  onOpenFamilyHub,
+  familyMembersCount = 4,
+  activeMember
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -101,6 +118,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               Weekly Menu
             </a>
             <a
+              href="#restaurants"
+              onClick={(e) => scrollToSection(e, '#restaurants')}
+              className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all flex items-center gap-1.5 whitespace-nowrap"
+            >
+              <ChefHat className="w-3.5 h-3.5 text-orange-400" />
+              <span>Top Kitchens</span>
+            </a>
+            <a
               href="#visualizer"
               onClick={(e) => scrollToSection(e, '#visualizer')}
               className="px-3 py-1.5 rounded-full text-xs font-semibold text-[#D4C5B5] hover:text-white hover:bg-[#261E18] transition-all flex items-center gap-1.5 whitespace-nowrap"
@@ -163,6 +188,32 @@ export const Navbar: React.FC<NavbarProps> = ({
               title={soundEnabled ? 'Sound Enabled (Click to Mute)' : 'Sound Muted (Click to Unmute)'}
             >
               {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+            </button>
+
+            {/* Family Hub & Members Button */}
+            <button
+              onClick={() => {
+                sfx.playPop();
+                if (onOpenFamilyHub) onOpenFamilyHub();
+              }}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold bg-[#261E18] text-[#D4C5B5] hover:text-white hover:bg-[#2E241E] border border-orange-500/30 transition-all hover:scale-105 active:scale-95 whitespace-nowrap flex-shrink-0 group shadow-sm"
+              title="Manage Family Members, Allergies & Classrooms"
+            >
+              {activeMember ? (
+                <img
+                  src={activeMember.avatar}
+                  alt={activeMember.name}
+                  className="w-4 h-4 rounded-full object-cover ring-1 ring-orange-400"
+                />
+              ) : (
+                <Users className="w-3.5 h-3.5 text-orange-400" />
+              )}
+              <span className="hidden sm:inline">
+                {activeMember ? activeMember.name.split(' ')[0] : 'Family Hub'}
+              </span>
+              <span className="px-1.5 py-0.2 rounded-full bg-orange-950 text-orange-400 text-[10px] font-black border border-orange-500/30">
+                {familyMembersCount}
+              </span>
             </button>
 
             {/* 30s Taste Quiz button */}
@@ -343,6 +394,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="text-xs text-orange-500">View dishes →</span>
             </a>
             <a
+              href="#restaurants"
+              onClick={(e) => scrollToSection(e, '#restaurants')}
+              className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10 flex items-center gap-2"
+            >
+              <ChefHat className="w-4 h-4 text-orange-500" />
+              <span>Top Partner Kitchens</span>
+            </a>
+            <a
               href="#visualizer"
               onClick={(e) => scrollToSection(e, '#visualizer')}
               className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10 flex items-center gap-2"
@@ -380,6 +439,22 @@ export const Navbar: React.FC<NavbarProps> = ({
               <Truck className="w-4 h-4 text-orange-500" />
               <span>Live Thermal & Van Tracker</span>
             </a>
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                sfx.playPop();
+                if (onOpenFamilyHub) onOpenFamilyHub();
+              }}
+              className="text-left text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10 flex items-center justify-between"
+            >
+              <div className="flex items-center gap-2">
+                <Users className="w-4 h-4 text-orange-500" />
+                <span>Family Members & Allergies</span>
+              </div>
+              <span className="px-2 py-0.5 rounded-full bg-orange-950 text-orange-400 text-xs font-bold border border-orange-500/30">
+                {familyMembersCount} Members
+              </span>
+            </button>
             <a
               href="#faq"
               onClick={(e) => scrollToSection(e, '#faq')}

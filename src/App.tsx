@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { WeeklyMenu } from './components/WeeklyMenu';
+import { TopRestaurants } from './components/TopRestaurants';
 import { InteractiveTiffinVisualizer } from './components/InteractiveTiffinVisualizer';
 import { KidNutritionCalculator } from './components/KidNutritionCalculator';
 import { MealPlanSelector } from './components/MealPlanSelector';
@@ -16,8 +17,18 @@ import { CartDrawer } from './components/CartDrawer';
 import { TasteQuizModal } from './components/TasteQuizModal';
 import { AccountModal } from './components/AccountModal';
 import { AuthModal } from './components/AuthModal';
-import { MealItem, MealCategory, ChildProfile, SubscriptionConfig, AuthUser } from './types';
-import { Sparkles, MessageSquareHeart, Award, Flame } from 'lucide-react';
+import { FamilyMemberModal } from './components/FamilyMemberModal';
+import { INITIAL_FAMILY_MEMBERS } from './data/mockData';
+import { 
+  MealItem, 
+  MealCategory, 
+  ChildProfile, 
+  SubscriptionConfig, 
+  AuthUser, 
+  FamilyMember, 
+  CartItemWithMember 
+} from './types';
+import { Sparkles, Users } from 'lucide-react';
 import { sfx } from './utils/audio';
 
 const DEFAULT_DEMO_PARENT: AuthUser = {
@@ -32,7 +43,13 @@ const DEFAULT_DEMO_PARENT: AuthUser = {
 };
 
 export const App: React.FC = () => {
-  const [cartItems, setCartItems] = useState<MealItem[]>([]);
+  // Family Members State
+  const [familyMembers, setFamilyMembers] = useState<FamilyMember[]>(INITIAL_FAMILY_MEMBERS);
+  const [activeMember, setActiveMember] = useState<FamilyMember>(INITIAL_FAMILY_MEMBERS[0]);
+  const [familyModalOpen, setFamilyModalOpen] = useState(false);
+
+  // Cart State (wrapped with family recipient details)
+  const [cartItems, setCartItems] = useState<CartItemWithMember[]>([]);
   const [activeSubscription, setActiveSubscription] = useState<{
     profile: ChildProfile;
     config: SubscriptionConfig;
@@ -70,10 +87,23 @@ export const App: React.FC = () => {
     showToast('You have been logged out.');
   };
 
-  const handleAddToCart = (meal: MealItem) => {
+  // Add meal attributed to a specific family member
+  const handleAddToCartForMember = (meal: MealItem, member?: FamilyMember) => {
+    const targetMember = member || activeMember;
+    const cartEntry: CartItemWithMember = {
+      meal,
+      familyMemberId: targetMember.id,
+      familyMemberName: targetMember.name,
+      memberAvatar: targetMember.avatar,
+      deliveryLocation: targetMember.deliveryLocation
+    };
     sfx.playSuccess();
-    setCartItems((prev) => [...prev, meal]);
-    showToast(`Added ${meal.name} to your tiffin lunchbox!`);
+    setCartItems((prev) => [...prev, cartEntry]);
+    showToast(`Added ${meal.name} for ${targetMember.name}!`);
+  };
+
+  const handleAddToCart = (meal: MealItem) => {
+    handleAddToCartForMember(meal, activeMember);
   };
 
   const handleAddCustomTrayToCart = (traySummary: string, price: number) => {
@@ -101,15 +131,28 @@ export const App: React.FC = () => {
       chefNote: 'Custom partitioned and sealed with child-friendly easy-open thermal latch.',
       includedItems: [traySummary]
     };
-    sfx.playSuccess();
-    setCartItems((prev) => [...prev, customMeal]);
-    showToast(`Added your Custom Bento Tray to the lunchbox!`);
+    handleAddToCartForMember(customMeal, activeMember);
     setCartOpen(true);
   };
 
   const handleRemoveCartItem = (index: number) => {
     sfx.playPop();
     setCartItems((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleAddFamilyMember = (newMember: FamilyMember) => {
+    setFamilyMembers((prev) => [...prev, newMember]);
+    setActiveMember(newMember);
+    showToast(`Added ${newMember.name} to your family list!`);
+  };
+
+  const handleDeleteFamilyMember = (id: string) => {
+    setFamilyMembers((prev) => prev.filter((m) => m.id !== id));
+    if (activeMember.id === id) {
+      const remaining = familyMembers.filter((m) => m.id !== id);
+      if (remaining.length > 0) setActiveMember(remaining[0]);
+    }
+    showToast('Removed family member profile.');
   };
 
   const handlePlanSelect = (planId: MealCategory) => {
@@ -195,6 +238,12 @@ export const App: React.FC = () => {
           setAuthOpen(true);
         }}
         onLogout={handleLogout}
+        onOpenFamilyHub={() => {
+          sfx.playPop();
+          setFamilyModalOpen(true);
+        }}
+        familyMembersCount={familyMembers.length}
+        activeMember={activeMember}
       />
 
       {/* Main Content Sections */}
@@ -220,7 +269,22 @@ export const App: React.FC = () => {
         />
 
         {/* Weekly Menu Showcase */}
-        <WeeklyMenu onAddToCart={handleAddToCart} />
+        <WeeklyMenu 
+          onAddToCart={handleAddToCart}
+          onAddToCartForMember={handleAddToCartForMember}
+          familyMembers={familyMembers}
+          activeMember={activeMember}
+          onSelectActiveMember={setActiveMember}
+          onOpenFamilyHub={() => setFamilyModalOpen(true)}
+        />
+
+        {/* Top Partner Restaurants & Cloud Kitchens */}
+        <TopRestaurants
+          onAddToCartForMember={handleAddToCartForMember}
+          familyMembers={familyMembers}
+          activeMember={activeMember}
+          onSelectActiveMember={setActiveMember}
+        />
 
         {/* Interactive Bento Tray Visualizer */}
         <InteractiveTiffinVisualizer onAddCustomTrayToCart={handleAddCustomTrayToCart} />
@@ -262,6 +326,20 @@ export const App: React.FC = () => {
 
       {/* Floating Buttons (Bottom Right / Left) */}
       <div className="fixed bottom-6 right-6 z-40 flex flex-col sm:flex-row items-end sm:items-center gap-3">
+        {/* Floating Family Hub Shortcut */}
+        <button
+          onClick={() => {
+            sfx.playPop();
+            setFamilyModalOpen(true);
+          }}
+          className="bg-[#261E18]/95 hover:bg-[#2F251E] text-orange-400 px-4 py-3 rounded-full shadow-2xl border border-orange-500/40 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 group backdrop-blur-md"
+          aria-label="Manage Family Members"
+        >
+          <Users className="w-4 h-4 text-orange-400" />
+          <span className="font-extrabold text-xs text-white">Family: {activeMember.name.split(' ')[0]}</span>
+          <span className="px-1.5 py-0.2 text-[9px] bg-orange-600 text-white font-black rounded-full">{familyMembers.length}</span>
+        </button>
+
         {/* Floating Taste Quiz Pill */}
         <button
           onClick={() => {
@@ -297,6 +375,17 @@ export const App: React.FC = () => {
           <span>{toastMessage}</span>
         </div>
       )}
+
+      {/* Family Members Management Modal */}
+      <FamilyMemberModal
+        isOpen={familyModalOpen}
+        onClose={() => setFamilyModalOpen(false)}
+        familyMembers={familyMembers}
+        activeMember={activeMember}
+        onSelectActiveMember={setActiveMember}
+        onAddFamilyMember={handleAddFamilyMember}
+        onDeleteFamilyMember={handleDeleteFamilyMember}
+      />
 
       {/* Parent Account & Subscription Plan Portal Modal */}
       <AccountModal

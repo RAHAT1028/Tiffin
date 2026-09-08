@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { WEEKLY_MEALS } from '../data/mockData';
-import { MealItem, MealCategory } from '../types';
+import { MealItem, MealCategory, FamilyMember } from '../types';
 import { sfx } from '../utils/audio';
 import { 
   Calendar, 
@@ -11,17 +11,31 @@ import {
   ShieldCheck, 
   Sparkles, 
   Check, 
-  Utensils 
+  Utensils,
+  User,
+  Users
 } from 'lucide-react';
 import { MealModal } from './MealModal';
 
 interface WeeklyMenuProps {
   onAddToCart: (meal: MealItem) => void;
+  onAddToCartForMember?: (meal: MealItem, member: FamilyMember) => void;
+  familyMembers?: FamilyMember[];
+  activeMember?: FamilyMember | null;
+  onSelectActiveMember?: (member: FamilyMember) => void;
+  onOpenFamilyHub?: () => void;
 }
 
 const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as const;
 
-export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
+export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ 
+  onAddToCart,
+  onAddToCartForMember,
+  familyMembers = [],
+  activeMember,
+  onSelectActiveMember,
+  onOpenFamilyHub
+}) => {
   const [selectedDay, setSelectedDay] = useState<typeof DAYS_OF_WEEK[number]>('Monday');
   const [selectedCategory, setSelectedCategory] = useState<'all' | MealCategory>('all');
   const [onlyVeg, setOnlyVeg] = useState(false);
@@ -29,6 +43,14 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
   const [onlyHalal, setOnlyHalal] = useState(false);
   const [onlyHighProtein, setOnlyHighProtein] = useState(false);
   const [activeMealModal, setActiveMealModal] = useState<MealItem | null>(null);
+
+  const handleAddMeal = (meal: MealItem) => {
+    if (onAddToCartForMember && activeMember) {
+      onAddToCartForMember(meal, activeMember);
+    } else {
+      onAddToCart(meal);
+    }
+  };
 
   const handleDaySelect = (day: typeof DAYS_OF_WEEK[number]) => {
     sfx.playSlot();
@@ -76,7 +98,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-950/80 border border-orange-500/30 text-orange-400 text-xs font-bold uppercase tracking-wider mb-2">
               <Calendar className="w-3.5 h-3.5" />
@@ -90,55 +112,91 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
             </p>
           </div>
 
-          {/* Dietary toggle chips */}
-          <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
-            <button
-              onClick={handleToggleVeg}
-              className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 ${
-                onlyVeg
-                  ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/20'
-                  : 'bg-[#261E18] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2E241E] hover:border-orange-500/40'
-              }`}
-            >
-              <span>🥦 100% Vegetarian</span>
-              {onlyVeg && <Check className="w-3.5 h-3.5" />}
-            </button>
-            <button
-              onClick={handleToggleHalal}
-              className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 ${
-                onlyHalal
-                  ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/20'
-                  : 'bg-[#261E18] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2E241E] hover:border-orange-500/40'
-              }`}
-            >
-              <span>✨ 100% Halal</span>
-              {onlyHalal && <Check className="w-3.5 h-3.5" />}
-            </button>
-            <button
-              onClick={handleToggleHighProtein}
-              className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 ${
-                onlyHighProtein
-                  ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/20'
-                  : 'bg-[#261E18] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2E241E] hover:border-orange-500/40'
-              }`}
-            >
-              <Flame className="w-3.5 h-3.5 text-orange-400" />
-              <span>High-Protein (25g+)</span>
-              {onlyHighProtein && <Check className="w-3.5 h-3.5" />}
-            </button>
-            <button
-              onClick={handleToggleNutFree}
-              className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 ${
-                onlyNutFree
-                  ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/20'
-                  : 'bg-[#261E18] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2E241E] hover:border-orange-500/40'
-              }`}
-            >
-              <ShieldCheck className="w-3.5 h-3.5 text-orange-400" />
-              <span>Nut-Free Only</span>
-              {onlyNutFree && <Check className="w-3.5 h-3.5" />}
-            </button>
-          </div>
+          {/* Active Family Member Selector Card */}
+          {familyMembers.length > 0 && activeMember && (
+            <div className="bg-[#261E18] p-3 rounded-2xl border border-orange-500/25 shadow-xl flex flex-col sm:flex-row items-start sm:items-center gap-3">
+              <div className="flex items-center gap-2 text-xs font-bold text-[#A8988A]">
+                <User className="w-4 h-4 text-orange-400" />
+                <span>Assigning lunch to:</span>
+              </div>
+              <div className="flex items-center gap-1.5 overflow-x-auto max-w-full pb-1 sm:pb-0">
+                {familyMembers.map((member) => {
+                  const isSelected = activeMember.id === member.id;
+                  return (
+                    <button
+                      key={member.id}
+                      onClick={() => {
+                        sfx.playPop();
+                        if (onSelectActiveMember) onSelectActiveMember(member);
+                      }}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+                        isSelected
+                          ? 'bg-orange-600 text-white shadow-md shadow-orange-600/30 ring-1 ring-orange-400'
+                          : 'bg-[#15100C] text-[#D4C5B5] hover:text-white hover:bg-[#2F251E] border border-orange-500/20'
+                      }`}
+                    >
+                      <img
+                        src={member.avatar}
+                        alt={member.name}
+                        className="w-4 h-4 rounded-full object-cover"
+                      />
+                      <span>{member.name.split(' ')[0]}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Dietary toggle chips */}
+        <div className="flex flex-wrap items-center gap-2 text-xs font-semibold mb-8">
+          <button
+            onClick={handleToggleVeg}
+            className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 ${
+              onlyVeg
+                ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/20'
+                : 'bg-[#261E18] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2E241E] hover:border-orange-500/40'
+            }`}
+          >
+            <span>🥦 100% Vegetarian</span>
+            {onlyVeg && <Check className="w-3.5 h-3.5" />}
+          </button>
+          <button
+            onClick={handleToggleHalal}
+            className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 ${
+              onlyHalal
+                ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/20'
+                : 'bg-[#261E18] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2E241E] hover:border-orange-500/40'
+            }`}
+          >
+            <span>✨ 100% Halal</span>
+            {onlyHalal && <Check className="w-3.5 h-3.5" />}
+          </button>
+          <button
+            onClick={handleToggleHighProtein}
+            className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 ${
+              onlyHighProtein
+                ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/20'
+                : 'bg-[#261E18] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2E241E] hover:border-orange-500/40'
+            }`}
+          >
+            <Flame className="w-3.5 h-3.5 text-orange-400" />
+            <span>High-Protein (25g+)</span>
+            {onlyHighProtein && <Check className="w-3.5 h-3.5" />}
+          </button>
+          <button
+            onClick={handleToggleNutFree}
+            className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 ${
+              onlyNutFree
+                ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/20'
+                : 'bg-[#261E18] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2E241E] hover:border-orange-500/40'
+            }`}
+          >
+            <ShieldCheck className="w-3.5 h-3.5 text-orange-400" />
+            <span>Nut-Free Only</span>
+            {onlyNutFree && <Check className="w-3.5 h-3.5" />}
+          </button>
         </div>
 
         {/* Day of Week Selector Bar */}
@@ -290,11 +348,12 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
                   <span>Nutrition & Chef Notes</span>
                 </button>
                 <button
-                  onClick={() => onAddToCart(meal)}
-                  className="p-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs transition-all shadow-md shadow-orange-600/30 hover:shadow-orange-600/50 hover:scale-105 active:scale-95 shimmer-effect"
-                  title="Add this meal"
+                  onClick={() => handleAddMeal(meal)}
+                  className="p-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs transition-all shadow-md shadow-orange-600/30 hover:shadow-orange-600/50 hover:scale-105 active:scale-95 shimmer-effect flex items-center gap-1"
+                  title={activeMember ? `Add meal for ${activeMember.name}` : 'Add this meal'}
                 >
                   <Plus className="w-4 h-4" />
+                  {activeMember && <span className="text-[10px] hidden sm:inline">{activeMember.name.split(' ')[0]}</span>}
                 </button>
               </div>
 
@@ -317,7 +376,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
       <MealModal
         meal={activeMealModal}
         onClose={() => setActiveMealModal(null)}
-        onAddToCart={onAddToCart}
+        onAddToCart={handleAddMeal}
       />
     </section>
   );

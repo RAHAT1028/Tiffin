@@ -129,6 +129,46 @@ export interface ParentAccount {
   recentDeliveries: AccountDeliveryLog[];
 }
 
+export interface FamilyMember {
+  id: string;
+  name: string;
+  relation: 'Child' | 'Parent' | 'Spouse' | 'Self' | 'Sibling' | 'Other';
+  age?: number;
+  deliveryLocation: string; // e.g. "St. Mary Academy - Class 3B (Locker #14)" or "Metropolis Tower, Floor 8"
+  allergies: Allergen[];
+  dietaryPreferences: string[];
+  avatar: string;
+  colorTheme: string;
+  defaultPlan: MealCategory;
+}
+
+export interface CartItemWithMember {
+  meal: MealItem;
+  familyMemberId: string;
+  familyMemberName: string;
+  memberAvatar?: string;
+  deliveryLocation?: string;
+  notes?: string;
+}
+
+export interface PartnerRestaurant {
+  id: string;
+  name: string;
+  tagline: string;
+  cuisine: string;
+  rating: number;
+  reviewCount: number;
+  bannerImage: string;
+  logo: string;
+  headChef: string;
+  hygieneCertificate: string;
+  prepTime: string;
+  specialty: string;
+  deliveryGuarantee: string;
+  popularDishes: MealItem[];
+  badges: string[];
+}
+
 export interface AuthUser {
   id: string;
   name: string;
@@ -138,4 +178,5 @@ export interface AuthUser {
   role: 'parent' | 'admin';
   membershipTier: string;
   walletBalance: number;
+  familyMembers?: FamilyMember[];
 }
