@@ -84,7 +84,7 @@ export const InteractiveFAQ: React.FC<InteractiveFAQProps> = ({ onOpenNutribot }
   });
 
   return (
-    <section id="faq" className="py-20 bg-[#030712] text-white relative overflow-hidden border-t border-slate-900">
+    <section id="faq" className="py-20 bg-[#1C1712] text-white relative overflow-hidden border-t border-amber-950/40">
       {/* Glow Effects */}
       <div className="absolute top-1/3 left-1/4 w-72 h-72 bg-orange-600/10 rounded-full blur-3xl pointer-events-none"></div>
 

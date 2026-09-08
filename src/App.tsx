@@ -134,7 +134,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#030712] text-slate-100 font-sans selection:bg-orange-500 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#1C1712] text-slate-100 font-sans selection:bg-orange-500 selection:text-white">
       
       {/* Navigation */}
       <Navbar

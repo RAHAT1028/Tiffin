@@ -105,7 +105,7 @@ export const KidNutritionCalculator: React.FC<KidNutritionCalculatorProps> = ({ 
   };
 
   return (
-    <section id="calculator" className="py-20 bg-[#030712] text-white relative overflow-hidden border-t border-slate-900">
+    <section id="calculator" className="py-20 bg-[#1C1712] text-white relative overflow-hidden border-t border-amber-950/40">
       {/* Background glow flares */}
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl pointer-events-none"></div>
       <div className="absolute bottom-10 left-10 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>

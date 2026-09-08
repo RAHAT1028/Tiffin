@@ -9,7 +9,7 @@ interface MealPlanSelectorProps {
 
 export const MealPlanSelector: React.FC<MealPlanSelectorProps> = ({ onSelectPlan }) => {
   return (
-    <section id="plans" className="py-20 bg-slate-950 text-white relative">
+    <section id="plans" className="py-20 bg-[#1C1712] text-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

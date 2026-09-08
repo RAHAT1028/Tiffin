@@ -60,7 +60,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-slate-950/95 backdrop-blur-md shadow-lg shadow-black/80 border-b border-slate-800/80 py-2.5' : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-4'
+      isScrolled ? 'bg-[#1C1712]/95 backdrop-blur-md shadow-lg shadow-black/80 border-b border-amber-950/40 py-2.5' : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-4'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4">
@@ -250,7 +250,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile / Tablet Dropdown Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="xl:hidden bg-slate-950/98 backdrop-blur-2xl border-b border-slate-800 px-6 py-6 shadow-2xl transition-all animate-in slide-in-from-top-2 duration-200">
+        <div className="xl:hidden bg-[#1C1712]/98 backdrop-blur-2xl border-b border-amber-950/40 px-6 py-6 shadow-2xl transition-all animate-in slide-in-from-top-2 duration-200">
           <div className="flex flex-col gap-2 text-sm font-semibold">
             <a 
               href="#menu" 

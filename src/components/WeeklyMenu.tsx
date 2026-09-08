@@ -58,7 +58,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ onAddToCart }) => {
   });
 
   return (
-    <section id="menu" className="py-20 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white relative">
+    <section id="menu" className="py-20 bg-[#1C1712] text-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

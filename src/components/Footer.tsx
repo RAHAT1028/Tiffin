@@ -3,7 +3,7 @@ import { UtensilsCrossed, Heart, ShieldCheck, Phone, Mail, MapPin } from 'lucide
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-[#030712] text-slate-400 py-16 border-t border-slate-800">
+    <footer className="bg-[#140F0C] text-slate-400 py-16 border-t border-amber-950/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800/80">
           
