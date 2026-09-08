@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MealCategory, Allergen, ChildProfile, SubscriptionConfig } from '../types';
 import { MEAL_PLANS, PARTNER_SCHOOLS } from '../data/mockData';
+import { sfx } from '../utils/audio';
 import { 
   Calculator, 
   Sparkles, 
@@ -17,6 +18,7 @@ import {
 interface TiffinCustomizerProps {
   onStartSubscription: (profile: ChildProfile, config: SubscriptionConfig, totalWeekly: number) => void;
   selectedPlanInitial?: MealCategory;
+  initialProfile?: Partial<ChildProfile>;
 }
 
 const ALLERGEN_OPTIONS: { id: Allergen; label: string }[] = [
@@ -31,14 +33,17 @@ const ALLERGEN_OPTIONS: { id: Allergen; label: string }[] = [
 
 export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({ 
   onStartSubscription, 
-  selectedPlanInitial = 'standard' 
+  selectedPlanInitial = 'standard',
+  initialProfile
 }) => {
-  const [name, setName] = useState('Oliver');
-  const [ageGroup, setAgeGroup] = useState<'nursery' | 'primary' | 'secondary'>('primary');
-  const [school, setSchool] = useState(PARTNER_SCHOOLS[0]);
-  const [gradeClass, setGradeClass] = useState('Class 3B');
-  const [allergies, setAllergies] = useState<Allergen[]>(['nuts']);
-  const [specialNotes, setSpecialNotes] = useState('Please pack mild spices only.');
+  const [name, setName] = useState(initialProfile?.name || 'Oliver');
+  const [ageGroup, setAgeGroup] = useState<'nursery' | 'primary' | 'secondary'>(
+    initialProfile?.ageGroup || 'primary'
+  );
+  const [school, setSchool] = useState(initialProfile?.schoolName || PARTNER_SCHOOLS[0]);
+  const [gradeClass, setGradeClass] = useState(initialProfile?.gradeClass || 'Class 3B');
+  const [allergies, setAllergies] = useState<Allergen[]>(initialProfile?.allergies || ['nuts']);
+  const [specialNotes, setSpecialNotes] = useState(initialProfile?.notes || 'Please pack mild spices only.');
 
   const [plan, setPlan] = useState<MealCategory>(selectedPlanInitial);
   const [daysPerWeek, setDaysPerWeek] = useState<number>(5);
@@ -50,8 +55,23 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
   const [organicYoghurt, setOrganicYoghurt] = useState(true);
   const [proteinCookie, setProteinCookie] = useState(false);
 
+  useEffect(() => {
+    if (selectedPlanInitial) {
+      setPlan(selectedPlanInitial);
+    }
+  }, [selectedPlanInitial]);
+
+  useEffect(() => {
+    if (initialProfile) {
+      if (initialProfile.name) setName(initialProfile.name);
+      if (initialProfile.allergies) setAllergies(initialProfile.allergies);
+      if (initialProfile.schoolName) setSchool(initialProfile.schoolName);
+    }
+  }, [initialProfile]);
+
   // Toggle allergen
   const toggleAllergen = (alg: Allergen) => {
+    sfx.playPop();
     if (allergies.includes(alg)) {
       setAllergies(allergies.filter((a) => a !== alg));
     } else {

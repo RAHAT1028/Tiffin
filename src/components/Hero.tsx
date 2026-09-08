@@ -16,9 +16,10 @@ interface HeroProps {
   onExploreMenu: () => void;
   onOpenCustomizer: () => void;
   onOpenNutribot: () => void;
+  onOpenQuiz?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onOpenNutribot }) => {
+export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onOpenNutribot, onOpenQuiz }) => {
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden subtle-mesh">
       {/* Decorative ambient glowing flares */}
@@ -65,7 +66,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onO
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 pt-4">
               <button
                 onClick={onOpenCustomizer}
                 className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-base shadow-lg shadow-orange-600/30 hover:shadow-xl hover:shadow-orange-600/40 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2 group"
@@ -74,21 +75,22 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onO
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
 
-              <button
-                onClick={onExploreMenu}
-                className="w-full sm:w-auto px-6 py-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 font-bold text-base shadow-sm hover:shadow hover:border-slate-700 transition-all flex items-center justify-center gap-2"
-              >
-                <span>View Weekly Menu</span>
-              </button>
+              {onOpenQuiz && (
+                <button
+                  onClick={onOpenQuiz}
+                  className="w-full sm:w-auto px-5 py-4 rounded-2xl bg-gradient-to-r from-amber-600/30 to-orange-600/30 hover:from-amber-600/40 hover:to-orange-600/40 text-amber-200 border border-amber-500/40 font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2"
+                >
+                  <Sparkles className="w-4 h-4 text-amber-400" />
+                  <span>30s Taste Quiz</span>
+                </button>
+              )}
 
-              <button
-                onClick={onOpenNutribot}
-                className="w-full sm:w-auto px-4 py-4 rounded-2xl bg-orange-950/40 hover:bg-orange-900/60 text-orange-300 border border-orange-500/30 font-semibold text-sm transition-all flex items-center justify-center gap-2"
-                title="Ask AI Nutritionist"
+              <a
+                href="#visualizer"
+                className="w-full sm:w-auto px-5 py-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 font-bold text-sm shadow-sm hover:shadow hover:border-slate-700 transition-all flex items-center justify-center gap-2"
               >
-                <Sparkles className="w-4 h-4 text-orange-400" />
-                <span>AI Meal Advisor</span>
-              </button>
+                <span>🍱 Interactive Bento</span>
+              </a>
             </div>
 
             {/* Trust & Rating Bar */}
