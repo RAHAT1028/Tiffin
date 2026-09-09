@@ -183,15 +183,16 @@ export const AccountModal: React.FC<AccountModalProps> = ({
     // Build children strictly for currentUser
     let mappedChildren: ParentAccountChild[] = [];
     
-    // If Dr. Farhana Rahman, use her children (Aayan & Zoya)
-    // If another user, use their children (excluding parents)
-    const relevantFamily = (currentUser.email === 'farhana.rahman@familymail.com' || currentUser.email === 'sarah.jenkins@familymail.com')
+    // Use family members marked as Child, or all family members if none marked as Child
+    let relevantFamily = familyMembers && familyMembers.length > 0
       ? familyMembers.filter(m => m.relation === 'Child')
       : (currentUser.familyMembers && currentUser.familyMembers.length > 0
-          ? currentUser.familyMembers
-          : (familyMembers && familyMembers.length > 0 
-              ? familyMembers.filter(m => m.relation === 'Child')
-              : []));
+          ? currentUser.familyMembers.filter(m => m.relation === 'Child')
+          : []);
+
+    if (relevantFamily.length === 0 && familyMembers && familyMembers.length > 0) {
+      relevantFamily = familyMembers;
+    }
     
     if (relevantFamily.length > 0) {
       mappedChildren = relevantFamily.map((m, idx) => ({

@@ -232,15 +232,15 @@ export const FamilyMemberModal: React.FC<FamilyMemberModalProps> = ({
                       </span>
                     )}
 
-                    {familyMembers.length > 1 && onDeleteFamilyMember && !isActive && (
+                    {familyMembers.length > 1 && onDeleteFamilyMember && (
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           sfx.playPop();
                           onDeleteFamilyMember(member.id);
                         }}
-                        className="p-1 rounded-lg text-[#8C7B6D] hover:text-rose-400 hover:bg-[#261E18] transition-colors"
-                        title="Remove member"
+                        className="p-1.5 rounded-lg text-[#8C7B6D] hover:text-rose-400 hover:bg-rose-950/50 border border-transparent hover:border-rose-500/30 transition-all mt-1"
+                        title="Remove family member"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>

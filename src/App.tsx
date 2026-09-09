@@ -33,13 +33,14 @@ import { sfx } from './utils/audio';
 
 const DEFAULT_DEMO_PARENT: AuthUser = {
   id: 'usr-parent-9921',
-  name: 'Dr. Sarah Jenkins',
-  email: 'sarah.jenkins@familymail.com',
-  phone: '+44 (0) 7700 900822',
+  name: 'Dr. Farhana Rahman',
+  email: 'farhana.rahman@familymail.com',
+  phone: '+880 1712-345678',
   avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80',
   role: 'parent',
   membershipTier: 'Gold VIP',
-  walletBalance: 28.50
+  walletBalance: 28.50,
+  familyMembers: INITIAL_FAMILY_MEMBERS
 };
 
 export const App: React.FC = () => {
@@ -52,35 +53,42 @@ export const App: React.FC = () => {
     return DEFAULT_DEMO_PARENT;
   });
 
-  // Family Members State strictly tied to currentUser
+  // Family Members State strictly tied to currentUser and localStorage
   const [familyMembers, setFamilyMembers] = useState<FamilyMember[]>(() => {
     try {
+      const savedFam = localStorage.getItem('smart_tiffin_family_members');
+      if (savedFam !== null) {
+        const parsed = JSON.parse(savedFam);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      }
       const savedUser = localStorage.getItem('smart_tiffin_current_user');
       if (savedUser) {
         const user = JSON.parse(savedUser);
-        if (user.familyMembers && user.familyMembers.length > 0) {
+        if (user.familyMembers && Array.isArray(user.familyMembers) && user.familyMembers.length > 0) {
           return user.familyMembers;
         }
       }
-      const saved = localStorage.getItem('smart_tiffin_family_members');
-      if (saved) return JSON.parse(saved);
     } catch (e) {}
     return INITIAL_FAMILY_MEMBERS;
   });
 
   const [activeMember, setActiveMember] = useState<FamilyMember>(() => {
     try {
+      const savedFam = localStorage.getItem('smart_tiffin_family_members');
+      if (savedFam !== null) {
+        const parsed = JSON.parse(savedFam);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed[0];
+        }
+      }
       const savedUser = localStorage.getItem('smart_tiffin_current_user');
       if (savedUser) {
         const user = JSON.parse(savedUser);
-        if (user.familyMembers && user.familyMembers.length > 0) {
+        if (user.familyMembers && Array.isArray(user.familyMembers) && user.familyMembers.length > 0) {
           return user.familyMembers[0];
         }
-      }
-      const saved = localStorage.getItem('smart_tiffin_family_members');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed.length > 0) return parsed[0];
       }
     } catch (e) {}
     return INITIAL_FAMILY_MEMBERS[0];
@@ -252,17 +260,15 @@ export const App: React.FC = () => {
   };
 
   const handleAddFamilyMember = (newMember: FamilyMember) => {
-    setFamilyMembers((prev) => [...prev, newMember]);
+    const updated = [...familyMembers, newMember];
+    handleUpdateFamilyMembers(updated);
     setActiveMember(newMember);
     showToast(`Added ${newMember.name} to your family list!`);
   };
 
   const handleDeleteFamilyMember = (id: string) => {
-    setFamilyMembers((prev) => prev.filter((m) => m.id !== id));
-    if (activeMember.id === id) {
-      const remaining = familyMembers.filter((m) => m.id !== id);
-      if (remaining.length > 0) setActiveMember(remaining[0]);
-    }
+    const updated = familyMembers.filter((m) => m.id !== id);
+    handleUpdateFamilyMembers(updated);
     showToast('Removed family member profile.');
   };
 
