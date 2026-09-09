@@ -78,17 +78,36 @@
 - **Node.js** (v18.0.0 or higher recommended)
 - **npm** (v9.0.0 or higher)
 
-### Quick 1-Click Launch (Windows)
+### Option 1: ⚡ 1-Click Automated Launch (Recommended for Windows)
 
-Simply double-click [`run.bat`](file:///p:/web/project-jk/run.bat) or [`run.ps1`](file:///p:/web/project-jk/run.ps1). It will automatically install dependencies, configure `.env`, open your default browser at `http://localhost:3000`, and start the development server.
+The project includes dedicated one-click launcher scripts for both **Command Prompt (`.bat`)** and **PowerShell (`.ps1`)**, available at both the project level and root workspace level:
 
-### Manual Installation
+#### 📁 Inside Project Folder (`project-jk/`):
+- **[`project-jk/run.bat`](file:///p:/web/project-jk/run.bat)**: Double-click to instantly run via Windows Command Prompt (CMD).
+- **[`project-jk/run.ps1`](file:///p:/web/project-jk/run.ps1)**: Run with PowerShell for formatted colored terminal logs.
+
+#### 📁 From Root / Workspace Folder (`../`):
+- **[`run.bat`](file:///p:/web/run.bat)**: Root batch runner — automatically detects `project-jk`, configures environment, and launches the server.
+- **[`run.ps1`](file:///p:/web/run.ps1)**: Root PowerShell runner with directory auto-switching.
+
+> **What the 1-Click Runner Scripts Automate:**
+> 1. 📦 Checks if `node_modules` exists; if not, automatically executes `npm install`.
+> 2. ⚙️ Checks if `.env` exists; if not, automatically generates `.env` from `.env.example`.
+> 3. 🌐 Opens your default web browser automatically at `http://localhost:3000`.
+> 4. 🚀 Starts the development server with live Hot-Module Replacement (`npm run dev`).
+
+---
+
+### Option 2: 🛠️ Manual Terminal Installation (CLI)
+
+If you prefer to run commands manually in your terminal (Bash, PowerShell, or Zsh):
 
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/RAHAT1028/Tiffin.git
    cd Tiffin
    ```
+   *(Or navigate into `cd project-jk` if working inside the workspace).*
 
 2. **Install Dependencies**:
    ```bash
@@ -96,48 +115,86 @@ Simply double-click [`run.bat`](file:///p:/web/project-jk/run.bat) or [`run.ps1`
    ```
 
 3. **Configure Environment Variables**:
-   Create a `.env` file (or copy from `.env.example`):
+   Create a `.env` file by copying `.env.example`:
+   ```bash
+   # Windows (CMD)
+   copy .env.example .env
+
+   # Windows (PowerShell)
+   Copy-Item .env.example -Destination .env
+
+   # Mac / Linux
+   cp .env.example .env
+   ```
+   *Optional:* Add your Gemini API key inside `.env`:
    ```env
    PORT=3000
-   GEMINI_API_KEY="your_gemini_api_key_here" # Optional
+   GEMINI_API_KEY="your_gemini_api_key_here"
    ```
-   *(Note: The application has built-in clinical fallback responses if no API key is provided).*
+   *(Note: The application has built-in paediatric clinical fallback logic if no API key is set).*
 
 4. **Start Development Server**:
    ```bash
    npm run dev
    ```
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 5. **Build for Production**:
    ```bash
    npm run build
    ```
 
-6. **Start Production Server**:
+6. **Run Production Server**:
    ```bash
    npm start
    ```
 
 ---
 
-## 📁 Project Architecture
+## 📁 Project Architecture & Runner Structure
 
 ```text
-├── run.bat                     # 1-Click Windows Batch Runner
-├── run.ps1                     # 1-Click PowerShell Runner
-├── index.html                  # HTML5 Entry Point with Google Fonts (Plus Jakarta Sans)
-├── server.ts                   # Express Backend & Vite SSR/HMR Development Server
-├── vite.config.ts              # Vite & Tailwind CSS v4 Configuration
-├── package.json                # Project Dependencies & Scripts
-├── package-lock.json           # Locked Dependency Manifest
-├── src/
-│   ├── main.tsx                # React Root Mount
-│   ├── App.tsx                 # Core State, Toasts, Cart, Auth & Family State Management
-│   ├── index.css               # Tailwind v4 Tokens, Animations, Glassmorphism
-│   ├── types/                  # TypeScript Types & Interfaces (Meals, Plans, Invoices, Members)
-│   ├── utils/
-│   │   ├── audio.ts            # Sound Effects Engine (Web Audio API)
-│   │   └── pdfGenerator.ts     # Certified Pediatric Nutrition Report & Tax Invoice PDF Generator
+├── run.bat                     # Root 1-Click Windows Batch Runner (Auto cd project-jk)
+├── run.ps1                     # Root 1-Click PowerShell Runner (Auto cd project-jk)
+├── project-jk/
+│   ├── run.bat                 # Project 1-Click Windows Batch Runner
+│   ├── run.ps1                 # Project 1-Click PowerShell Runner
+│   ├── index.html              # HTML5 Entry Point with Google Fonts (Plus Jakarta Sans)
+│   ├── server.ts               # Express Backend & Vite SSR/HMR Development Server
+│   ├── vite.config.ts          # Vite & Tailwind CSS v4 Configuration
+│   ├── package.json            # Project Dependencies & Scripts
+│   ├── package-lock.json       # Locked Dependency Manifest
+│   ├── src/
+│   │   ├── main.tsx            # React Root Mount
+│   │   ├── App.tsx             # Core State, Toasts, Cart, Auth & Family State Management
+│   │   ├── index.css           # Tailwind v4 Tokens, Animations, Glassmorphism
+│   │   ├── types/              # TypeScript Types & Interfaces (Meals, Plans, Invoices, Members)
+│   │   ├── utils/
+│   │   │   ├── audio.ts        # Sound Effects Engine (Web Audio API)
+│   │   │   └── pdfGenerator.ts # Certified Pediatric Nutrition Report & Tax Invoice PDF Generator
+│   │   ├── data/
+│   │   │   └── mockData.ts     # 77+ Weekly Meals, Partner Restaurants, Plans & Nutrition Data
+│   │   └── components/
+│   │       ├── Navbar.tsx      # Responsive Header with Wallet Pill, Cart Count & Auth
+│   │       ├── Hero.tsx        # Animated Hero Banner, Value Proposition & Quick CTA
+│   │       ├── FamilyMembersModal.tsx # Multi-Child / Family Hub Manager (Add/Remove/Assign)
+│   │       ├── WeeklyMenu.tsx  # 7-Day Lunch Menu with Dietary, Price Range & Sort Filters
+│   │       ├── InteractiveTiffinVisualizer.tsx # 3D 4-Compartment Insulated Bento Builder
+│   │       ├── TopRestaurants.tsx # Dhaka Partner Restaurants & Cloud Kitchen Ordering
+│   │       ├── KidNutritionCalculator.tsx # Pediatric Calorie & RDA Calculator with PDF Export
+│   │       ├── MealPlanSelector.tsx # 3-Tier Subscription Cards (Basic, Standard, Premium)
+│   │       ├── TiffinCustomizer.tsx # Interactive Duration, Portion & Add-On Configurator
+│   │       ├── LiveTracker.tsx # IoT Thermal Telemetry & Real-Time Delivery Steps
+│   │       ├── NutribotChat.tsx # AI Paediatric Dietician Floating Chatbot
+│   │       ├── AccountModal.tsx # Parent Dashboard, Child Profiles, Deliveries, Invoices & PDF
+│   │       ├── AuthModal.tsx   # Authentication & Welcome Bonus Modal
+│   │       ├── CartDrawer.tsx  # Multi-Item Cart, Family Discounts & Checkout
+│   │       ├── MealModal.tsx   # Deep-Dive Meal Modal with Macronutrient Breakdown
+│   │       ├── HygieneSection.tsx # ISO 22000 & 85°C Thermal Autoclave Sanitization
+│   │       ├── Testimonials.tsx # Dhaka Parents Reviews & Partner Schools Showcase
+│   │       ├── MobileBottomNav.tsx # Mobile Bottom Navigation Bar
+│   │       └── Footer.tsx      # Contact, Commissary Locations, Policies & Hotline
+```
 │   ├── data/
 │   │   └── mockData.ts         # 77+ Weekly Meals, Partner Restaurants, Plans & Nutrition Data
 │   └── components/
