@@ -912,7 +912,7 @@ export const InteractiveTiffinVisualizer: React.FC<InteractiveTiffinVisualizerPr
                   </span>
                 </div>
                 <div className="text-right">
-                  <span className="text-xl font-black text-orange-400">$6.80</span>
+                  <span className="text-xl font-black text-orange-400">৳350</span>
                   <span className="text-[11px] text-[#A8988A] block">per day</span>
                 </div>
               </div>
@@ -943,7 +943,7 @@ export const InteractiveTiffinVisualizer: React.FC<InteractiveTiffinVisualizerPr
                 className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-black text-sm sm:text-base shadow-xl shadow-orange-600/30 hover:shadow-2xl hover:shadow-orange-600/50 hover:scale-[1.01] transition-all flex items-center justify-center gap-2.5 active:scale-95 shimmer-effect animate-glow-orange cursor-pointer"
               >
                 <Utensils className="w-5 h-5" />
-                <span>Add This Custom Bento to Cart ($6.80/day)</span>
+                <span>Add This Custom Bento to Cart (৳350/day)</span>
                 <ChevronRight className="w-4 h-4 ml-1" />
               </button>
 

@@ -13,7 +13,10 @@ import {
   Check, 
   Utensils,
   User,
-  Users
+  Users,
+  Tag,
+  ArrowUpDown,
+  Banknote
 } from 'lucide-react';
 import { MealModal } from './MealModal';
 
@@ -38,6 +41,8 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
 }) => {
   const [selectedDay, setSelectedDay] = useState<typeof DAYS_OF_WEEK[number]>('Monday');
   const [selectedCategory, setSelectedCategory] = useState<'all' | MealCategory>('all');
+  const [priceFilter, setPriceFilter] = useState<'all' | 'under250' | '250to360' | 'above360'>('all');
+  const [sortOption, setSortOption] = useState<'default' | 'price-asc' | 'price-desc' | 'protein' | 'rating'>('default');
   const [onlyVeg, setOnlyVeg] = useState(false);
   const [onlyNutFree, setOnlyNutFree] = useState(false);
   const [onlyHalal, setOnlyHalal] = useState(false);
@@ -62,6 +67,11 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
     setSelectedCategory(cat);
   };
 
+  const handlePriceFilterSelect = (pf: 'all' | 'under250' | '250to360' | 'above360') => {
+    sfx.playPop();
+    setPriceFilter(pf);
+  };
+
   const handleToggleVeg = () => {
     sfx.playPop();
     setOnlyVeg(!onlyVeg);
@@ -82,16 +92,32 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
     setOnlyHighProtein(!onlyHighProtein);
   };
 
-  // Filter logic
+  // Filter & Sort logic
   const filteredMeals = WEEKLY_MEALS.filter((meal) => {
     if (meal.dayOfWeek !== selectedDay) return false;
     if (selectedCategory !== 'all' && meal.category !== selectedCategory) return false;
+    
+    // Price range filtering
+    if (priceFilter === 'under250' && meal.pricePerDay >= 250) return false;
+    if (priceFilter === '250to360' && (meal.pricePerDay < 250 || meal.pricePerDay > 360)) return false;
+    if (priceFilter === 'above360' && meal.pricePerDay <= 360) return false;
+
     if (onlyVeg && !meal.isVegetarian) return false;
     if (onlyNutFree && !meal.isNutFree) return false;
     if (onlyHalal && !meal.isHalal) return false;
     if (onlyHighProtein && meal.nutrition.proteinGrams < 25) return false;
     return true;
+  }).sort((a, b) => {
+    if (sortOption === 'price-asc') return a.pricePerDay - b.pricePerDay;
+    if (sortOption === 'price-desc') return b.pricePerDay - a.pricePerDay;
+    if (sortOption === 'protein') return b.nutrition.proteinGrams - a.nutrition.proteinGrams;
+    if (sortOption === 'rating') return (b.rating || 4.8) - (a.rating || 4.8);
+    return 0;
   });
+
+  const dayAllMeals = WEEKLY_MEALS.filter(m => m.dayOfWeek === selectedDay);
+  const minDayPrice = dayAllMeals.length > 0 ? Math.min(...dayAllMeals.map(m => m.pricePerDay)) : 190;
+  const maxDayPrice = dayAllMeals.length > 0 ? Math.max(...dayAllMeals.map(m => m.pricePerDay)) : 480;
 
   return (
     <section id="menu" className="py-20 bg-[#1C1712] text-white relative">
@@ -236,31 +262,97 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
           })}
         </div>
 
-        {/* Plan Category Filter & Dish Count */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8">
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-2 sm:pb-0 no-scrollbar">
-            <span className="text-xs font-bold text-[#9E8C7D] uppercase mr-1 flex items-center gap-1 flex-shrink-0">
-              <Filter className="w-3.5 h-3.5 text-orange-400" /> Filter:
-            </span>
-            {(['all', 'basic', 'standard', 'premium'] as const).map((cat) => (
-              <button
-                key={cat}
-                onClick={() => handleCategorySelect(cat)}
-                className={`px-3 sm:px-4 py-1.5 rounded-xl text-xs font-bold capitalize transition-all whitespace-nowrap flex-shrink-0 active:scale-95 ${
-                  selectedCategory === cat
-                    ? 'bg-orange-600 text-white shadow-md shadow-orange-600/20'
-                    : 'bg-[#261E18] text-[#D4C5B5] border border-amber-950/80 hover:bg-[#2E241E] hover:border-orange-500/40'
-                }`}
-              >
-                {cat === 'all' ? 'All Plans' : `${cat} Plan`}
-              </button>
-            ))}
+        {/* Plan Category, Price Range Filter & Sorting Bar */}
+        <div className="space-y-4 mb-8 bg-[#211913] p-4 rounded-2xl border border-orange-500/20 shadow-xl">
+          
+          {/* Row 1: Plan Categories & Price Range Tabs */}
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            
+            {/* Plan Category Filter */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 no-scrollbar">
+              <span className="text-xs font-bold text-[#9E8C7D] uppercase mr-1 flex items-center gap-1 flex-shrink-0">
+                <Filter className="w-3.5 h-3.5 text-orange-400" /> Plan:
+              </span>
+              {(['all', 'basic', 'standard', 'premium'] as const).map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => handleCategorySelect(cat)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold capitalize transition-all whitespace-nowrap flex-shrink-0 active:scale-95 ${
+                    selectedCategory === cat
+                      ? 'bg-orange-600 text-white shadow-md shadow-orange-600/20'
+                      : 'bg-[#15100C] text-[#D4C5B5] border border-orange-500/20 hover:bg-[#2E241E] hover:border-orange-500/40'
+                  }`}
+                >
+                  {cat === 'all' ? 'All Plans' : `${cat} Plan`}
+                </button>
+              ))}
+            </div>
+
+            {/* Price Range Filter Pills */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 no-scrollbar">
+              <span className="text-xs font-bold text-orange-400 uppercase mr-1 flex items-center gap-1 flex-shrink-0">
+                <Banknote className="w-3.5 h-3.5 text-amber-400" /> Price:
+              </span>
+              {[
+                { key: 'all', label: `All (৳${minDayPrice}–৳${maxDayPrice})` },
+                { key: 'under250', label: 'Under ৳250' },
+                { key: '250to360', label: '৳250 – ৳360' },
+                { key: 'above360', label: '৳360+' }
+              ].map((pf) => (
+                <button
+                  key={pf.key}
+                  onClick={() => handlePriceFilterSelect(pf.key as any)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap flex-shrink-0 active:scale-95 ${
+                    priceFilter === pf.key
+                      ? 'bg-amber-500 text-black shadow-md shadow-amber-500/30'
+                      : 'bg-[#15100C] text-[#D4C5B5] border border-orange-500/20 hover:bg-[#2E241E] hover:border-orange-500/40'
+                  }`}
+                >
+                  {pf.label}
+                </button>
+              ))}
+            </div>
+
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-bold text-orange-400 bg-[#261E18] px-3.5 py-1.5 rounded-xl border border-orange-500/20 w-fit">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>{filteredMeals.length} Fresh Tiffins on {selectedDay}</span>
+          {/* Row 2: Sort and Count summary */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-orange-500/15">
+            
+            {/* Sort Control */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-[#9E8C7D] uppercase flex items-center gap-1">
+                <ArrowUpDown className="w-3.5 h-3.5 text-orange-400" /> Sort by:
+              </span>
+              <select
+                value={sortOption}
+                onChange={(e) => {
+                  sfx.playPop();
+                  setSortOption(e.target.value as any);
+                }}
+                className="bg-[#15100C] text-xs font-bold text-[#F5EBE1] border border-orange-500/30 rounded-xl px-3 py-1.5 focus:outline-none focus:border-orange-500 cursor-pointer"
+              >
+                <option value="default">Default / Recommended</option>
+                <option value="price-asc">Price: Low to High (৳ ↗)</option>
+                <option value="price-desc">Price: High to Low (৳ ↘)</option>
+                <option value="protein">Highest Protein (g)</option>
+                <option value="rating">Top Rated ⭐</option>
+              </select>
+            </div>
+
+            {/* Results Count & Range Indicator */}
+            <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-amber-400 bg-[#15100C] px-3 py-1 rounded-xl border border-orange-500/20">
+                <Tag className="w-3.5 h-3.5 text-orange-400" />
+                <span>Price Range: ৳{minDayPrice} – ৳{maxDayPrice}/day</span>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs font-bold text-orange-400 bg-[#15100C] px-3 py-1 rounded-xl border border-orange-500/20">
+                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                <span>{filteredMeals.length} Meals Available</span>
+              </div>
+            </div>
+
           </div>
+
         </div>
 
         {/* Meals Grid */}
