@@ -156,14 +156,19 @@ If you prefer to run commands manually in your terminal (Bash, PowerShell, or Zs
 ```text
 ├── run.bat                     # Root 1-Click Windows Batch Runner (Auto cd project-jk)
 ├── run.ps1                     # Root 1-Click PowerShell Runner (Auto cd project-jk)
+├── TIFFIN_Smart_School_Tiffin_Presentation.pptx # 13-Slide PowerPoint Presentation Deck
+├── presentation.html           # Interactive 13-Slide Presentation Web App (Fullscreen)
 ├── project-jk/
 │   ├── run.bat                 # Project 1-Click Windows Batch Runner
 │   ├── run.ps1                 # Project 1-Click PowerShell Runner
+│   ├── presentation.html       # Presentation Slide Deck Web App
+│   ├── TIFFIN_Smart_School_Tiffin_Presentation.pptx # PPTX Slide Deck
 │   ├── index.html              # HTML5 Entry Point with Google Fonts (Plus Jakarta Sans)
 │   ├── server.ts               # Express Backend & Vite SSR/HMR Development Server
 │   ├── vite.config.ts          # Vite & Tailwind CSS v4 Configuration
 │   ├── package.json            # Project Dependencies & Scripts
 │   ├── package-lock.json       # Locked Dependency Manifest
+│   ├── public/                 # Public static assets & presentation decks
 │   ├── src/
 │   │   ├── main.tsx            # React Root Mount
 │   │   ├── App.tsx             # Core State, Toasts, Cart, Auth & Family State Management
@@ -194,29 +199,6 @@ If you prefer to run commands manually in your terminal (Bash, PowerShell, or Zs
 │   │       ├── Testimonials.tsx # Dhaka Parents Reviews & Partner Schools Showcase
 │   │       ├── MobileBottomNav.tsx # Mobile Bottom Navigation Bar
 │   │       └── Footer.tsx      # Contact, Commissary Locations, Policies & Hotline
-```
-│   ├── data/
-│   │   └── mockData.ts         # 77+ Weekly Meals, Partner Restaurants, Plans & Nutrition Data
-│   └── components/
-│       ├── Navbar.tsx          # Responsive Header with Wallet Pill, Cart Count & Auth
-│       ├── Hero.tsx            # Animated Hero Banner, Value Proposition & Quick CTA
-│       ├── FamilyMembersModal.tsx # Multi-Child / Family Hub Manager (Add/Remove/Assign)
-│       ├── WeeklyMenu.tsx      # 7-Day Lunch Menu with Dietary, Price Range & Sort Filters
-│       ├── InteractiveTiffinVisualizer.tsx # 3D 4-Compartment Insulated Bento Builder
-│       ├── TopRestaurants.tsx  # Dhaka Partner Restaurants & Cloud Kitchen Ordering
-│       ├── KidNutritionCalculator.tsx # Pediatric Calorie & RDA Calculator with PDF Export
-│       ├── MealPlanSelector.tsx # 3-Tier Subscription Cards (Basic, Standard, Premium)
-│       ├── TiffinCustomizer.tsx # Interactive Duration, Portion & Add-On Configurator
-│       ├── LiveTracker.tsx     # IoT Thermal Telemetry & Real-Time Delivery Steps
-│       ├── NutribotChat.tsx    # AI Paediatric Dietician Floating Chatbot
-│       ├── AccountModal.tsx    # Parent Dashboard, Child Profiles, Deliveries, Invoices & PDF
-│       ├── AuthModal.tsx       # Authentication & Welcome Bonus Modal
-│       ├── CartDrawer.tsx      # Multi-Item Cart, Family Discounts & Checkout
-│       ├── MealModal.tsx       # Deep-Dive Meal Modal with Macronutrient Breakdown
-│       ├── HygieneSection.tsx  # ISO 22000 & 85°C Thermal Autoclave Sanitization
-│       ├── Testimonials.tsx    # Dhaka Parents Reviews & Partner Schools Showcase
-│       ├── MobileBottomNav.tsx # Mobile Bottom Navigation Bar
-│       └── Footer.tsx          # Contact, Commissary Locations, Policies & Hotline
 ```
 
 ---

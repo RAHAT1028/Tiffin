@@ -84,6 +84,18 @@ export const Footer: React.FC = () => {
                   <ArrowUpRight className="w-3 h-3 opacity-60" />
                 </a>
               </li>
+              <li>
+                <a 
+                  href="/presentation.html" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => sfx.playPop()} 
+                  className="py-1 inline-flex items-center gap-1 text-amber-400 hover:text-amber-300 font-bold transition-colors"
+                >
+                  <span>📊 Project Presentation (13 Slides)</span>
+                  <ArrowUpRight className="w-3 h-3 opacity-80" />
+                </a>
+              </li>
             </ul>
           </div>
 
