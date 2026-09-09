@@ -93,26 +93,29 @@ export const LiveTracker: React.FC = () => {
             </div>
 
             {/* Live Sensor Metrics */}
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="bg-[#15100C] border border-orange-500/30 px-4 py-2.5 rounded-2xl flex items-center gap-2.5 shadow-md animate-glow-orange">
-                <ThermometerSun className="w-4 h-4 text-orange-400 animate-pulse" />
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 w-full lg:w-auto">
+              <div className="bg-[#15100C] border border-orange-500/30 px-3.5 py-2 rounded-2xl flex items-center gap-2.5 shadow-md animate-glow-orange">
+                <ThermometerSun className="w-4 h-4 text-orange-400 animate-pulse flex-shrink-0" />
                 <div>
                   <span className="text-[10px] uppercase font-bold text-[#A8988A] block">Core Tiffin Temp</span>
-                  <span className="text-sm font-extrabold text-orange-400">68.2°C (Optimal Warm)</span>
+                  <span className="text-xs sm:text-sm font-extrabold text-orange-400">68.2°C (Optimal Warm)</span>
                 </div>
               </div>
 
-              <div className="bg-[#15100C] border border-amber-500/30 px-4 py-2.5 rounded-2xl flex items-center gap-2.5 shadow-md animate-glow-amber">
-                <Clock className="w-4 h-4 text-amber-400" />
+              <div className="bg-[#15100C] border border-amber-500/30 px-3.5 py-2 rounded-2xl flex items-center gap-2.5 shadow-md animate-glow-amber">
+                <Clock className="w-4 h-4 text-amber-400 flex-shrink-0" />
                 <div>
                   <span className="text-[10px] uppercase font-bold text-[#A8988A] block">Estimated Arrival</span>
-                  <span className="text-sm font-extrabold text-amber-300">11:35 AM (20m to bell)</span>
+                  <span className="text-xs sm:text-sm font-extrabold text-amber-300">11:35 AM (20m to bell)</span>
                 </div>
               </div>
 
               <button
-                onClick={() => setActiveStep((prev) => (prev + 1) % 4)}
-                className="p-2.5 rounded-2xl bg-[#15100C] hover:bg-[#2F251E] border border-orange-500/30 text-[#D4C5B5] hover:text-[#F5EBE1] text-xs font-bold flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95"
+                onClick={() => {
+                  sfx.playPop();
+                  setActiveStep((prev) => (prev + 1) % 4);
+                }}
+                className="p-2.5 rounded-2xl bg-[#15100C] hover:bg-[#2F251E] border border-orange-500/30 text-[#D4C5B5] hover:text-[#F5EBE1] text-xs font-bold flex items-center justify-center gap-1.5 transition-all hover:scale-105 active:scale-95 w-full sm:w-auto"
                 title="Simulate step advance"
               >
                 <RefreshCw className="w-3.5 h-3.5" />

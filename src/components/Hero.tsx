@@ -50,7 +50,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onO
             </p>
 
             {/* Key Value Proposition Checkmarks */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1 text-[#D4C5B5] text-xs sm:text-sm font-medium">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 pt-1 text-[#D4C5B5] text-xs sm:text-sm font-medium">
               <div className="flex items-center gap-2 justify-center lg:justify-start">
                 <CheckCircle2 className="w-4 h-4 text-orange-500 flex-shrink-0" />
                 <span>Insulated at 65°C+</span>
@@ -66,19 +66,25 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onO
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 pt-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 pt-4">
               <button
-                onClick={onOpenCustomizer}
-                className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-bold text-base shadow-lg shadow-orange-600/30 hover:shadow-2xl hover:shadow-orange-600/50 hover:-translate-y-1 transition-all flex items-center justify-center gap-2 group shimmer-effect animate-glow-orange"
+                onClick={() => {
+                  sfx.playPop();
+                  onOpenCustomizer();
+                }}
+                className="w-full sm:w-auto px-6 sm:px-7 py-3.5 sm:py-4 rounded-2xl bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-orange-600/30 hover:shadow-2xl hover:shadow-orange-600/50 hover:-translate-y-0.5 active:scale-95 transition-all flex items-center justify-center gap-2 group shimmer-effect animate-glow-orange"
               >
                 <span>Customise Tiffin Subscription</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
               </button>
 
               {onOpenQuiz && (
                 <button
-                  onClick={onOpenQuiz}
-                  className="w-full sm:w-auto px-5 py-4 rounded-2xl bg-[#261E18] hover:bg-[#30261F] text-amber-300 border border-amber-500/40 hover:border-amber-400 font-bold text-sm shadow-md hover:shadow-amber-500/20 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"
+                  onClick={() => {
+                    sfx.playPop();
+                    onOpenQuiz();
+                  }}
+                  className="w-full sm:w-auto px-4 sm:px-5 py-3.5 sm:py-4 rounded-2xl bg-[#261E18] hover:bg-[#30261F] text-amber-300 border border-amber-500/40 hover:border-amber-400 font-bold text-xs sm:text-sm shadow-md hover:shadow-amber-500/20 active:scale-95 transition-all flex items-center justify-center gap-2"
                 >
                   <Sparkles className="w-4 h-4 text-amber-400 animate-spin-slow" />
                   <span>30s Taste Quiz</span>
@@ -87,14 +93,15 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onO
 
               <a
                 href="#visualizer"
-                className="w-full sm:w-auto px-5 py-4 rounded-2xl bg-[#241D17] hover:bg-[#2C231C] text-[#D4C5B5] border border-orange-500/20 hover:text-white hover:border-orange-500/50 font-bold text-sm shadow-sm hover:shadow-lg hover:shadow-orange-950/40 hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"
+                onClick={() => sfx.playPop()}
+                className="w-full sm:w-auto px-4 sm:px-5 py-3.5 sm:py-4 rounded-2xl bg-[#241D17] hover:bg-[#2C231C] text-[#D4C5B5] border border-orange-500/20 hover:text-white hover:border-orange-500/50 font-bold text-xs sm:text-sm shadow-sm hover:shadow-lg hover:shadow-orange-950/40 active:scale-95 transition-all flex items-center justify-center gap-2"
               >
                 <span>🍱 Interactive Bento</span>
               </a>
             </div>
 
             {/* Trust & Rating Bar */}
-            <div className="pt-6 border-t border-amber-950/60 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-[#9E8C7D]">
+            <div className="pt-6 border-t border-amber-950/60 flex flex-wrap items-center justify-center lg:justify-start gap-4 sm:gap-6 text-xs text-[#9E8C7D]">
               <div className="flex items-center gap-1.5">
                 <div className="flex -space-x-2 overflow-hidden">
                   <img className="inline-block h-8 w-8 rounded-full ring-2 ring-[#1C1712]" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80" alt="Parent" />
@@ -107,7 +114,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onO
                       <Star key={i} className="w-3.5 h-3.5 fill-current" />
                     ))}
                   </div>
-                  <span className="font-semibold text-[#FFFDF8]">4.9/5 from 1,200+ Parents</span>
+                  <span className="font-semibold text-[#FFFDF8]">4.9/5 from 1,200+ Dhaka Parents</span>
                 </div>
               </div>
 
@@ -115,7 +122,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onO
 
               <div className="flex items-center gap-2">
                 <Award className="w-4 h-4 text-orange-500 animate-pulse" />
-                <span className="font-medium text-[#D4C5B5]">ISO 22000 & School Board Approved</span>
+                <span className="font-medium text-[#D4C5B5]">BSTI & School Board Approved</span>
               </div>
             </div>
 

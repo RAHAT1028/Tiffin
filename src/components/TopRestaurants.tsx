@@ -114,7 +114,7 @@ export const TopRestaurants: React.FC<TopRestaurantsProps> = ({
         </div>
 
         {/* Cuisine Filter Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8">
+        <div className="flex items-center gap-2 overflow-x-auto pb-3 no-scrollbar mb-8">
           {cuisines.map((c) => (
             <button
               key={c}
@@ -122,7 +122,7 @@ export const TopRestaurants: React.FC<TopRestaurantsProps> = ({
                 sfx.playPop();
                 setSelectedCuisine(c);
               }}
-              className={`px-4 py-2 rounded-xl text-xs font-bold capitalize transition-all whitespace-nowrap ${
+              className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold capitalize transition-all whitespace-nowrap flex-shrink-0 active:scale-95 ${
                 selectedCuisine === c
                   ? 'bg-orange-600 text-white shadow-md shadow-orange-600/25'
                   : 'bg-[#261E18] text-[#D4C5B5] border border-amber-950/80 hover:bg-[#2F251E] hover:border-orange-500/40'
@@ -134,7 +134,7 @@ export const TopRestaurants: React.FC<TopRestaurantsProps> = ({
         </div>
 
         {/* Restaurant Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {filteredRestaurants.map((restaurant) => (
             <div
               key={restaurant.id}

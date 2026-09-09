@@ -150,10 +150,10 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
         </div>
 
         {/* Dietary toggle chips */}
-        <div className="flex flex-wrap items-center gap-2 text-xs font-semibold mb-8">
+        <div className="flex items-center gap-2 overflow-x-auto pb-3 no-scrollbar mb-6">
           <button
             onClick={handleToggleVeg}
-            className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 whitespace-nowrap text-xs font-semibold flex-shrink-0 active:scale-95 ${
               onlyVeg
                 ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/20'
                 : 'bg-[#261E18] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2E241E] hover:border-orange-500/40'
@@ -164,7 +164,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
           </button>
           <button
             onClick={handleToggleHalal}
-            className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 whitespace-nowrap text-xs font-semibold flex-shrink-0 active:scale-95 ${
               onlyHalal
                 ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/20'
                 : 'bg-[#261E18] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2E241E] hover:border-orange-500/40'
@@ -175,7 +175,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
           </button>
           <button
             onClick={handleToggleHighProtein}
-            className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 whitespace-nowrap text-xs font-semibold flex-shrink-0 active:scale-95 ${
               onlyHighProtein
                 ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/20'
                 : 'bg-[#261E18] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2E241E] hover:border-orange-500/40'
@@ -187,7 +187,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
           </button>
           <button
             onClick={handleToggleNutFree}
-            className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-2 rounded-xl border transition-all flex items-center gap-1.5 whitespace-nowrap text-xs font-semibold flex-shrink-0 active:scale-95 ${
               onlyNutFree
                 ? 'bg-orange-600 text-white border-orange-600 shadow-md shadow-orange-600/20'
                 : 'bg-[#261E18] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2E241E] hover:border-orange-500/40'
@@ -200,40 +200,40 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
         </div>
 
         {/* Day of Week Selector Bar */}
-        <div className="flex overflow-x-auto pb-4 gap-3 no-scrollbar mb-8">
+        <div className="flex overflow-x-auto pb-3 gap-2.5 sm:gap-3 no-scrollbar mb-6 snap-x">
           {DAYS_OF_WEEK.map((day) => {
             const isSelected = selectedDay === day;
             return (
               <button
                 key={day}
                 onClick={() => handleDaySelect(day)}
-                className={`flex-1 min-w-[140px] p-3.5 rounded-2xl text-left font-bold transition-all border ${
+                className={`flex-1 min-w-[115px] sm:min-w-[140px] p-3 sm:p-3.5 rounded-2xl text-left font-bold transition-all border snap-start active:scale-95 flex-shrink-0 ${
                   isSelected
                     ? 'bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 text-white border-orange-500 shadow-lg shadow-orange-600/25 scale-[1.02]'
                     : 'bg-[#261E18] hover:bg-[#2E241E] text-[#9E8C7D] hover:text-[#D4C5B5] border-amber-950/80'
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className={`text-xs uppercase tracking-wider font-bold ${isSelected ? 'text-orange-100' : 'text-orange-500/80'}`}>Day</span>
+                  <span className={`text-[10px] sm:text-xs uppercase tracking-wider font-bold ${isSelected ? 'text-orange-100' : 'text-orange-500/80'}`}>Day</span>
                   {isSelected && <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span>}
                 </div>
-                <span className="text-lg font-extrabold block mt-0.5 text-white">{day}</span>
+                <span className="text-base sm:text-lg font-extrabold block mt-0.5 text-white">{day}</span>
               </button>
             );
           })}
         </div>
 
         {/* Plan Category Filter & Dish Count */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0">
-            <span className="text-xs font-bold text-[#9E8C7D] uppercase mr-2 flex items-center gap-1">
-              <Filter className="w-3.5 h-3.5 text-orange-400" /> Filter Plan:
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8">
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-2 sm:pb-0 no-scrollbar">
+            <span className="text-xs font-bold text-[#9E8C7D] uppercase mr-1 flex items-center gap-1 flex-shrink-0">
+              <Filter className="w-3.5 h-3.5 text-orange-400" /> Filter:
             </span>
             {(['all', 'basic', 'standard', 'premium'] as const).map((cat) => (
               <button
                 key={cat}
                 onClick={() => handleCategorySelect(cat)}
-                className={`px-4 py-1.5 rounded-xl text-xs font-bold capitalize transition-all ${
+                className={`px-3 sm:px-4 py-1.5 rounded-xl text-xs font-bold capitalize transition-all whitespace-nowrap flex-shrink-0 active:scale-95 ${
                   selectedCategory === cat
                     ? 'bg-orange-600 text-white shadow-md shadow-orange-600/20'
                     : 'bg-[#261E18] text-[#D4C5B5] border border-amber-950/80 hover:bg-[#2E241E] hover:border-orange-500/40'
@@ -246,7 +246,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
 
           <div className="flex items-center gap-2 text-xs font-bold text-orange-400 bg-[#261E18] px-3.5 py-1.5 rounded-xl border border-orange-500/20 w-fit">
             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>Showing {filteredMeals.length} Fresh Tiffin Choices for {selectedDay}</span>
+            <span>{filteredMeals.length} Fresh Tiffins on {selectedDay}</span>
           </div>
         </div>
 

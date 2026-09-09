@@ -153,7 +153,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </a>
           </nav>
 
-          {/* Right Action buttons (Desktop) */}
+          {/* Right Action buttons (Desktop - lg and above) */}
           <div className="hidden lg:flex items-center gap-2 flex-shrink-0">
 
             {/* Audio Toggle */}
@@ -271,31 +271,42 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
           </div>
 
-          {/* Mobile & Tablet Top Bar (< xl screens) */}
-          <div className="flex xl:hidden items-center gap-2">
+          {/* Mobile & Tablet Top Bar (< lg screens) */}
+          <div className="flex lg:hidden items-center gap-1.5 sm:gap-2">
+            {/* Audio Toggle */}
+            <button
+              onClick={toggleSound}
+              className="p-2 rounded-xl bg-[#261E18] text-[#D4C5B5] border border-orange-500/25 active:scale-95 transition-all"
+              title="Toggle sound"
+              aria-label="Toggle Sound"
+            >
+              {soundEnabled ? <Volume2 className="w-4 h-4 text-orange-400" /> : <VolumeX className="w-4 h-4 text-[#8C7B6D]" />}
+            </button>
+
+            {/* Family / Profile Avatar trigger */}
             {currentUser ? (
               <button
                 onClick={() => {
                   sfx.playPop();
                   onOpenAccount();
                 }}
-                className="p-1 rounded-xl bg-[#261E18] border border-orange-500/40 flex items-center justify-center"
-                title="Parent Account"
+                className="p-1 rounded-xl bg-[#261E18] border border-orange-500/40 flex items-center justify-center active:scale-95 transition-all"
+                title="Parent Account Portal"
                 aria-label="Parent Account"
               >
                 <img
                   src={currentUser.avatar}
                   alt={currentUser.name}
-                  className="w-6 h-6 rounded-lg object-cover"
+                  className="w-7 h-7 rounded-lg object-cover ring-1 ring-orange-500"
                 />
               </button>
             ) : (
               <button
                 onClick={() => {
                   sfx.playPop();
-                  onOpenAuth();
+                  onOpenAuth?.();
                 }}
-                className="p-2 rounded-xl bg-[#261E18] text-orange-400 border border-orange-500/40 hover:text-white"
+                className="p-2 rounded-xl bg-[#261E18] text-orange-400 border border-orange-500/40 hover:text-white active:scale-95 transition-all"
                 title="Parent Sign In"
                 aria-label="Parent Sign In"
               >
@@ -303,24 +314,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             )}
 
-            <button
-              onClick={toggleSound}
-              className="p-2 rounded-full bg-[#261E18] text-[#D4C5B5] border border-orange-500/25"
-              title="Toggle sound"
-            >
-              {soundEnabled ? <Volume2 className="w-4 h-4 text-orange-400" /> : <VolumeX className="w-4 h-4" />}
-            </button>
-
+            {/* Cart Button */}
             <button
               onClick={() => {
                 sfx.playPop();
                 onOpenCart();
               }}
-              className="relative p-2 rounded-xl bg-orange-600 text-white shadow-sm flex items-center gap-1.5 px-3"
-              aria-label="Cart"
+              className="relative p-2 rounded-xl bg-orange-600 text-white shadow-md shadow-orange-600/30 flex items-center gap-1 px-2.5 sm:px-3 active:scale-95 transition-all"
+              aria-label="Shopping Cart"
             >
               <ShoppingBag className="w-4 h-4" />
-              <span className="text-xs font-bold sm:inline hidden">Cart</span>
               {cartCount > 0 && (
                 <span className="px-1.5 py-0.2 text-[10px] font-black bg-white text-orange-600 rounded-full">
                   {cartCount}
@@ -328,15 +331,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </button>
 
+            {/* Hamburger Button */}
             <button
               onClick={() => {
                 sfx.playPop();
                 setMobileMenuOpen(!mobileMenuOpen);
               }}
-              className="p-2 rounded-xl bg-[#261E18] text-[#D4C5B5] border border-orange-500/25 hover:text-white"
-              aria-label="Toggle Menu"
+              className="p-2 rounded-xl bg-[#261E18] text-[#D4C5B5] border border-orange-500/25 hover:text-white active:scale-95 transition-all"
+              aria-label="Toggle Navigation Menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6 text-orange-400" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5 text-orange-400" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
 
@@ -345,167 +349,202 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile / Tablet Dropdown Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="xl:hidden bg-[#1C1712]/98 backdrop-blur-2xl border-b border-amber-950/40 px-6 py-6 shadow-2xl transition-all animate-in slide-in-from-top-2 duration-200">
-          <div className="flex flex-col gap-2 text-sm font-semibold">
+        <div className="lg:hidden bg-[#1C1712]/98 backdrop-blur-2xl border-b border-amber-950/60 px-4 sm:px-6 py-5 shadow-2xl transition-all animate-in slide-in-from-top-2 duration-200 max-h-[82vh] overflow-y-auto overscroll-contain">
+          
+          {/* User Account / Sign In Status Card */}
+          <div className="mb-4">
+            {currentUser ? (
+              <div className="p-3.5 bg-[#15100C] rounded-2xl border border-orange-500/30 flex items-center justify-between gap-3 shadow-md">
+                <div className="flex items-center gap-3 min-w-0">
+                  <img
+                    src={currentUser.avatar}
+                    alt={currentUser.name}
+                    className="w-10 h-10 rounded-xl object-cover ring-2 ring-orange-500 flex-shrink-0"
+                  />
+                  <div className="min-w-0">
+                    <span className="text-sm font-bold text-[#F5EBE1] block truncate">{currentUser.name}</span>
+                    <span className="text-[11px] text-orange-400 font-semibold block truncate">
+                      {currentUser.membershipTier} • ${currentUser.walletBalance.toFixed(2)} Balance
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5 flex-shrink-0">
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      sfx.playPop();
+                      onOpenAccount();
+                    }}
+                    className="px-3 py-1.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs shadow-sm"
+                  >
+                    Portal
+                  </button>
+                  {onLogout && (
+                    <button
+                      onClick={() => {
+                        setMobileMenuOpen(false);
+                        sfx.playPop();
+                        onLogout();
+                      }}
+                      className="p-1.5 rounded-xl bg-[#261E18] text-[#8C7B6D] hover:text-rose-400 border border-orange-500/20"
+                      title="Sign Out"
+                    >
+                      <LogOut className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  sfx.playPop();
+                  onOpenAuth?.();
+                }}
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-2xl text-xs font-bold bg-orange-600 hover:bg-orange-500 text-white shadow-lg shadow-orange-600/30 active:scale-98 transition-all"
+              >
+                <LogIn className="w-4 h-4" />
+                <span>Parent Sign In / Register (+$10 Welcome Credit)</span>
+              </button>
+            )}
+          </div>
+
+          {/* Navigation Links Grid/List */}
+          <div className="flex flex-col gap-1 text-sm font-semibold">
+            
             <a
               href="#menu"
               onClick={(e) => scrollToSection(e, '#menu')}
-              className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10 flex items-center justify-between"
+              className="text-[#F5EBE1] hover:text-orange-400 py-3 px-3 rounded-xl hover:bg-[#261E18] border-b border-orange-500/10 flex items-center justify-between transition-colors"
             >
-              <span>Weekly Lunch Menu</span>
-              <span className="text-xs text-orange-500">View dishes →</span>
+              <div className="flex items-center gap-2.5">
+                <UtensilsCrossed className="w-4 h-4 text-orange-400" />
+                <span>Weekly Lunch Menu</span>
+              </div>
+              <span className="text-[11px] text-orange-400 font-bold">View 70+ Dishes →</span>
             </a>
+
             <a
               href="#restaurants"
               onClick={(e) => scrollToSection(e, '#restaurants')}
-              className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10 flex items-center gap-2"
+              className="text-[#F5EBE1] hover:text-orange-400 py-3 px-3 rounded-xl hover:bg-[#261E18] border-b border-orange-500/10 flex items-center justify-between transition-colors"
             >
-              <ChefHat className="w-4 h-4 text-orange-500" />
-              <span>Top Partner Kitchens</span>
+              <div className="flex items-center gap-2.5">
+                <ChefHat className="w-4 h-4 text-orange-400" />
+                <span>Top Dhaka Partner Kitchens</span>
+              </div>
+              <span className="text-[10px] text-amber-300 font-bold bg-orange-950/80 px-2 py-0.5 rounded-full border border-orange-500/30">Dhaka</span>
             </a>
+
             <a
               href="#visualizer"
               onClick={(e) => scrollToSection(e, '#visualizer')}
-              className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10 flex items-center gap-2"
+              className="text-[#F5EBE1] hover:text-orange-400 py-3 px-3 rounded-xl hover:bg-[#261E18] border-b border-orange-500/10 flex items-center justify-between transition-colors"
             >
-              <Layers className="w-4 h-4 text-orange-500" />
-              <span>Interactive Bento Builder</span>
+              <div className="flex items-center gap-2.5">
+                <Layers className="w-4 h-4 text-orange-400" />
+                <span>Interactive Bento Builder</span>
+              </div>
+              <span className="text-[10px] text-orange-400 font-bold">4-Tray Bento</span>
             </a>
+
             <a
               href="#calculator"
               onClick={(e) => scrollToSection(e, '#calculator')}
-              className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10 flex items-center gap-2"
+              className="text-[#F5EBE1] hover:text-orange-400 py-3 px-3 rounded-xl hover:bg-[#261E18] border-b border-orange-500/10 flex items-center gap-2.5 transition-colors"
             >
-              <Scale className="w-4 h-4 text-orange-500" />
+              <Scale className="w-4 h-4 text-orange-400" />
               <span>Kid Nutrition & Macro Calculator</span>
             </a>
+
             <a
               href="#plans"
               onClick={(e) => scrollToSection(e, '#plans')}
-              className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10"
+              className="text-[#F5EBE1] hover:text-orange-400 py-3 px-3 rounded-xl hover:bg-[#261E18] border-b border-orange-500/10 flex items-center gap-2.5 transition-colors"
             >
-              Meal Plans & Pricing
+              <Sparkles className="w-4 h-4 text-orange-400" />
+              <span>Meal Plans & Pricing</span>
             </a>
+
             <a
               href="#customizer"
               onClick={(e) => scrollToSection(e, '#customizer')}
-              className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10"
+              className="text-[#F5EBE1] hover:text-orange-400 py-3 px-3 rounded-xl hover:bg-[#261E18] border-b border-orange-500/10 flex items-center gap-2.5 transition-colors"
             >
-              Customise Your Child's Tiffin
+              <UtensilsCrossed className="w-4 h-4 text-orange-400" />
+              <span>Customise Tiffin Subscription</span>
             </a>
+
             <a
               href="#tracker"
               onClick={(e) => scrollToSection(e, '#tracker')}
-              className="text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10 flex items-center gap-2"
+              className="text-[#F5EBE1] hover:text-orange-400 py-3 px-3 rounded-xl hover:bg-[#261E18] border-b border-orange-500/10 flex items-center justify-between transition-colors"
             >
-              <Truck className="w-4 h-4 text-orange-500" />
-              <span>Live Thermal & Van Tracker</span>
+              <div className="flex items-center gap-2.5">
+                <Truck className="w-4 h-4 text-orange-400" />
+                <span>Live Thermal & Van Tracker</span>
+              </div>
+              <span className="flex items-center gap-1 text-[11px] text-emerald-400 font-bold">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                Live
+              </span>
             </a>
+
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 sfx.playPop();
                 if (onOpenFamilyHub) onOpenFamilyHub();
               }}
-              className="text-left text-[#F5EBE1] hover:text-orange-400 py-2.5 border-b border-orange-500/10 flex items-center justify-between"
+              className="w-full text-left text-[#F5EBE1] hover:text-orange-400 py-3 px-3 rounded-xl hover:bg-[#261E18] border-b border-orange-500/10 flex items-center justify-between transition-colors"
             >
-              <div className="flex items-center gap-2">
-                <Users className="w-4 h-4 text-orange-500" />
+              <div className="flex items-center gap-2.5">
+                <Users className="w-4 h-4 text-orange-400" />
                 <span>Family Members & Allergies</span>
               </div>
               <span className="px-2 py-0.5 rounded-full bg-orange-950 text-orange-400 text-xs font-bold border border-orange-500/30">
                 {familyMembersCount} Members
               </span>
             </button>
+
             <a
               href="#faq"
               onClick={(e) => scrollToSection(e, '#faq')}
-              className="text-[#F5EBE1] hover:text-orange-400 py-2.5 flex items-center gap-2"
+              className="text-[#F5EBE1] hover:text-orange-400 py-3 px-3 rounded-xl hover:bg-[#261E18] flex items-center gap-2.5 transition-colors"
             >
-              <HelpCircle className="w-4 h-4 text-orange-500" />
+              <HelpCircle className="w-4 h-4 text-orange-400" />
               <span>Frequently Asked Questions</span>
             </a>
 
-            {/* Quick Action CTA buttons in mobile drawer */}
-            <div className="pt-4 flex flex-col gap-2.5">
-              {currentUser ? (
-                <div className="p-3.5 bg-[#15100C] rounded-2xl border border-orange-500/25 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={currentUser.avatar}
-                      alt={currentUser.name}
-                      className="w-10 h-10 rounded-xl object-cover ring-1 ring-orange-500"
-                    />
-                    <div>
-                      <span className="text-xs font-bold text-[#F5EBE1] block">{currentUser.name}</span>
-                      <span className="text-[10px] text-orange-400 font-semibold">{currentUser.membershipTier} • ${currentUser.walletBalance.toFixed(2)} Wallet</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <button
-                      onClick={() => {
-                        setMobileMenuOpen(false);
-                        sfx.playPop();
-                        onOpenAccount();
-                      }}
-                      className="px-3 py-1.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs shadow-sm shadow-orange-600/30"
-                    >
-                      Portal
-                    </button>
-                    {onLogout && (
-                      <button
-                        onClick={() => {
-                          setMobileMenuOpen(false);
-                          sfx.playPop();
-                          onLogout();
-                        }}
-                        className="p-1.5 rounded-xl bg-[#261E18] text-[#8C7B6D] hover:text-rose-400 border border-orange-500/20"
-                        title="Sign Out"
-                      >
-                        <LogOut className="w-4 h-4" />
-                      </button>
-                    )}
-                  </div>
-                </div>
-              ) : (
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    sfx.playPop();
-                    onOpenAuth();
-                  }}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-full text-xs font-bold bg-orange-600 hover:bg-orange-500 text-white shadow-lg shadow-orange-600/30"
-                >
-                  <LogIn className="w-4 h-4" />
-                  <span>Parent Sign In / Register (+$10 Bonus)</span>
-                </button>
-              )}
-
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  sfx.playPop();
-                  onOpenQuiz();
-                }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40"
-              >
-                <Sparkles className="w-4 h-4 text-amber-400" />
-                Take 30-Second Taste Quiz (Get 15% OFF)
-              </button>
-
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  sfx.playPop();
-                  onOpenNutribot();
-                }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-full text-xs font-semibold bg-orange-950/80 text-orange-300 border border-orange-500/40"
-              >
-                <Sparkles className="w-4 h-4 text-orange-400" />
-                Ask TIFFIN Nutribot (AI Meal Advisor)
-              </button>
-            </div>
           </div>
+
+          {/* Quick Action Interactive Buttons in Drawer */}
+          <div className="pt-4 mt-2 border-t border-amber-950/60 flex flex-col gap-2.5">
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                sfx.playPop();
+                onOpenQuiz();
+              }}
+              className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-2xl text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 active:scale-98 transition-all"
+            >
+              <Sparkles className="w-4 h-4 text-amber-400" />
+              <span>Take 30-Second Taste Quiz (15% OFF)</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                sfx.playPop();
+                onOpenNutribot();
+              }}
+              className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-2xl text-xs font-bold bg-orange-950/80 text-orange-300 border border-orange-500/40 hover:bg-orange-900/80 active:scale-98 transition-all"
+            >
+              <Sparkles className="w-4 h-4 text-orange-400" />
+              <span>Ask TIFFIN Nutribot (AI Meal Advisor)</span>
+            </button>
+          </div>
+
         </div>
       )}
     </header>

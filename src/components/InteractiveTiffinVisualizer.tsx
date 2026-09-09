@@ -233,7 +233,7 @@ export const InteractiveTiffinVisualizer: React.FC<InteractiveTiffinVisualizerPr
             </div>
 
             {/* Live Macro Gauge Bars */}
-            <div className="mt-6 pt-4 border-t border-orange-500/15 grid grid-cols-4 gap-2 text-center text-xs">
+            <div className="mt-6 pt-4 border-t border-orange-500/15 grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
               <div className="bg-[#15100C] p-2.5 rounded-xl border border-orange-500/20">
                 <span className="text-[10px] text-[#A8988A] font-bold block uppercase">Total Energy</span>
                 <span className="font-black text-white text-sm">{totalCalories} kcal</span>
