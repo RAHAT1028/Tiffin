@@ -39,11 +39,12 @@ export const TopRestaurants: React.FC<TopRestaurantsProps> = ({
   const [selectedRestaurantModal, setSelectedRestaurantModal] = useState<PartnerRestaurant | null>(null);
   const [targetMemberForAdd, setTargetMemberForAdd] = useState<FamilyMember>(activeMember);
 
-  const cuisines = ['all', 'Japanese', 'Italian', 'Indian', 'Organic', 'Lebanese', 'Korean'];
+  const cuisines = ['all', 'Kacchi & Biryani', 'Kebab & Grill', 'Burgers & Bistro', 'Pan-Asian & Bento', 'Italian & Pasta', 'Middle Eastern', 'Healthy & Continental'];
 
   const filteredRestaurants = TOP_PARTNER_RESTAURANTS.filter((rest) => {
     if (selectedCuisine === 'all') return true;
-    return rest.cuisine.toLowerCase().includes(selectedCuisine.toLowerCase());
+    return rest.cuisine.toLowerCase().includes(selectedCuisine.toLowerCase()) ||
+           rest.name.toLowerCase().includes(selectedCuisine.toLowerCase());
   });
 
   const handleOrderDish = (dish: MealItem, member: FamilyMember) => {
@@ -65,13 +66,13 @@ export const TopRestaurants: React.FC<TopRestaurantsProps> = ({
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-950/80 border border-orange-500/30 text-orange-400 text-xs font-bold uppercase tracking-wider mb-3">
               <ChefHat className="w-4 h-4 text-orange-400" />
-              <span>Gourmet Cloud Kitchens & Partner Restaurants</span>
+              <span>Dhaka Cloud Kitchens & Partner Restaurants</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
-              Order From Top Partner Restaurants
+              Order From Top Dhaka Partner Restaurants
             </h2>
             <p className="text-[#D4C5B5] text-sm sm:text-base mt-2 max-w-2xl">
-              Authentic chef specialties from premier vetted child-friendly kitchens. Packaged in certified thermal insulation and delivered fresh to classrooms or family office desks.
+              Authentic chef specialties from premier vetted Dhaka kitchens (Dhanmondi, Gulshan, Banani, Uttara & Bashundhara). Sealed in certified vacuum insulation and delivered fresh to school lockers or family office desks.
             </p>
           </div>
 

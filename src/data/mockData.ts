@@ -2184,64 +2184,20 @@ export const INITIAL_FAMILY_MEMBERS: FamilyMember[] = [
 
 export const TOP_PARTNER_RESTAURANTS: PartnerRestaurant[] = [
   {
-    id: 'rest-tokyo-bento',
-    name: 'Tokyo Artisan Bento Bar (Banani & Gulshan)',
-    tagline: 'Authentic Japanese balanced child bentos, sushi maki & teriyaki',
-    cuisine: 'Japanese Bento & Healthy Asian',
-    rating: 4.95,
-    reviewCount: 1150,
-    bannerImage: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1000&q=80',
-    logo: '🍱',
-    headChef: 'Chef Kenji Sato (Former Ginza Bento Master)',
+    id: 'rest-sultans-dine',
+    name: "Sultan's Dine (Dhanmondi, Gulshan-2 & Uttara)",
+    tagline: "Dhaka's #1 legendary Basmati Mutton Kacchi, Shahi Morog Polao & Borhani",
+    cuisine: 'Kacchi & Biryani',
+    rating: 4.98,
+    reviewCount: 2450,
+    bannerImage: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=1000&q=80',
+    logo: '👑',
+    headChef: 'Ustad Habibur Rahman (Old Dhaka Shahi Kacchi Heritage)',
     hygieneCertificate: '5/5 Stars BSTI & Dhaka Safe Food Authority Certified',
-    prepTime: '25-35 mins',
-    specialty: 'Wild Atlantic Salmon, Tamagoyaki & Furikake Calrose Rice',
-    deliveryGuarantee: 'Insulated 3-Tier Japanese Bento • Sealed at 72°C',
-    badges: ['Michelin Background Chef', '100% Nut-Free Kitchen', 'Top Rated Bento in Dhaka'],
-    popularDishes: [
-      WEEKLY_MEALS[2], // Tokyo Teriyaki Glazed Salmon
-      WEEKLY_MEALS[15], // Japanese Katsu Chicken Curry
-      WEEKLY_MEALS[11], // Japanese Teriyaki Chicken Karaage
-      WEEKLY_MEALS[17]  // Chef Specialty Bento: Teriyaki Chicken & California Maki Rolls
-    ]
-  },
-  {
-    id: 'rest-nonna-italian',
-    name: "Nonna's Italian Trattoria (Gulshan-2 & Dhanmondi)",
-    tagline: 'Hand-stretched calzones, slow-simmered sugo & hidden-veggie pastas',
-    cuisine: 'Authentic Italian & Mediterranean',
-    rating: 4.92,
-    reviewCount: 980,
-    bannerImage: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1000&q=80',
-    logo: '🍝',
-    headChef: 'Chef Gianna Rossi (Bologna Culinary Institute)',
-    hygieneCertificate: '5/5 Stars Food Hygiene & International Safety Certified',
     prepTime: '20-30 mins',
-    specialty: 'San Marzano Tomato Sugo & Hand-Made Wholemeal Pastas',
-    deliveryGuarantee: 'Double-wall insulated thermo-box • Preserved at 68°C',
-    badges: ['Farm-Fresh Produce', 'Hidden 7-Veggie Sauce', 'Kid Favorite Pasta'],
-    popularDishes: [
-      WEEKLY_MEALS[10], // Artisan Chicken Parmigiana & Handcrafted Fettuccine
-      WEEKLY_MEALS[16], // Artisan Neapolitan Margherita Calzone
-      WEEKLY_MEALS[3],  // Whole-Wheat Pasta Primavera
-      WEEKLY_MEALS[13]  // Slow-Braised Beef Ragu Lasagna Roll-Ups
-    ]
-  },
-  {
-    id: 'rest-saffron-royal',
-    name: 'Saffron Royal Dawat (Dhanmondi & Uttara)',
-    tagline: 'Fragrant saffron basmati, mild butter chicken & paneer pulao',
-    cuisine: 'Royal Mughlai & Bengali Gourmet Fusion',
-    rating: 4.89,
-    reviewCount: 1420,
-    bannerImage: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=1000&q=80',
-    logo: '🍛',
-    headChef: 'Chef Farhan Qureshi (Royal Indian Master Chef)',
-    hygieneCertificate: '100% Halal Certified • Zero Nut Cross-Contamination',
-    prepTime: '25-35 mins',
-    specialty: 'Cashew-Free Velvet Butter Chicken & Dum Pulao',
+    specialty: 'Dum-Pukht Saffron Basmati Mutton, Shahi Aloo Bukhara & Borhani',
     deliveryGuarantee: 'Vacuum Hot Handi Flask • Sealed at 75°C',
-    badges: ['100% Halal Verified', 'Cashew/Nut Free Kitchen', 'Over 1400+ 5-Star Reviews'],
+    badges: ['#1 Kacchi in Dhaka', '100% Halal Verified', 'Over 2,450+ 5-Star Reviews'],
     popularDishes: [
       WEEKLY_MEALS[0],  // Mild Paneer Veggie Pulao Bowl
       WEEKLY_MEALS[9],  // Mild Butter Chicken with Fragrant Jeera Rice
@@ -2250,42 +2206,108 @@ export const TOP_PARTNER_RESTAURANTS: PartnerRestaurant[] = [
     ]
   },
   {
-    id: 'rest-green-bowl',
-    name: 'Green Bowl Organic Labs (Banani Road 11, Dhaka)',
-    tagline: 'Vibrant clean eating, allergen-safe Mexican fiesta bowls & vegan tacos',
-    cuisine: 'Organic Superfood & Allergen-Safe',
-    rating: 4.94,
-    reviewCount: 860,
-    bannerImage: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1000&q=80',
-    logo: '🥗',
-    headChef: 'Dr. Chloe Miller (Pediatric Nutritionist & Chef)',
-    hygieneCertificate: 'Top-8 Allergen Quarantine Verified • 100% Organic',
+    id: 'rest-star-kabab',
+    name: 'Star Kabab & Restaurant (Dhanmondi & Banani)',
+    tagline: 'Heritage grilled chicken boti, tender mutton leg roast, rezala & rumali roti',
+    cuisine: 'Kebab & Grill',
+    rating: 4.92,
+    reviewCount: 1880,
+    bannerImage: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=1000&q=80',
+    logo: '🍢',
+    headChef: 'Ustad Mohammad Rafiq (50+ Yrs Star Kabab Heritage Master)',
+    hygieneCertificate: '100% Halal Certified • Dhaka City Safe Food Audited',
     prepTime: '15-25 mins',
-    specialty: 'Prebiotic Fiber Bowls, Guacamole & Baked Sweet Potato',
-    deliveryGuarantee: 'Dual-Zone Hot & Fresh Thermo Divider',
-    badges: ['Top-8 Allergen Safe', '100% Certified Organic', 'Paediatric Dietitian Approved'],
+    specialty: 'Charcoal Chicken Tikka, Mutton Boti, Soft Naan & Shahi Rezala',
+    deliveryGuarantee: 'Foil-Sealed Moisture-Wicking Thermal Pack • 70°C',
+    badges: ['Heritage Dhaka Brand Since 1971', '100% Halal Verified', 'Dhaka Family Favorite'],
     popularDishes: [
-      WEEKLY_MEALS[7],  // Mexican Burrito Fiesta Bowl
-      WEEKLY_MEALS[8],  // Rainbow Veggie Quesadilla & Black Bean Salsa
-      WEEKLY_MEALS[14], // BBQ Pulled Jackfruit & Sweetcorn Soft Tacos
-      WEEKLY_MEALS[12]  // Sweet Potato & French Green Lentil Shepherd’s Pie
+      WEEKLY_MEALS[1],  // Grilled Herb Chicken & Avocado Wrap
+      WEEKLY_MEALS[3],  // Honey-Dijon Roast Chicken & Sweet Potato Wedges
+      WEEKLY_MEALS[6],  // Mediterranean Lemon Herb Chicken & Wild Orzo Pilaf
+      WEEKLY_MEALS[9]   // Mild Butter Chicken with Fragrant Jeera Rice
     ]
   },
   {
-    id: 'rest-little-beirut',
-    name: 'Little Beirut Mezze & Grill (Gulshan Avenue, Dhaka)',
-    tagline: 'Flame-grilled lean shawarma bowls, herb falafel & warm wholemeal pitas',
-    cuisine: 'Lebanese & Eastern Mediterranean',
+    id: 'rest-takeout-dhaka',
+    name: 'Takeout Burgers (Banani Road 11 & Dhanmondi)',
+    tagline: 'Dhaka’s pioneer juicy smash beef patties, smoked melted cheese & seasoned wedges',
+    cuisine: 'Burgers & Bistro',
+    rating: 4.93,
+    reviewCount: 1620,
+    bannerImage: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1000&q=80',
+    logo: '🍔',
+    headChef: 'Chef Tanvir Hossain (Dhaka Gourmet Burger Pioneer)',
+    hygieneCertificate: '5/5 Stars Food Hygiene • 100% Prime Grass-Fed Beef',
+    prepTime: '15-25 mins',
+    specialty: 'Original Gourmet Beef Patty Melt, Crispy Wedges & House Garlic Mayo',
+    deliveryGuarantee: 'Ventilated Crispy Burger Bento • Preserved at 65°C',
+    badges: ['Dhaka #1 Gourmet Burger', '100% Halal Beef & Chicken', 'Kid-Safe Nut-Free Kitchen'],
+    popularDishes: [
+      WEEKLY_MEALS[15], // Gourmet Cheeseburger Bento with Hand-Cut Potato Crisps
+      WEEKLY_MEALS[4],  // Italian Turkey Bolognese with Hidden-Veggie Spaghetti
+      WEEKLY_MEALS[11], // Japanese Teriyaki Chicken Karaage Bento Box
+      WEEKLY_MEALS[8]   // Korean Bulgogi Beef & Veggie Bibimbap
+    ]
+  },
+  {
+    id: 'rest-yumcha-izumi',
+    name: 'Yum Cha District & Bento (Gulshan-2 & Banani)',
+    tagline: 'Hand-crafted steamed crystal dim sum, Japanese teriyaki salmon & chicken katsu bento',
+    cuisine: 'Pan-Asian & Bento',
+    rating: 4.96,
+    reviewCount: 1250,
+    bannerImage: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1000&q=80',
+    logo: '🍱',
+    headChef: 'Chef Kenneth Chan & Master Sato (Gulshan Pan-Asian Masters)',
+    hygieneCertificate: '5/5 Stars BSTI & International HACCP Certified',
+    prepTime: '20-30 mins',
+    specialty: 'Teriyaki Atlantic Salmon, Tamagoyaki & Steamed Dim Sum',
+    deliveryGuarantee: 'Insulated 3-Tier Japanese Bento • Sealed at 72°C',
+    badges: ['Michelin Standard Master', '100% Nut-Free Facility', 'Gulshan Elite Choice'],
+    popularDishes: [
+      WEEKLY_MEALS[2],  // Tokyo Teriyaki Glazed Salmon & Edamame Bento
+      WEEKLY_MEALS[15], // Japanese Katsu Chicken Curry & Steamed Rice Bento
+      WEEKLY_MEALS[11], // Japanese Teriyaki Chicken Karaage Bento Box
+      WEEKLY_MEALS[17]  // Chef Specialty Bento: Teriyaki Chicken & California Maki Rolls
+    ]
+  },
+  {
+    id: 'rest-spaghetti-jazz',
+    name: 'Spaghetti Jazz Trattoria (Gulshan-2 & Dhanmondi)',
+    tagline: 'Handcrafted fettuccine alfredo, wood-fired calzones & slow-simmered sugo pasta',
+    cuisine: 'Italian & Pasta',
+    rating: 4.92,
+    reviewCount: 980,
+    bannerImage: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1000&q=80',
+    logo: '🍝',
+    headChef: 'Chef Gianna Rossi & Ustad Kamal (Italian Culinary Institute)',
+    hygieneCertificate: '5/5 Stars Safe Food Authority Certified',
+    prepTime: '20-30 mins',
+    specialty: 'San Marzano Pomodoro Sugo, Chicken Parmigiana & Wholemeal Pastas',
+    deliveryGuarantee: 'Double-wall insulated thermo-box • Preserved at 68°C',
+    badges: ['Farm-Fresh Herbs', 'Hidden 7-Veggie Sauce', 'Kid Favorite Italian in Dhaka'],
+    popularDishes: [
+      WEEKLY_MEALS[10], // Artisan Chicken Parmigiana & Handcrafted Fettuccine
+      WEEKLY_MEALS[16], // Artisan Neapolitan Margherita Calzone
+      WEEKLY_MEALS[3],  // Whole-Wheat Pasta Primavera
+      WEEKLY_MEALS[13]  // Slow-Braised Beef Ragu Lasagna Roll-Ups
+    ]
+  },
+  {
+    id: 'rest-shawarma-house',
+    name: 'Shawarma House (Gulshan Avenue & Dhanmondi)',
+    tagline: 'Flame-grilled rotisserie chicken shawarma, grilled kofta, falafel & wholemeal pitas',
+    cuisine: 'Middle Eastern',
     rating: 4.91,
-    reviewCount: 750,
+    reviewCount: 1340,
     bannerImage: 'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=1000&q=80',
     logo: '🌯',
-    headChef: 'Chef Tarek Haddad (Beirut Culinary Guild)',
+    headChef: 'Chef Tarek Haddad (Beirut Master Guild Chef)',
     hygieneCertificate: '100% Halal Certified • Fresh Daily Produce',
-    prepTime: '20-30 mins',
-    specialty: 'Turmeric Basmati Rice, Baked Herb Falafel & Garlic Yoghurt',
+    prepTime: '15-25 mins',
+    specialty: 'Lebanese Garlic Chicken Wraps, Hummus & Turmeric Saffron Rice',
     deliveryGuarantee: 'Moisture-Wicking Warm Bento • Preserved at 70°C',
-    badges: ['100% Halal Verified', 'Olive Oil Marinated', 'High Protein Selection'],
+    badges: ['100% Halal Verified', 'Olive Oil Marinated', 'High-Protein School Tiffin'],
     popularDishes: [
       WEEKLY_MEALS[11], // Middle Eastern Chicken Shawarma & Turmeric Rice
       WEEKLY_MEALS[10], // Baked Sweet Potato Falafel & Hummus Pocket
@@ -2294,25 +2316,47 @@ export const TOP_PARTNER_RESTAURANTS: PartnerRestaurant[] = [
     ]
   },
   {
-    id: 'rest-seoul-garden',
-    name: 'Seoul Garden Express (Bashundhara R/A & Uttara)',
-    tagline: 'Kid-friendly mild Korean BBQ bulgogi, bibimbap & crunchy karaage',
-    cuisine: 'Modern Korean & Asian Fusion',
-    rating: 4.96,
-    reviewCount: 1290,
-    bannerImage: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=1000&q=80',
+    id: 'rest-kacchi-bhai',
+    name: 'Kacchi Bhai (Dhanmondi, Mirpur 10 & Bashundhara)',
+    tagline: 'Traditional Puron Dhaka mutton kacchi with golden potatoes, shahi firni & borhani',
+    cuisine: 'Kacchi & Biryani',
+    rating: 4.95,
+    reviewCount: 2100,
+    bannerImage: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=1000&q=80',
     logo: '🍲',
-    headChef: 'Chef Min-Jun Park (Seoul Master Chef)',
-    hygieneCertificate: '5/5 Stars Food Hygiene • Sesame-Segregated Woks',
-    prepTime: '25-35 mins',
-    specialty: 'Pear-Marinated Grass-Fed Bulgogi Beef & Sticky Pearl Rice',
-    deliveryGuarantee: 'Insulated Korean Dolsot Thermal Box • 72°C',
-    badges: ['Korean Master Chef', '100% Halal Beef & Poultry', 'Kids #1 Asian Choice'],
+    headChef: 'Ustad Anisur Rahman (Puron Dhaka Heritage Kacchi Ustad)',
+    hygieneCertificate: '5/5 Stars BSTI Certified • 100% Pure Ghee Guarantee',
+    prepTime: '20-30 mins',
+    specialty: 'Dum Pukht Basmati Mutton, Zafrani Pulao & Chicken Roast',
+    deliveryGuarantee: 'Vacuum Hot Handi Flask • Preserved at 75°C',
+    badges: ['Dhaka Biryani King', 'Pure Ghee Guaranteed', 'Fast Lunch Bell Delivery'],
     popularDishes: [
-      WEEKLY_MEALS[8],  // Korean Bulgogi Beef & Veggie Bibimbap
-      WEEKLY_MEALS[6],  // Rainbow Chicken & Veggie Stir-Fry Noodle Box
-      WEEKLY_MEALS[11], // Japanese Teriyaki Chicken Karaage Bento Box
-      WEEKLY_MEALS[15]  // Gourmet Cheeseburger Bento with Hand-Cut Potato Crisps
+      WEEKLY_MEALS[9],  // Mild Butter Chicken with Fragrant Jeera Rice
+      WEEKLY_MEALS[0],  // Mild Paneer Veggie Pulao Bowl
+      WEEKLY_MEALS[5],  // Mediterranean Lamb Kofta & Saffron Rice Feast
+      WEEKLY_MEALS[8]   // Korean Bulgogi Beef & Veggie Bibimbap
+    ]
+  },
+  {
+    id: 'rest-secret-recipe',
+    name: 'Secret Recipe (Banani 11, Gulshan-1 & Dhanmondi)',
+    tagline: 'Continental herb grilled chicken, golden fish fillets, crisp garden salads & cakes',
+    cuisine: 'Healthy & Continental',
+    rating: 4.90,
+    reviewCount: 1120,
+    bannerImage: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1000&q=80',
+    logo: '🥗',
+    headChef: 'Dr. Farhana & Chef Arshad (Pediatric Nutritionist & Chef)',
+    hygieneCertificate: 'Top-8 Allergen Quarantine Verified • 100% Fresh Daily',
+    prepTime: '20-30 mins',
+    specialty: 'Grilled Herb Chicken Breast, Garden Quinoa Salad & Fruit Cups',
+    deliveryGuarantee: 'Dual-Zone Hot & Fresh Thermo Divider • 68°C',
+    badges: ['Top-8 Allergen Safe', 'Dietitian Approved', 'Balanced School Nutrition'],
+    popularDishes: [
+      WEEKLY_MEALS[7],  // Mexican Burrito Fiesta Bowl
+      WEEKLY_MEALS[8],  // Rainbow Veggie Quesadilla & Black Bean Salsa
+      WEEKLY_MEALS[14], // BBQ Pulled Jackfruit & Sweetcorn Soft Tacos
+      WEEKLY_MEALS[12]  // Sweet Potato & French Green Lentil Shepherd’s Pie
     ]
   }
 ];
