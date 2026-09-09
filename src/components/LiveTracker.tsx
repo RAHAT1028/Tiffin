@@ -11,6 +11,7 @@ import {
   Sparkles, 
   RefreshCw 
 } from 'lucide-react';
+import { sfx } from '../utils/audio';
 
 export const LiveTracker: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(2); // 0 = Prep, 1 = Thermal Pack, 2 = En Route, 3 = Delivered
