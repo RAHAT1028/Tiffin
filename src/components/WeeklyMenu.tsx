@@ -112,8 +112,8 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
             </p>
           </div>
 
-          {/* Active Family Member Selector Card */}
-          {familyMembers.length > 0 && activeMember && (
+          {/* Active Family Member Selector Card or Add Child prompt */}
+          {familyMembers.length > 0 && activeMember ? (
             <div className="bg-[#261E18] p-3 rounded-2xl border border-orange-500/25 shadow-xl flex flex-col sm:flex-row items-start sm:items-center gap-3">
               <div className="flex items-center gap-2 text-xs font-bold text-[#A8988A]">
                 <User className="w-4 h-4 text-orange-400" />
@@ -146,6 +146,19 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
                 })}
               </div>
             </div>
+          ) : (
+            <button
+              onClick={() => {
+                sfx.playPop();
+                if (onOpenFamilyHub) onOpenFamilyHub();
+              }}
+              className="bg-[#261E18] hover:bg-[#2E241E] p-3 rounded-2xl border border-orange-500/25 shadow-xl flex items-center gap-2.5 text-xs font-bold text-[#D4C5B5] hover:text-white transition-all active:scale-95"
+            >
+              <div className="w-6 h-6 rounded-lg bg-orange-600 text-white flex items-center justify-center shadow-sm">
+                <Users className="w-3.5 h-3.5" />
+              </div>
+              <span>+ Add Child to Assign Lunchbox</span>
+            </button>
           )}
         </div>
 

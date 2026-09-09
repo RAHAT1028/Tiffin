@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { 
-  X, 
-  Mail, 
-  Lock, 
-  User, 
-  Phone, 
-  School, 
-  Eye, 
-  EyeOff, 
-  Sparkles, 
-  ArrowRight, 
-  ShieldCheck, 
-  CheckCircle2, 
+import {
+  X,
+  Mail,
+  Lock,
+  User,
+  Phone,
+  School,
+  Eye,
+  EyeOff,
+  Sparkles,
+  ArrowRight,
+  ShieldCheck,
+  CheckCircle2,
   AlertCircle,
   KeyRound,
   UtensilsCrossed,
@@ -53,16 +53,16 @@ const ALLERGEN_OPTIONS: { key: Allergen; label: string }[] = [
   { key: 'seafood', label: 'Seafood-Free' }
 ];
 
-export const AuthModal: React.FC<AuthModalProps> = ({ 
-  isOpen, 
-  onClose, 
+export const AuthModal: React.FC<AuthModalProps> = ({
+  isOpen,
+  onClose,
   onLoginSuccess,
-  initialMode = 'login' 
+  initialMode = 'login'
 }) => {
   const [mode, setMode] = useState<'login' | 'register' | 'forgot' | 'otp'>(initialMode);
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
-  
+
   // Registration Form fields
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -75,12 +75,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [childGrade, setChildGrade] = useState('Class 3B');
   const [school, setSchool] = useState(PARTNER_SCHOOLS[0]);
   const [selectedAllergies, setSelectedAllergies] = useState<Allergen[]>(['nuts']);
-  
+
   // Login Form fields
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [otpCode, setOtpCode] = useState('');
-  
+
   // Feedback states
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -175,7 +175,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       sfx.playSuccess();
       try {
         localStorage.setItem('smart_tiffin_current_user', JSON.stringify(authenticatedUser));
-      } catch (e) {}
+      } catch (e) { }
 
       onLoginSuccess(authenticatedUser);
       onClose();
@@ -242,7 +242,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         let savedAccounts: any[] = [];
         const stored = localStorage.getItem('smart_tiffin_accounts');
         if (stored) savedAccounts = JSON.parse(stored);
-        
+
         // Remove duplicate if exists
         savedAccounts = savedAccounts.filter(acc => acc.email.toLowerCase() !== newUser.email.toLowerCase());
         savedAccounts.push({
@@ -270,7 +270,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
       setIsLoading(false);
       try {
         localStorage.setItem('smart_tiffin_current_user', JSON.stringify(DEMO_PARENT_USER));
-      } catch (e) {}
+      } catch (e) { }
       onLoginSuccess(DEMO_PARENT_USER);
       onClose();
     }, 400);
@@ -290,11 +290,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
-      <div 
+      <div
         className="bg-[#1C1712] rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-orange-500/30 text-[#F5EBE1] relative animate-in zoom-in-95 duration-200 scrollbar-thin scrollbar-thumb-orange-500/20"
         onClick={(e) => e.stopPropagation()}
       >
-        
+
         {/* Background glow flares */}
         <div className="absolute top-0 right-0 w-72 h-72 bg-orange-600/15 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-72 h-72 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
@@ -341,11 +341,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   setErrorMsg(null);
                   setInfoMsg(null);
                 }}
-                className={`py-2 rounded-xl text-xs font-bold transition-all ${
-                  mode === 'login'
+                className={`py-2 rounded-xl text-xs font-bold transition-all ${mode === 'login'
                     ? 'bg-orange-600 text-white shadow-md shadow-orange-600/30'
                     : 'text-[#D4C5B5] hover:text-white'
-                }`}
+                  }`}
               >
                 Sign In
               </button>
@@ -357,11 +356,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   setErrorMsg(null);
                   setInfoMsg(null);
                 }}
-                className={`py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
-                  mode === 'register'
+                className={`py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${mode === 'register'
                     ? 'bg-orange-600 text-white shadow-md shadow-orange-600/30'
                     : 'text-[#D4C5B5] hover:text-white'
-                }`}
+                  }`}
               >
                 <span>Create Account</span>
                 <span className="px-1.5 py-0.2 rounded-full bg-amber-400 text-black text-[9px] font-black">
@@ -402,7 +400,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
         {/* Form Body */}
         <div className="px-6 sm:px-7 pb-7 space-y-4">
-          
+
           {/* 1. SIGN IN FORM */}
           {mode === 'login' && (
             <form onSubmit={handleLoginSubmit} className="space-y-4">
@@ -495,7 +493,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           {/* 2. REGISTER / SIGN UP FORM */}
           {mode === 'register' && (
             <form onSubmit={handleRegisterSubmit} className="space-y-3">
-              
+
               {/* Parent Info */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 <div>
@@ -629,11 +627,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                           key={alg.key}
                           type="button"
                           onClick={() => toggleAllergen(alg.key)}
-                          className={`px-2 py-1 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 ${
-                            isChecked
+                          className={`px-2 py-1 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 ${isChecked
                               ? 'bg-orange-600 text-white shadow-xs'
                               : 'bg-[#261E18] text-[#A8988A] hover:text-[#D4C5B5] border border-orange-500/20'
-                          }`}
+                            }`}
                         >
                           {isChecked && <Check className="w-2.5 h-2.5" />}
                           <span>{alg.label}</span>
@@ -752,7 +749,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   sfx.playSuccess();
                   try {
                     localStorage.setItem('smart_tiffin_current_user', JSON.stringify(DEMO_PARENT_USER));
-                  } catch (e) {}
+                  } catch (e) { }
                   onLoginSuccess(DEMO_PARENT_USER);
                   onClose();
                 }}

@@ -23,21 +23,26 @@ import {
 } from 'lucide-react';
 
 interface TopRestaurantsProps {
-  onAddToCartForMember: (meal: MealItem, member: FamilyMember) => void;
-  familyMembers: FamilyMember[];
-  activeMember: FamilyMember;
-  onSelectActiveMember: (member: FamilyMember) => void;
+  onAddToCartForMember: (meal: MealItem, member?: FamilyMember | null) => void;
+  familyMembers?: FamilyMember[];
+  activeMember?: FamilyMember | null;
+  onSelectActiveMember?: (member: FamilyMember) => void;
 }
 
 export const TopRestaurants: React.FC<TopRestaurantsProps> = ({
   onAddToCartForMember,
-  familyMembers,
-  activeMember,
+  familyMembers = [],
+  activeMember = null,
   onSelectActiveMember
 }) => {
   const [selectedCuisine, setSelectedCuisine] = useState<string>('all');
   const [selectedRestaurantModal, setSelectedRestaurantModal] = useState<PartnerRestaurant | null>(null);
-  const [targetMemberForAdd, setTargetMemberForAdd] = useState<FamilyMember>(activeMember);
+  const [targetMemberForAdd, setTargetMemberForAdd] = useState<FamilyMember | null>(activeMember);
+
+  // Sync target member when activeMember changes
+  React.useEffect(() => {
+    setTargetMemberForAdd(activeMember);
+  }, [activeMember]);
 
   const cuisines = ['all', 'Kacchi & Biryani', 'Kebab & Grill', 'Burgers & Bistro', 'Pan-Asian & Bento', 'Italian & Pasta', 'Middle Eastern', 'Healthy & Continental'];
 
@@ -47,7 +52,7 @@ export const TopRestaurants: React.FC<TopRestaurantsProps> = ({
            rest.name.toLowerCase().includes(selectedCuisine.toLowerCase());
   });
 
-  const handleOrderDish = (dish: MealItem, member: FamilyMember) => {
+  const handleOrderDish = (dish: MealItem, member?: FamilyMember | null) => {
     sfx.playSuccess();
     onAddToCartForMember(dish, member);
   };
@@ -77,40 +82,47 @@ export const TopRestaurants: React.FC<TopRestaurantsProps> = ({
           </div>
 
           {/* Quick Family Member Order Selector */}
-          <div className="bg-[#261E18] p-3 rounded-2xl border border-orange-500/25 shadow-xl flex flex-col sm:flex-row items-start sm:items-center gap-3">
-            <div className="flex items-center gap-2 text-xs font-bold text-[#A8988A]">
-              <User className="w-4 h-4 text-orange-400" />
-              <span>Ordering for:</span>
+          {familyMembers.length > 0 && activeMember ? (
+            <div className="bg-[#261E18] p-3 rounded-2xl border border-orange-500/25 shadow-xl flex flex-col sm:flex-row items-start sm:items-center gap-3">
+              <div className="flex items-center gap-2 text-xs font-bold text-[#A8988A]">
+                <User className="w-4 h-4 text-orange-400" />
+                <span>Ordering for:</span>
+              </div>
+              <div className="flex items-center gap-1.5 overflow-x-auto max-w-full pb-1 sm:pb-0">
+                {familyMembers.map((member) => {
+                  const isSelected = activeMember.id === member.id;
+                  return (
+                    <button
+                      key={member.id}
+                      onClick={() => {
+                        sfx.playPop();
+                        if (onSelectActiveMember) onSelectActiveMember(member);
+                        setTargetMemberForAdd(member);
+                      }}
+                      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+                        isSelected
+                          ? 'bg-orange-600 text-white shadow-md shadow-orange-600/30 ring-1 ring-orange-400'
+                          : 'bg-[#15100C] text-[#D4C5B5] hover:text-white hover:bg-[#2F251E] border border-orange-500/20'
+                      }`}
+                    >
+                      <img
+                        src={member.avatar}
+                        alt={member.name}
+                        className="w-4 h-4 rounded-full object-cover"
+                      />
+                      <span>{member.name.split(' ')[0]}</span>
+                      <span className="text-[10px] opacity-80">({member.relation})</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-            <div className="flex items-center gap-1.5 overflow-x-auto max-w-full pb-1 sm:pb-0">
-              {familyMembers.map((member) => {
-                const isSelected = activeMember.id === member.id;
-                return (
-                  <button
-                    key={member.id}
-                    onClick={() => {
-                      sfx.playPop();
-                      onSelectActiveMember(member);
-                      setTargetMemberForAdd(member);
-                    }}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
-                      isSelected
-                        ? 'bg-orange-600 text-white shadow-md shadow-orange-600/30 ring-1 ring-orange-400'
-                        : 'bg-[#15100C] text-[#D4C5B5] hover:text-white hover:bg-[#2F251E] border border-orange-500/20'
-                    }`}
-                  >
-                    <img
-                      src={member.avatar}
-                      alt={member.name}
-                      className="w-4 h-4 rounded-full object-cover"
-                    />
-                    <span>{member.name.split(' ')[0]}</span>
-                    <span className="text-[10px] opacity-80">({member.relation})</span>
-                  </button>
-                );
-              })}
+          ) : (
+            <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-[#261E18] border border-orange-500/25 text-xs text-[#D4C5B5] font-semibold">
+              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <span>Direct Insulated Delivery to Dhaka Lockers & Desks</span>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Cuisine Filter Pills */}
@@ -227,7 +239,7 @@ export const TopRestaurants: React.FC<TopRestaurantsProps> = ({
                           <button
                             onClick={() => handleOrderDish(dish, activeMember)}
                             className="px-3 py-1.5 rounded-lg bg-orange-600 hover:bg-orange-500 text-white font-bold text-[11px] flex items-center gap-1 transition-all flex-shrink-0 shadow-xs active:scale-95"
-                            title={`Add ${dish.name} for ${activeMember.name}`}
+                            title={activeMember ? `Add ${dish.name} for ${activeMember.name}` : `Add ${dish.name} to cart`}
                           >
                             <Plus className="w-3 h-3" />
                             <span>Add</span>
@@ -316,29 +328,31 @@ export const TopRestaurants: React.FC<TopRestaurantsProps> = ({
               </div>
             </div>
 
-            {/* Target Family Member Selector inside modal */}
-            <div className="p-4 bg-[#261E18] rounded-2xl border border-orange-500/25 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-              <span className="text-xs font-bold text-[#F5EBE1] flex items-center gap-1.5">
-                <User className="w-4 h-4 text-orange-400" />
-                <span>Select Family Member to Receive Dish:</span>
-              </span>
-              <div className="flex items-center gap-2 overflow-x-auto max-w-full">
-                {familyMembers.map((m) => (
-                  <button
-                    key={m.id}
-                    onClick={() => setTargetMemberForAdd(m)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                      targetMemberForAdd.id === m.id
-                        ? 'bg-orange-600 text-white shadow-md'
-                        : 'bg-[#15100C] text-[#D4C5B5] hover:text-white border border-orange-500/20'
-                    }`}
-                  >
-                    <img src={m.avatar} alt={m.name} className="w-4 h-4 rounded-full object-cover" />
-                    <span>{m.name.split(' ')[0]}</span>
-                  </button>
-                ))}
+            {/* Target Family Member Selector inside modal (if family exists) */}
+            {familyMembers.length > 0 && (
+              <div className="p-4 bg-[#261E18] rounded-2xl border border-orange-500/25 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <span className="text-xs font-bold text-[#F5EBE1] flex items-center gap-1.5">
+                  <User className="w-4 h-4 text-orange-400" />
+                  <span>Select Family Member to Receive Dish:</span>
+                </span>
+                <div className="flex items-center gap-2 overflow-x-auto max-w-full">
+                  {familyMembers.map((m) => (
+                    <button
+                      key={m.id}
+                      onClick={() => setTargetMemberForAdd(m)}
+                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                        targetMemberForAdd?.id === m.id
+                          ? 'bg-orange-600 text-white shadow-md'
+                          : 'bg-[#15100C] text-[#D4C5B5] hover:text-white border border-orange-500/20'
+                      }`}
+                    >
+                      <img src={m.avatar} alt={m.name} className="w-4 h-4 rounded-full object-cover" />
+                      <span>{m.name.split(' ')[0]}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Full Dish List */}
             <div className="space-y-4">
@@ -379,11 +393,11 @@ export const TopRestaurants: React.FC<TopRestaurantsProps> = ({
                       </div>
 
                       <button
-                        onClick={() => handleOrderDish(dish, targetMemberForAdd)}
+                        onClick={() => handleOrderDish(dish, targetMemberForAdd || activeMember)}
                         className="px-3.5 py-1.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-md shadow-orange-600/30 active:scale-95"
                       >
                         <Plus className="w-3.5 h-3.5" />
-                        <span>Add for {targetMemberForAdd.name.split(' ')[0]}</span>
+                        <span>{targetMemberForAdd ? `Add for ${targetMemberForAdd.name.split(' ')[0]}` : 'Add to Lunchbox'}</span>
                       </button>
                     </div>
                   </div>

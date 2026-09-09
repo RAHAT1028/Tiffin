@@ -2133,54 +2133,7 @@ export const PARTNER_SCHOOLS = [
   'British Standard School (Dhanmondi / Uttara, Dhaka)'
 ];
 
-export const INITIAL_FAMILY_MEMBERS: FamilyMember[] = [
-  {
-    id: 'fam-1',
-    name: 'Aayan Chowdhury',
-    relation: 'Child',
-    age: 8,
-    deliveryLocation: 'Scholastica Senior Campus • Class 3B (Yellow Locker #14, Uttara)',
-    allergies: ['nuts'],
-    dietaryPreferences: ['High-Protein', 'Halal', 'Mild Spices'],
-    avatar: 'https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=300&q=80',
-    colorTheme: 'orange',
-    defaultPlan: 'standard'
-  },
-  {
-    id: 'fam-2',
-    name: 'Zoya Chowdhury',
-    relation: 'Child',
-    age: 5,
-    deliveryLocation: 'Sunnydale Junior Wing • Room 1A (Drop Box Red, Dhanmondi)',
-    allergies: ['nuts', 'dairy'],
-    dietaryPreferences: ['Vegetarian', 'Finger-Food', 'Mild'],
-    avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80',
-    colorTheme: 'amber',
-    defaultPlan: 'basic'
-  },
-  {
-    id: 'fam-3',
-    name: 'Dr. Farhana Rahman',
-    relation: 'Self',
-    deliveryLocation: 'Evercare Hospital Dhaka • Paediatric Wing B (Desk 4, Bashundhara)',
-    allergies: ['nuts'],
-    dietaryPreferences: ['Omega-3 Rich', 'Organic', 'Gourmet Bento'],
-    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80',
-    colorTheme: 'emerald',
-    defaultPlan: 'premium'
-  },
-  {
-    id: 'fam-4',
-    name: 'Tanvir Chowdhury',
-    relation: 'Spouse',
-    deliveryLocation: 'Gulshan Centre Point • Level 9, Road 90, Gulshan-2, Dhaka',
-    allergies: ['nuts'],
-    dietaryPreferences: ['High-Protein (35g+)', 'Halal', 'No Added Sugar'],
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
-    colorTheme: 'blue',
-    defaultPlan: 'standard'
-  }
-];
+export const INITIAL_FAMILY_MEMBERS: FamilyMember[] = [];
 
 export const TOP_PARTNER_RESTAURANTS: PartnerRestaurant[] = [
   {

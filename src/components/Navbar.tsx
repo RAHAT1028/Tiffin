@@ -46,7 +46,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenAuth,
   onLogout,
   onOpenFamilyHub,
-  familyMembersCount = 4,
+  familyMembersCount = 0,
   activeMember
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -187,11 +187,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <Users className="w-3.5 h-3.5 text-orange-400" />
               )}
               <span className="font-extrabold text-white">
-                {activeMember ? activeMember.name.split(' ')[0] : 'Family'}
+                {activeMember ? activeMember.name.split(' ')[0] : 'Family Hub'}
               </span>
-              <span className="px-1.5 py-0.2 rounded-full bg-orange-950 text-orange-400 text-[10px] font-black border border-orange-500/30">
-                {familyMembersCount}
-              </span>
+              {familyMembersCount > 0 ? (
+                <span className="px-1.5 py-0.2 rounded-full bg-orange-950 text-orange-400 text-[10px] font-black border border-orange-500/30">
+                  {familyMembersCount}
+                </span>
+              ) : (
+                <span className="px-1.5 py-0.2 rounded-full bg-orange-600 text-white text-[10px] font-black">
+                  + Add
+                </span>
+              )}
             </button>
 
             {/* AI Nutribot Icon Button (Compact) */}
@@ -502,9 +508,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <Users className="w-4 h-4 text-orange-400" />
                 <span>Family Members & Allergies</span>
               </div>
-              <span className="px-2 py-0.5 rounded-full bg-orange-950 text-orange-400 text-xs font-bold border border-orange-500/30">
-                {familyMembersCount} Members
-              </span>
+              {familyMembersCount > 0 ? (
+                <span className="px-2 py-0.5 rounded-full bg-orange-950 text-orange-400 text-xs font-bold border border-orange-500/30">
+                  {familyMembersCount} Members
+                </span>
+              ) : (
+                <span className="px-2 py-0.5 rounded-full bg-orange-600 text-white text-xs font-bold shadow-sm">
+                  + Add Child
+                </span>
+              )}
             </button>
 
             <a

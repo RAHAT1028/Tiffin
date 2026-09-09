@@ -210,22 +210,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
         notes: 'Nut-free certified meal, sealed thermal container.'
       }));
     } else {
-      mappedChildren = [
-        {
-          id: `child-${Date.now()}`,
-          name: `${currentUser.name.split(' ')[0]}'s Child`,
-          age: 8,
-          schoolName: 'Scholastica Senior Campus (Uttara, Dhaka)',
-          gradeClass: 'Class 3B',
-          lunchLocker: 'Yellow Locker #14',
-          allergies: ['nuts'],
-          dietaryPreferences: ['Nut-Free Certified'],
-          portionSize: 'regular',
-          activeDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-          isPausedToday: false,
-          notes: 'Standard high-protein lunch.'
-        }
-      ];
+      mappedChildren = [];
     }
 
     const currentDeliveries = DEFAULT_DELIVERIES.map(d => ({
@@ -312,25 +297,14 @@ export const AccountModal: React.FC<AccountModalProps> = ({
     );
   }
 
-  const currentChild = account.children[selectedChildIndex] || account.children[0] || {
-    id: 'child-1',
-    name: 'Aayan Chowdhury',
-    age: 8,
-    schoolName: 'Scholastica Senior Campus (Uttara, Dhaka)',
-    gradeClass: 'Class 3B',
-    lunchLocker: 'Yellow Locker #14',
-    allergies: ['nuts'],
-    dietaryPreferences: ['Halal', 'Mild Spice Only'],
-    portionSize: 'regular',
-    activeDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-    isPausedToday: false
-  };
+  const currentChild: ParentAccountChild | null = account.children[selectedChildIndex] || account.children[0] || null;
 
   const currentPlan = account.activePlan;
   const currentRate = PLAN_RATES[currentPlan] || PLAN_RATES.standard;
-  const weeklyCost = currentRate.price * (currentChild.activeDays?.length || 5);
+  const weeklyCost = currentRate.price * (currentChild?.activeDays?.length || 5);
 
   const handleToggleDay = (day: typeof WEEK_DAYS[number]) => {
+    if (!currentChild) return;
     sfx.playPop();
     const active = currentChild.activeDays.includes(day);
     let newDays: typeof WEEK_DAYS[number][];
@@ -365,6 +339,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
   };
 
   const handleTogglePauseToday = () => {
+    if (!currentChild) return;
     const isCurrentlyPaused = currentChild.isPausedToday;
     const dayRate = PLAN_RATES[account.activePlan].price;
 
@@ -420,6 +395,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
   };
 
   const handleToggleAllergen = (alg: Allergen) => {
+    if (!currentChild) return;
     sfx.playPop();
     const hasAlg = currentChild.allergies.includes(alg);
     let newAlgs: Allergen[];
@@ -437,6 +413,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
   };
 
   const handleSaveChildProfile = () => {
+    if (!currentChild) return;
     sfx.playSuccess();
     if (onUpdateFamilyMembers && familyMembers) {
       const updatedFam = familyMembers.map((m, idx) => {
@@ -482,8 +459,8 @@ export const AccountModal: React.FC<AccountModalProps> = ({
       deliveryLocation: `${newChildSchool} • ${newChildGrade}`,
       allergies: ['nuts'],
       dietaryPreferences: ['Nut-Free Certified'],
-      avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80',
-      colorTheme: 'amber',
+      avatar: 'https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=300&q=80',
+      colorTheme: 'orange',
       defaultPlan: 'standard'
     };
 
@@ -492,7 +469,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
     setSelectedChildIndex(updatedChildren.length - 1);
 
     if (onUpdateFamilyMembers) {
-      onUpdateFamilyMembers([...familyMembers, newFamilyMember]);
+      onUpdateFamilyMembers([...(familyMembers || []), newFamilyMember]);
     }
 
     setNewChildName('');
@@ -670,36 +647,42 @@ export const AccountModal: React.FC<AccountModalProps> = ({
           </div>
 
           {/* 7:00 AM Emergency Pause Switch */}
-          <div className="flex items-center gap-2.5 w-full sm:w-auto justify-between sm:justify-end">
-            <div className="text-left sm:text-right">
-              <span className="text-[11px] font-bold block text-[#F5EBE1]">
-                Today's Lunch: {currentChild.isPausedToday ? '🔴 Paused (Refunded)' : '🟢 Active Delivery'}
-              </span>
-              <span className="text-[10px] text-[#A8988A]">
-                7:00 AM 1-click morning cancellation
-              </span>
+          {currentChild ? (
+            <div className="flex items-center gap-2.5 w-full sm:w-auto justify-between sm:justify-end">
+              <div className="text-left sm:text-right">
+                <span className="text-[11px] font-bold block text-[#F5EBE1]">
+                  Today's Lunch: {currentChild.isPausedToday ? '🔴 Paused (Refunded)' : '🟢 Active Delivery'}
+                </span>
+                <span className="text-[10px] text-[#A8988A]">
+                  7:00 AM 1-click morning cancellation
+                </span>
+              </div>
+              <button
+                onClick={handleTogglePauseToday}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 ${
+                  currentChild.isPausedToday
+                    ? 'bg-emerald-700 hover:bg-emerald-600 text-white shadow-sm'
+                    : 'bg-rose-950/90 hover:bg-rose-900 border border-rose-600/50 text-rose-200'
+                }`}
+              >
+                {currentChild.isPausedToday ? (
+                  <>
+                    <RefreshCw className="w-3.5 h-3.5" />
+                    <span>Resume Lunch</span>
+                  </>
+                ) : (
+                  <>
+                    <Clock className="w-3.5 h-3.5 text-rose-400" />
+                    <span>Pause Today & Refund</span>
+                  </>
+                )}
+              </button>
             </div>
-            <button
-              onClick={handleTogglePauseToday}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 ${
-                currentChild.isPausedToday
-                  ? 'bg-emerald-700 hover:bg-emerald-600 text-white shadow-sm'
-                  : 'bg-rose-950/90 hover:bg-rose-900 border border-rose-600/50 text-rose-200'
-              }`}
-            >
-              {currentChild.isPausedToday ? (
-                <>
-                  <RefreshCw className="w-3.5 h-3.5" />
-                  <span>Resume Lunch</span>
-                </>
-              ) : (
-                <>
-                  <Clock className="w-3.5 h-3.5 text-rose-400" />
-                  <span>Pause Today & Refund</span>
-                </>
-              )}
-            </button>
-          </div>
+          ) : (
+            <div className="text-xs text-[#A8988A] font-semibold">
+              No registered students yet. Click '+ Add Child' to begin.
+            </div>
+          )}
         </div>
 
         {/* Quick Add Child Drawer */}
@@ -791,248 +774,286 @@ export const AccountModal: React.FC<AccountModalProps> = ({
 
           {/* TAB 1: SUBSCRIPTION PLAN & DELIVERY SCHEDULE */}
           {activeTab === 'plan' && (
-            <div className="space-y-6">
+            currentChild ? (
+              <div className="space-y-6">
 
-              {/* Current Active Plan Overview */}
-              <div className="bg-[#261E18] rounded-3xl p-6 border border-orange-500/25 shadow-xl">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-orange-500/20">
-                  <div>
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-orange-400">
-                      Active School Plan
-                    </span>
-                    <h4 className="text-xl font-extrabold text-[#F5EBE1] mt-0.5">
-                      {currentRate.name}
-                    </h4>
-                    <p className="text-xs text-[#D4C5B5] mt-1">
-                      {currentRate.desc}
-                    </p>
+                {/* Current Active Plan Overview */}
+                <div className="bg-[#261E18] rounded-3xl p-6 border border-orange-500/25 shadow-xl">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-orange-500/20">
+                    <div>
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-orange-400">
+                        Active School Plan
+                      </span>
+                      <h4 className="text-xl font-extrabold text-[#F5EBE1] mt-0.5">
+                        {currentRate.name}
+                      </h4>
+                      <p className="text-xs text-[#D4C5B5] mt-1">
+                        {currentRate.desc}
+                      </p>
+                    </div>
+                    <div className="bg-[#15100C] p-4 rounded-2xl border border-orange-500/20 text-left sm:text-right flex-shrink-0">
+                      <span className="text-[10px] uppercase font-bold text-[#A8988A] block">Weekly Auto-Charge</span>
+                      <span className="text-2xl font-black text-orange-400">${weeklyCost.toFixed(2)}</span>
+                      <span className="text-[10px] text-[#A8988A] block mt-0.5">({currentChild.activeDays.length} days / week @ ${currentRate.price.toFixed(2)}/day)</span>
+                    </div>
                   </div>
-                  <div className="bg-[#15100C] p-4 rounded-2xl border border-orange-500/20 text-left sm:text-right flex-shrink-0">
-                    <span className="text-[10px] uppercase font-bold text-[#A8988A] block">Weekly Auto-Charge</span>
-                    <span className="text-2xl font-black text-orange-400">${weeklyCost.toFixed(2)}</span>
-                    <span className="text-[10px] text-[#A8988A] block mt-0.5">({currentChild.activeDays.length} days / week @ ${currentRate.price.toFixed(2)}/day)</span>
+
+                  {/* Plan Tier Switcher Options */}
+                  <div className="pt-5">
+                    <span className="text-xs font-bold text-[#D4C5B5] block mb-3">
+                      Upgrade or Switch Plan (1-Click Instant Update):
+                    </span>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      {(Object.keys(PLAN_RATES) as MealCategory[]).map((pKey) => {
+                        const p = PLAN_RATES[pKey];
+                        const isSelected = account.activePlan === pKey;
+                        return (
+                          <div
+                            key={pKey}
+                            onClick={() => handleSelectPlan(pKey)}
+                            className={`p-4 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between ${
+                              isSelected
+                                ? 'bg-orange-950/40 border-orange-500 shadow-md shadow-orange-950/40 ring-1 ring-orange-500/30'
+                                : 'bg-[#15100C] border-orange-500/20 hover:border-orange-500/40 hover:bg-[#2F251E]'
+                            }`}
+                          >
+                            <div>
+                              <div className="flex items-center justify-between mb-1">
+                                <h5 className="font-extrabold text-xs text-[#F5EBE1]">{p.name}</h5>
+                                {isSelected && (
+                                  <span className="w-4 h-4 rounded-full bg-orange-600 text-white flex items-center justify-center text-[10px]">
+                                    <Check className="w-2.5 h-2.5" />
+                                  </span>
+                                )}
+                              </div>
+                              <span className="text-base font-black text-orange-400">${p.price.toFixed(2)}<span className="text-[10px] text-[#A8988A] font-normal">/day</span></span>
+                              <p className="text-[11px] text-[#D4C5B5] mt-1.5 line-clamp-2">{p.desc}</p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
 
-                {/* Plan Tier Switcher Options */}
-                <div className="pt-5">
-                  <span className="text-xs font-bold text-[#D4C5B5] block mb-3">
-                    Upgrade or Switch Plan (1-Click Instant Update):
-                  </span>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    {(Object.keys(PLAN_RATES) as MealCategory[]).map((pKey) => {
-                      const p = PLAN_RATES[pKey];
-                      const isSelected = account.activePlan === pKey;
+                {/* Delivery Days Matrix */}
+                <div className="bg-[#261E18] rounded-3xl p-6 border border-orange-500/20 shadow-xl">
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <h4 className="text-sm font-extrabold text-[#F5EBE1]">Weekly School Delivery Days</h4>
+                      <p className="text-xs text-[#D4C5B5]">Select days to receive hot insulated lunch at {currentChild.schoolName}</p>
+                    </div>
+                    <span className="px-3 py-1 rounded-full bg-[#15100C] border border-orange-500/20 text-orange-400 text-xs font-bold">
+                      {currentChild.activeDays.length} of {WEEK_DAYS.length} Days Active
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 pt-2">
+                    {WEEK_DAYS.map((day) => {
+                      const isSelected = currentChild.activeDays.includes(day);
                       return (
-                        <div
-                          key={pKey}
-                          onClick={() => handleSelectPlan(pKey)}
-                          className={`p-4 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between ${
+                        <button
+                          key={day}
+                          onClick={() => handleToggleDay(day)}
+                          className={`p-3.5 rounded-2xl border text-center transition-all flex flex-col items-center justify-center gap-1 ${
                             isSelected
-                              ? 'bg-orange-950/40 border-orange-500 shadow-md shadow-orange-950/40 ring-1 ring-orange-500/30'
-                              : 'bg-[#15100C] border-orange-500/20 hover:border-orange-500/40 hover:bg-[#2F251E]'
+                              ? 'bg-orange-600 border-orange-500 text-white font-bold shadow-md shadow-orange-600/30'
+                              : 'bg-[#15100C] border-orange-500/20 text-[#A8988A] hover:text-[#D4C5B5] hover:bg-[#2F251E]'
                           }`}
                         >
-                          <div>
-                            <div className="flex items-center justify-between mb-1">
-                              <h5 className="font-extrabold text-xs text-[#F5EBE1]">{p.name}</h5>
-                              {isSelected && (
-                                <span className="w-4 h-4 rounded-full bg-orange-600 text-white flex items-center justify-center text-[10px]">
-                                  <Check className="w-2.5 h-2.5" />
-                                </span>
-                              )}
-                            </div>
-                            <span className="text-base font-black text-orange-400">${p.price.toFixed(2)}<span className="text-[10px] text-[#A8988A] font-normal">/day</span></span>
-                            <p className="text-[11px] text-[#D4C5B5] mt-1.5 line-clamp-2">{p.desc}</p>
+                          <span className="text-xs font-bold">{day.slice(0, 3)}</span>
+                          <span className="text-[10px] opacity-90">{isSelected ? `$${currentRate.price.toFixed(2)}` : 'Off'}</span>
+                          <div className={`w-4 h-4 rounded-full mt-1 flex items-center justify-center ${isSelected ? 'bg-white/20' : 'bg-[#261E18]'}`}>
+                            {isSelected && <Check className="w-2.5 h-2.5 text-white" />}
                           </div>
-                        </div>
+                        </button>
                       );
                     })}
                   </div>
-                </div>
-              </div>
 
-              {/* Delivery Days Matrix */}
-              <div className="bg-[#261E18] rounded-3xl p-6 border border-orange-500/20 shadow-xl">
-                <div className="flex items-center justify-between mb-3">
-                  <div>
-                    <h4 className="text-sm font-extrabold text-[#F5EBE1]">Weekly School Delivery Days</h4>
-                    <p className="text-xs text-[#D4C5B5]">Select days to receive hot insulated lunch at {currentChild.schoolName}</p>
+                  <div className="mt-4 pt-4 border-t border-orange-500/20 flex flex-col sm:flex-row items-center justify-between text-xs text-[#A8988A] gap-2">
+                    <span>💡 Tip: Adjusting days automatically recalculates your weekly invoice with no cancellation fees.</span>
+                    <button
+                      onClick={() => {
+                        sfx.playSuccess();
+                        showFeedback('Schedule preferences saved!');
+                      }}
+                      className="px-4 py-2 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs"
+                    >
+                      Save Days Schedule
+                    </button>
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-[#15100C] border border-orange-500/20 text-orange-400 text-xs font-bold">
-                    {currentChild.activeDays.length} of {WEEK_DAYS.length} Days Active
-                  </span>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 pt-2">
-                  {WEEK_DAYS.map((day) => {
-                    const isSelected = currentChild.activeDays.includes(day);
-                    return (
-                      <button
-                        key={day}
-                        onClick={() => handleToggleDay(day)}
-                        className={`p-3.5 rounded-2xl border text-center transition-all flex flex-col items-center justify-center gap-1 ${
-                          isSelected
-                            ? 'bg-orange-600 border-orange-500 text-white font-bold shadow-md shadow-orange-600/30'
-                            : 'bg-[#15100C] border-orange-500/20 text-[#A8988A] hover:text-[#D4C5B5] hover:bg-[#2F251E]'
-                        }`}
-                      >
-                        <span className="text-xs font-bold">{day.slice(0, 3)}</span>
-                        <span className="text-[10px] opacity-90">{isSelected ? `$${currentRate.price.toFixed(2)}` : 'Off'}</span>
-                        <div className={`w-4 h-4 rounded-full mt-1 flex items-center justify-center ${isSelected ? 'bg-white/20' : 'bg-[#261E18]'}`}>
-                          {isSelected && <Check className="w-2.5 h-2.5 text-white" />}
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                <div className="mt-4 pt-4 border-t border-orange-500/20 flex flex-col sm:flex-row items-center justify-between text-xs text-[#A8988A] gap-2">
-                  <span>💡 Tip: Adjusting days automatically recalculates your weekly invoice with no cancellation fees.</span>
-                  <button
-                    onClick={() => {
-                      sfx.playSuccess();
-                      showFeedback('Schedule preferences saved!');
-                    }}
-                    className="px-4 py-2 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs"
-                  >
-                    Save Days Schedule
-                  </button>
-                </div>
               </div>
-
-            </div>
+            ) : (
+              <div className="bg-[#261E18] rounded-3xl p-8 border border-dashed border-orange-500/30 text-center space-y-4">
+                <div className="w-14 h-14 rounded-2xl bg-orange-950/80 text-orange-400 flex items-center justify-center mx-auto border border-orange-500/30">
+                  <User className="w-7 h-7" />
+                </div>
+                <h4 className="text-base font-extrabold text-white">No Children Added Yet</h4>
+                <p className="text-xs text-[#D4C5B5] max-w-sm mx-auto">
+                  Add your child's profile to choose their school delivery schedule and subscription plan.
+                </p>
+                <button
+                  onClick={() => setIsAddingChild(true)}
+                  className="px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs shadow-md shadow-orange-600/30 inline-flex items-center gap-2 active:scale-95 transition-all"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>+ Add Child Profile</span>
+                </button>
+              </div>
+            )
           )}
 
           {/* TAB 2: CHILD PROFILE & ALLERGEN PASSPORT */}
           {activeTab === 'child' && (
-            <div className="space-y-6">
+            currentChild ? (
+              <div className="space-y-6">
 
-              {/* School & Locker Info */}
-              <div className="bg-[#261E18] rounded-3xl p-6 border border-orange-500/20 shadow-xl space-y-4">
-                <h4 className="text-sm font-extrabold text-[#F5EBE1] flex items-center gap-2">
-                  <School className="w-4 h-4 text-orange-400" />
-                  <span>Classroom & Delivery Drop Point</span>
-                </h4>
+                {/* School & Locker Info */}
+                <div className="bg-[#261E18] rounded-3xl p-6 border border-orange-500/20 shadow-xl space-y-4">
+                  <h4 className="text-sm font-extrabold text-[#F5EBE1] flex items-center gap-2">
+                    <School className="w-4 h-4 text-orange-400" />
+                    <span>Classroom & Delivery Drop Point</span>
+                  </h4>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div>
-                    <label className="text-xs font-bold text-[#A8988A] block mb-1.5">Child Full Name</label>
-                    <input
-                      type="text"
-                      value={currentChild.name}
-                      onChange={(e) => {
-                        const updated = [...account.children];
-                        updated[selectedChildIndex].name = e.target.value;
-                        setAccount({ ...account, children: updated });
-                      }}
-                      className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
-                    />
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                      <label className="text-xs font-bold text-[#A8988A] block mb-1.5">Child Full Name</label>
+                      <input
+                        type="text"
+                        value={currentChild.name}
+                        onChange={(e) => {
+                          const updated = [...account.children];
+                          updated[selectedChildIndex].name = e.target.value;
+                          setAccount({ ...account, children: updated });
+                        }}
+                        className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-xs font-bold text-[#A8988A] block mb-1.5">School Name</label>
+                      <input
+                        type="text"
+                        value={currentChild.schoolName}
+                        onChange={(e) => {
+                          const updated = [...account.children];
+                          updated[selectedChildIndex].schoolName = e.target.value;
+                          setAccount({ ...account, children: updated });
+                        }}
+                        className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="text-xs font-bold text-[#A8988A] block mb-1.5">Grade / Section</label>
+                      <input
+                        type="text"
+                        value={currentChild.gradeClass}
+                        onChange={(e) => {
+                          const updated = [...account.children];
+                          updated[selectedChildIndex].gradeClass = e.target.value;
+                          setAccount({ ...account, children: updated });
+                        }}
+                        className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+                      />
+                    </div>
                   </div>
 
                   <div>
-                    <label className="text-xs font-bold text-[#A8988A] block mb-1.5">School Name</label>
+                    <label className="text-xs font-bold text-[#A8988A] block mb-1.5">Designated Lunch Drop Locker / Cubby</label>
                     <input
                       type="text"
-                      value={currentChild.schoolName}
+                      value={currentChild.lunchLocker}
                       onChange={(e) => {
                         const updated = [...account.children];
-                        updated[selectedChildIndex].schoolName = e.target.value;
+                        updated[selectedChildIndex].lunchLocker = e.target.value;
                         setAccount({ ...account, children: updated });
                       }}
-                      className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-bold text-[#A8988A] block mb-1.5">Grade / Section</label>
-                    <input
-                      type="text"
-                      value={currentChild.gradeClass}
-                      onChange={(e) => {
-                        const updated = [...account.children];
-                        updated[selectedChildIndex].gradeClass = e.target.value;
-                        setAccount({ ...account, children: updated });
-                      }}
+                      placeholder="e.g. Locker #42, Hallway B"
                       className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
                     />
                   </div>
                 </div>
 
-                <div>
-                  <label className="text-xs font-bold text-[#A8988A] block mb-1.5">Designated Lunch Drop Locker / Cubby</label>
-                  <input
-                    type="text"
-                    value={currentChild.lunchLocker}
-                    onChange={(e) => {
-                      const updated = [...account.children];
-                      updated[selectedChildIndex].lunchLocker = e.target.value;
-                      setAccount({ ...account, children: updated });
-                    }}
-                    placeholder="e.g. Locker #42, Hallway B"
-                    className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
-                  />
+                {/* Allergen Quarantine Matrix */}
+                <div className="bg-[#261E18] rounded-3xl p-6 border border-orange-500/20 shadow-xl space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="text-sm font-extrabold text-[#F5EBE1] flex items-center gap-2">
+                        <ShieldCheck className="w-4 h-4 text-orange-400" />
+                        <span>Allergen Quarantine & Safety Matrix</span>
+                      </h4>
+                      <p className="text-xs text-[#D4C5B5]">Kitchen staff automatically flags and substitutes ingredients based on these rules</p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
+                    {ALL_ALLERGENS.map((alg) => {
+                      const isAllergic = currentChild.allergies.includes(alg.key);
+                      return (
+                        <button
+                          key={alg.key}
+                          onClick={() => handleToggleAllergen(alg.key)}
+                          className={`p-3 rounded-2xl border text-left transition-all flex items-center justify-between ${
+                            isAllergic
+                              ? 'bg-rose-950/80 border-rose-600 text-rose-200 font-bold'
+                              : 'bg-[#15100C] border-orange-500/20 text-[#D4C5B5] hover:bg-[#2F251E]'
+                          }`}
+                        >
+                          <span className="text-xs">{alg.label}</span>
+                          {isAllergic && <AlertTriangle className="w-3.5 h-3.5 text-rose-400 flex-shrink-0" />}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <div>
+                    <label className="text-xs font-bold text-[#A8988A] block mb-1.5">Chef Notes & Preferences</label>
+                    <textarea
+                      rows={2}
+                      value={currentChild.notes || ''}
+                      onChange={(e) => {
+                        const updated = [...account.children];
+                        updated[selectedChildIndex].notes = e.target.value;
+                        setAccount({ ...account, children: updated });
+                      }}
+                      placeholder="e.g. Mild spice only, please cut fruits into small slices"
+                      className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl p-3 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
+                    />
+                  </div>
+
+                  <div className="flex justify-end pt-2">
+                    <button
+                      onClick={handleSaveChildProfile}
+                      className="px-6 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs shadow-md shadow-orange-600/30"
+                    >
+                      Save Child Profile
+                    </button>
+                  </div>
                 </div>
+
               </div>
-
-              {/* Allergen Quarantine Matrix */}
-              <div className="bg-[#261E18] rounded-3xl p-6 border border-orange-500/20 shadow-xl space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="text-sm font-extrabold text-[#F5EBE1] flex items-center gap-2">
-                      <ShieldCheck className="w-4 h-4 text-orange-400" />
-                      <span>Allergen Quarantine & Safety Matrix</span>
-                    </h4>
-                    <p className="text-xs text-[#D4C5B5]">Kitchen staff automatically flags and substitutes ingredients based on these rules</p>
-                  </div>
+            ) : (
+              <div className="bg-[#261E18] rounded-3xl p-8 border border-dashed border-orange-500/30 text-center space-y-4">
+                <div className="w-14 h-14 rounded-2xl bg-orange-950/80 text-orange-400 flex items-center justify-center mx-auto border border-orange-500/30">
+                  <User className="w-7 h-7" />
                 </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
-                  {ALL_ALLERGENS.map((alg) => {
-                    const isAllergic = currentChild.allergies.includes(alg.key);
-                    return (
-                      <button
-                        key={alg.key}
-                        onClick={() => handleToggleAllergen(alg.key)}
-                        className={`p-3 rounded-2xl border text-left transition-all flex items-center justify-between ${
-                          isAllergic
-                            ? 'bg-rose-950/80 border-rose-600 text-rose-200 font-bold'
-                            : 'bg-[#15100C] border-orange-500/20 text-[#D4C5B5] hover:bg-[#2F251E]'
-                        }`}
-                      >
-                        <span className="text-xs">{alg.label}</span>
-                        {isAllergic && <AlertTriangle className="w-3.5 h-3.5 text-rose-400 flex-shrink-0" />}
-                      </button>
-                    );
-                  })}
-                </div>
-
-                <div>
-                  <label className="text-xs font-bold text-[#A8988A] block mb-1.5">Chef Notes & Preferences</label>
-                  <textarea
-                    rows={2}
-                    value={currentChild.notes || ''}
-                    onChange={(e) => {
-                      const updated = [...account.children];
-                      updated[selectedChildIndex].notes = e.target.value;
-                      setAccount({ ...account, children: updated });
-                    }}
-                    placeholder="e.g. Mild spice only, please cut fruits into small slices"
-                    className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl p-3 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
-                  />
-                </div>
-
-                <div className="flex justify-end pt-2">
-                  <button
-                    onClick={handleSaveChildProfile}
-                    className="px-6 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs shadow-md shadow-orange-600/30"
-                  >
-                    Save Child Profile
-                  </button>
-                </div>
+                <h4 className="text-base font-extrabold text-white">No Children Added Yet</h4>
+                <p className="text-xs text-[#D4C5B5] max-w-sm mx-auto">
+                  Register your child's profile to configure their Dhaka school campus, classroom locker, and strict allergen quarantine rules.
+                </p>
+                <button
+                  onClick={() => setIsAddingChild(true)}
+                  className="px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs shadow-md shadow-orange-600/30 inline-flex items-center gap-2 active:scale-95 transition-all"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>+ Add Child Profile</span>
+                </button>
               </div>
-
-            </div>
+            )
           )}
 
           {/* TAB 3: DELIVERY TELEMETRY & REPORT */}

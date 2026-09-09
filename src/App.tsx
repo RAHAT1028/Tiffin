@@ -32,67 +32,68 @@ import {
 import { Sparkles, Users } from 'lucide-react';
 import { sfx } from './utils/audio';
 
-const DEFAULT_DEMO_PARENT: AuthUser = {
-  id: 'usr-parent-9921',
-  name: 'Dr. Farhana Rahman',
-  email: 'farhana.rahman@familymail.com',
-  phone: '+880 1712-345678',
-  avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80',
-  role: 'parent',
-  membershipTier: 'Gold VIP',
-  walletBalance: 28.50,
-  familyMembers: INITIAL_FAMILY_MEMBERS
-};
-
 export const App: React.FC = () => {
-  // Auth State with LocalStorage
+  // Auth State with LocalStorage (Defaults to null - Guest)
   const [currentUser, setCurrentUser] = useState<AuthUser | null>(() => {
     try {
       const saved = localStorage.getItem('smart_tiffin_current_user');
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed?.id === 'usr-parent-9921' && parsed?.name === 'Dr. Farhana Rahman') {
+          localStorage.removeItem('smart_tiffin_current_user');
+          return null;
+        }
+        return parsed;
+      }
     } catch (e) {}
-    return DEFAULT_DEMO_PARENT;
+    return null;
   });
 
-  // Family Members State strictly tied to currentUser and localStorage
+  // Family Members State strictly tied to currentUser and localStorage (Defaults to empty)
   const [familyMembers, setFamilyMembers] = useState<FamilyMember[]>(() => {
     try {
       const savedFam = localStorage.getItem('smart_tiffin_family_members');
       if (savedFam !== null) {
         const parsed = JSON.parse(savedFam);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
+        if (Array.isArray(parsed)) {
+          const clean = parsed.filter(m => m.id !== 'fam-1' && m.id !== 'fam-2' && m.id !== 'fam-3' && m.id !== 'fam-4');
+          if (clean.length !== parsed.length) {
+            localStorage.setItem('smart_tiffin_family_members', JSON.stringify(clean));
+          }
+          return clean;
         }
       }
       const savedUser = localStorage.getItem('smart_tiffin_current_user');
       if (savedUser) {
         const user = JSON.parse(savedUser);
-        if (user.familyMembers && Array.isArray(user.familyMembers) && user.familyMembers.length > 0) {
-          return user.familyMembers;
+        if (user.familyMembers && Array.isArray(user.familyMembers)) {
+          return user.familyMembers.filter((m: any) => m.id !== 'fam-1' && m.id !== 'fam-2' && m.id !== 'fam-3' && m.id !== 'fam-4');
         }
       }
     } catch (e) {}
-    return INITIAL_FAMILY_MEMBERS;
+    return [];
   });
 
-  const [activeMember, setActiveMember] = useState<FamilyMember>(() => {
+  const [activeMember, setActiveMember] = useState<FamilyMember | null>(() => {
     try {
       const savedFam = localStorage.getItem('smart_tiffin_family_members');
       if (savedFam !== null) {
         const parsed = JSON.parse(savedFam);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed[0];
+        if (Array.isArray(parsed)) {
+          const clean = parsed.filter(m => m.id !== 'fam-1' && m.id !== 'fam-2' && m.id !== 'fam-3' && m.id !== 'fam-4');
+          if (clean.length > 0) return clean[0];
         }
       }
       const savedUser = localStorage.getItem('smart_tiffin_current_user');
       if (savedUser) {
         const user = JSON.parse(savedUser);
-        if (user.familyMembers && Array.isArray(user.familyMembers) && user.familyMembers.length > 0) {
-          return user.familyMembers[0];
+        if (user.familyMembers && Array.isArray(user.familyMembers)) {
+          const clean = user.familyMembers.filter((m: any) => m.id !== 'fam-1' && m.id !== 'fam-2' && m.id !== 'fam-3' && m.id !== 'fam-4');
+          if (clean.length > 0) return clean[0];
         }
       }
     } catch (e) {}
-    return INITIAL_FAMILY_MEMBERS[0];
+    return null;
   });
 
   const [familyModalOpen, setFamilyModalOpen] = useState(false);
@@ -133,44 +134,28 @@ export const App: React.FC = () => {
     let userChildren: FamilyMember[] = [];
     if (user.familyMembers && user.familyMembers.length > 0) {
       userChildren = user.familyMembers;
-    } else if (user.email === DEFAULT_DEMO_PARENT.email) {
-      userChildren = INITIAL_FAMILY_MEMBERS;
-    } else {
-      // New user default child
-      userChildren = [
-        {
-          id: `child-${Date.now()}`,
-          name: `${user.name.split(' ')[0]}'s Child`,
-          relation: 'Child',
-          age: 8,
-          deliveryLocation: 'St. Mary Academy • Class 3B',
-          allergies: ['nuts'],
-          dietaryPreferences: ['Nut-Free Certified'],
-          avatar: 'https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=300&q=80',
-          colorTheme: 'orange',
-          defaultPlan: 'standard'
-        }
-      ];
+    } else if (familyMembers.length > 0) {
+      userChildren = familyMembers;
     }
 
     setFamilyMembers(userChildren);
-    setActiveMember(userChildren[0]);
+    setActiveMember(userChildren[0] || null);
 
     try {
       localStorage.setItem('smart_tiffin_family_members', JSON.stringify(userChildren));
     } catch (e) {}
 
-    showToast(`Welcome, ${user.name}! ($${user.walletBalance.toFixed(2)} in Wallet)`);
+    showToast(`Welcome, ${user.name}! ($${(user.walletBalance || 0).toFixed(2)} in Wallet)`);
   };
 
   const handleLogout = () => {
     setCurrentUser(null);
+    setFamilyMembers([]);
+    setActiveMember(null);
     try {
       localStorage.removeItem('smart_tiffin_current_user');
       localStorage.removeItem('smart_tiffin_family_members');
     } catch (e) {}
-    setFamilyMembers(INITIAL_FAMILY_MEMBERS);
-    setActiveMember(INITIAL_FAMILY_MEMBERS[0]);
     setAccountOpen(false);
     showToast('You have been logged out.');
   };
@@ -198,28 +183,31 @@ export const App: React.FC = () => {
       localStorage.setItem('smart_tiffin_family_members', JSON.stringify(updatedMembers));
     } catch (e) {}
     if (updatedMembers.length > 0) {
-      const match = updatedMembers.find(m => m.id === activeMember.id);
-      if (match) {
-        setActiveMember(match);
-      } else {
+      if (!activeMember || !updatedMembers.find(m => m.id === activeMember.id)) {
         setActiveMember(updatedMembers[0]);
       }
+    } else {
+      setActiveMember(null);
     }
   };
 
-  // Add meal attributed to a specific family member
-  const handleAddToCartForMember = (meal: MealItem, member?: FamilyMember) => {
-    const targetMember = member || activeMember;
+  // Add meal attributed to a specific family member or guest
+  const handleAddToCartForMember = (meal: MealItem, member?: FamilyMember | null) => {
+    const targetMember = member !== undefined ? member : activeMember;
     const cartEntry: CartItemWithMember = {
       meal,
-      familyMemberId: targetMember.id,
-      familyMemberName: targetMember.name,
-      memberAvatar: targetMember.avatar,
-      deliveryLocation: targetMember.deliveryLocation
+      familyMemberId: targetMember?.id || 'guest-order',
+      familyMemberName: targetMember?.name || 'Lunchbox',
+      memberAvatar: targetMember?.avatar,
+      deliveryLocation: targetMember?.deliveryLocation || 'Dhaka Delivery'
     };
     sfx.playSuccess();
     setCartItems((prev) => [...prev, cartEntry]);
-    showToast(`Added ${meal.name} for ${targetMember.name}!`);
+    if (targetMember) {
+      showToast(`Added ${meal.name} for ${targetMember.name}!`);
+    } else {
+      showToast(`Added ${meal.name} to cart!`);
+    }
   };
 
   const handleAddToCart = (meal: MealItem) => {
@@ -423,11 +411,15 @@ export const App: React.FC = () => {
         <TiffinCustomizer
           selectedPlanInitial={customizerPlan}
           initialProfile={customizerProfile}
+          activeMember={activeMember}
           onStartSubscription={handleStartSubscription}
         />
 
         {/* Live Lunch & Temperature Tracker */}
-        <LiveTracker />
+        <LiveTracker 
+          familyMembers={familyMembers}
+          activeMember={activeMember}
+        />
 
         {/* Hygiene, Allergen Quarantine & Safety */}
         <HygieneSection />
@@ -454,8 +446,12 @@ export const App: React.FC = () => {
           aria-label="Manage Family Members"
         >
           <Users className="w-4 h-4 text-orange-400" />
-          <span className="font-extrabold text-xs text-white">Family: {activeMember.name.split(' ')[0]}</span>
-          <span className="px-1.5 py-0.2 text-[9px] bg-orange-600 text-white font-black rounded-full">{familyMembers.length}</span>
+          <span className="font-extrabold text-xs text-white">
+            Family: {activeMember ? activeMember.name.split(' ')[0] : 'Hub'}
+          </span>
+          <span className="px-1.5 py-0.2 text-[9px] bg-orange-600 text-white font-black rounded-full">
+            {familyMembers.length}
+          </span>
         </button>
 
         {/* Floating Taste Quiz Pill */}

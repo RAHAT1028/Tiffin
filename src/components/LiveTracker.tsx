@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { 
-  Truck, 
-  ChefHat, 
-  ThermometerSun, 
-  CheckCircle2, 
-  Clock, 
-  MapPin, 
-  ShieldCheck, 
-  BellRing, 
-  Sparkles, 
-  RefreshCw 
+import {
+  Truck,
+  ChefHat,
+  ThermometerSun,
+  CheckCircle2,
+  Clock,
+  MapPin,
+  ShieldCheck,
+  BellRing,
+  Sparkles,
+  RefreshCw
 } from 'lucide-react';
 import { sfx } from '../utils/audio';
 
@@ -55,7 +55,7 @@ export const LiveTracker: React.FC = () => {
       <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-950/80 text-orange-300 border border-orange-500/30 text-xs font-bold uppercase tracking-wider mb-3">
@@ -72,7 +72,7 @@ export const LiveTracker: React.FC = () => {
 
         {/* Tracker Panel Card */}
         <div className="bg-[#261E18] rounded-3xl p-6 sm:p-10 border border-orange-500/30 shadow-2xl shadow-black/80 hover-glow-card">
-          
+
           {/* Top Status Banner */}
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-8 border-b border-orange-500/20">
             <div className="flex items-center gap-4">
@@ -136,29 +136,26 @@ export const LiveTracker: React.FC = () => {
               return (
                 <div
                   key={idx}
-                  className={`relative p-5 rounded-2xl border transition-all ${
-                    isCurrent
+                  className={`relative p-5 rounded-2xl border transition-all ${isCurrent
                       ? 'bg-orange-950/40 border-orange-500/80 shadow-2xl shadow-orange-950/50 ring-2 ring-orange-500/50 animate-glow-orange'
                       : isPast
-                      ? 'bg-[#15100C] border-orange-500/25 opacity-95 hover:border-orange-500/40'
-                      : 'bg-[#15100C]/40 border-orange-500/10 opacity-40'
-                  }`}
+                        ? 'bg-[#15100C] border-orange-500/25 opacity-95 hover:border-orange-500/40'
+                        : 'bg-[#15100C]/40 border-orange-500/10 opacity-40'
+                    }`}
                 >
                   {/* Step number and icon */}
                   <div className="flex items-center justify-between mb-3">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                      isCurrent
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isCurrent
                         ? 'bg-orange-600 text-white font-bold shadow-lg shadow-orange-600/40 animate-pulse'
                         : isPast
-                        ? 'bg-orange-950/60 text-orange-400 border border-orange-500/30'
-                        : 'bg-[#261E18] text-[#8C7B6D] border border-orange-500/10'
-                    }`}>
+                          ? 'bg-orange-950/60 text-orange-400 border border-orange-500/30'
+                          : 'bg-[#261E18] text-[#8C7B6D] border border-orange-500/10'
+                      }`}>
                       <Icon className="w-5 h-5" />
                     </div>
-                    <span className={`text-[11px] font-extrabold uppercase px-2 py-0.5 rounded-md ${
-                      isCurrent ? 'bg-orange-950 text-orange-300 border border-orange-500/40' :
-                      isPast ? 'text-[#A8988A]' : 'text-[#8C7B6D]'
-                    }`}>
+                    <span className={`text-[11px] font-extrabold uppercase px-2 py-0.5 rounded-md ${isCurrent ? 'bg-orange-950 text-orange-300 border border-orange-500/40' :
+                        isPast ? 'text-[#A8988A]' : 'text-[#8C7B6D]'
+                      }`}>
                       {step.time}
                     </span>
                   </div>
@@ -167,7 +164,7 @@ export const LiveTracker: React.FC = () => {
                     {step.title}
                   </h4>
                   <p className="text-xs text-[#D4C5B5] leading-relaxed">{step.desc}</p>
-                  
+
                   <div className="mt-3 pt-3 border-t border-orange-500/20 flex items-center gap-1.5 text-[11px]">
                     {isPast && <CheckCircle2 className="w-3.5 h-3.5 text-orange-400" />}
                     {isCurrent && <span className="w-2 h-2 rounded-full bg-orange-400 animate-ping"></span>}

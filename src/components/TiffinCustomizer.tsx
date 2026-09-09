@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MealCategory, Allergen, ChildProfile, SubscriptionConfig } from '../types';
+import { MealCategory, Allergen, ChildProfile, SubscriptionConfig, FamilyMember } from '../types';
 import { MEAL_PLANS, PARTNER_SCHOOLS } from '../data/mockData';
 import { sfx } from '../utils/audio';
 import { 
@@ -19,6 +19,7 @@ interface TiffinCustomizerProps {
   onStartSubscription: (profile: ChildProfile, config: SubscriptionConfig, totalWeekly: number) => void;
   selectedPlanInitial?: MealCategory;
   initialProfile?: Partial<ChildProfile>;
+  activeMember?: FamilyMember | null;
 }
 
 const ALLERGEN_OPTIONS: { id: Allergen; label: string }[] = [
@@ -34,15 +35,16 @@ const ALLERGEN_OPTIONS: { id: Allergen; label: string }[] = [
 export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({ 
   onStartSubscription, 
   selectedPlanInitial = 'standard',
-  initialProfile
+  initialProfile,
+  activeMember
 }) => {
-  const [name, setName] = useState(initialProfile?.name || 'Aayan');
+  const [name, setName] = useState(activeMember?.name || initialProfile?.name || '');
   const [ageGroup, setAgeGroup] = useState<'nursery' | 'primary' | 'secondary'>(
     initialProfile?.ageGroup || 'primary'
   );
   const [school, setSchool] = useState(initialProfile?.schoolName || PARTNER_SCHOOLS[0]);
   const [gradeClass, setGradeClass] = useState(initialProfile?.gradeClass || 'Class 3B');
-  const [allergies, setAllergies] = useState<Allergen[]>(initialProfile?.allergies || ['nuts']);
+  const [allergies, setAllergies] = useState<Allergen[]>(activeMember?.allergies || initialProfile?.allergies || ['nuts']);
   const [specialNotes, setSpecialNotes] = useState(initialProfile?.notes || 'Please pack mild spices only.');
 
   const [plan, setPlan] = useState<MealCategory>(selectedPlanInitial);
@@ -163,7 +165,7 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="e.g. Aayan / Zoya"
+                    placeholder="e.g. Enter child's name"
                     className="w-full px-4 py-2.5 rounded-xl bg-[#15100C] border border-orange-500/20 text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 placeholder-[#9E8C7D]"
                     required
                   />
