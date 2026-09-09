@@ -7,10 +7,11 @@ import {
   Clock, 
   CheckCircle2, 
   Star, 
-  HeartHandshake,
-  ThermometerSun,
-  Award
+  HeartHandshake, 
+  ThermometerSun, 
+  Award 
 } from 'lucide-react';
+import { sfx } from '../utils/audio';
 
 interface HeroProps {
   onExploreMenu: () => void;
