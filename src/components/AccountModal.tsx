@@ -50,21 +50,21 @@ const DEFAULT_INVOICES = [
   {
     id: 'INV-2026-0901',
     date: 'Sep 01, 2026',
-    amount: 32.50,
+    amount: 1600,
     description: 'Standard Plan - 5 Days Hot Tiffin Delivery',
     status: 'paid' as const
   },
   {
     id: 'INV-2026-0825',
     date: 'Aug 25, 2026',
-    amount: 19.50,
+    amount: 960,
     description: 'Standard Plan - 3 Days Hot Tiffin Delivery',
     status: 'paid' as const
   },
   {
     id: 'INV-2026-0818',
     date: 'Aug 18, 2026',
-    amount: 6.50,
+    amount: 320,
     description: 'Refund: 7:00 AM Sick Day Morning Pause Credit',
     status: 'refunded' as const
   }
@@ -103,17 +103,17 @@ const DEFAULT_DELIVERIES = [
 const PLAN_RATES: Record<MealCategory, { name: string; price: number; desc: string }> = {
   basic: {
     name: 'Wholesome Everyday',
-    price: 4.50,
+    price: 220,
     desc: 'Nutrient-rich, comforting classics with balanced carbs & fresh veggies'
   },
   standard: {
     name: 'Vitality & High-Protein',
-    price: 6.50,
+    price: 320,
     desc: 'Extra protein, superfoods, fresh fruit bowls and certified thermal packaging'
   },
   premium: {
     name: 'Gourmet Bento & Omega-3',
-    price: 8.50,
+    price: 450,
     desc: 'Chef specialty wild salmon, avocado sushi rolls, and cold-pressed juices'
   }
 };
@@ -224,7 +224,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
       email: currentUser.email,
       phone: currentUser.phone || '+44 (0) 7700 900822',
       avatar: currentUser.avatar || 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80',
-      walletBalance: typeof currentUser.walletBalance === 'number' ? currentUser.walletBalance : 28.50,
+      walletBalance: typeof currentUser.walletBalance === 'number' ? currentUser.walletBalance : 1450,
       activePlan: currentUser.activePlan || 'standard',
       billingCycle: 'weekly',
       autoRenew: true,
@@ -290,7 +290,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
             className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-orange-600 via-orange-500 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-extrabold text-sm shadow-lg shadow-orange-600/30 transition-all flex items-center justify-center gap-2 active:scale-95 shimmer-effect"
           >
             <LogIn className="w-4 h-4" />
-            <span>Sign In or Register (+$10 Bonus)</span>
+            <span>Sign In or Register (+৳500 Bonus)</span>
           </button>
         </div>
       </div>
@@ -515,23 +515,23 @@ export const AccountModal: React.FC<AccountModalProps> = ({
 
     if (code === 'TIFFIN15' || code === 'SAVE15' || code === 'WELCOME10') {
       sfx.playSuccess();
-      const bonus = 10.00;
-      const newBal = Number((account.walletBalance + bonus).toFixed(2));
+      const bonus = 500;
+      const newBal = Number((account.walletBalance + bonus).toFixed(0));
       setAccount({ ...account, walletBalance: newBal });
       if (currentUser && onUpdateUser) {
         onUpdateUser({ ...currentUser, walletBalance: newBal });
       }
-      setVoucherMsg({ text: '🎉 Promo Applied! +$10.00 credited to your Tiffin Wallet.', isError: false });
+      setVoucherMsg({ text: '🎉 Promo Applied! +৳500 credited to your Tiffin Wallet.', isError: false });
       setVoucherInput('');
     } else if (code === 'HEALTHYKID' || code === 'FREEDAY') {
       sfx.playSuccess();
-      const bonus = 6.50;
-      const newBal = Number((account.walletBalance + bonus).toFixed(2));
+      const bonus = 320;
+      const newBal = Number((account.walletBalance + bonus).toFixed(0));
       setAccount({ ...account, walletBalance: newBal });
       if (currentUser && onUpdateUser) {
         onUpdateUser({ ...currentUser, walletBalance: newBal });
       }
-      setVoucherMsg({ text: '🎉 Free Lunch Day credited! +$6.50 added to wallet.', isError: false });
+      setVoucherMsg({ text: '🎉 Free Lunch Day credited! +৳320 added to wallet.', isError: false });
       setVoucherInput('');
     } else {
       sfx.playPop();
@@ -575,8 +575,8 @@ export const AccountModal: React.FC<AccountModalProps> = ({
           <div className="flex items-center gap-2.5">
             {/* Wallet quick badge */}
             <div className="flex flex-col items-end bg-[#15100C] px-3.5 py-1.5 rounded-2xl border border-orange-500/20">
-              <span className="text-[10px] uppercase font-bold text-[#A8988A]">Lunch Wallet Balance</span>
-              <span className="text-sm font-black text-amber-400">${account.walletBalance.toFixed(2)}</span>
+              <span className="text-[10px] uppercase font-bold text-[#A8988A] block">Tiffin Wallet</span>
+              <span className="text-sm font-black text-amber-400">৳{account.walletBalance.toFixed(0)}</span>
             </div>
 
             {/* Logout button in header */}
@@ -793,8 +793,8 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                     </div>
                     <div className="bg-[#15100C] p-4 rounded-2xl border border-orange-500/20 text-left sm:text-right flex-shrink-0">
                       <span className="text-[10px] uppercase font-bold text-[#A8988A] block">Weekly Auto-Charge</span>
-                      <span className="text-2xl font-black text-orange-400">${weeklyCost.toFixed(2)}</span>
-                      <span className="text-[10px] text-[#A8988A] block mt-0.5">({currentChild.activeDays.length} days / week @ ${currentRate.price.toFixed(2)}/day)</span>
+                      <span className="text-2xl font-black text-orange-400">৳{weeklyCost.toFixed(0)}</span>
+                      <span className="text-[10px] text-[#A8988A] block mt-0.5">({currentChild.activeDays.length} days / week @ ৳{currentRate.price}/day)</span>
                     </div>
                   </div>
 
@@ -826,7 +826,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                                   </span>
                                 )}
                               </div>
-                              <span className="text-base font-black text-orange-400">${p.price.toFixed(2)}<span className="text-[10px] text-[#A8988A] font-normal">/day</span></span>
+                              <span className="text-base font-black text-orange-400">৳{p.price}<span className="text-[10px] text-[#A8988A] font-normal">/day</span></span>
                               <p className="text-[11px] text-[#D4C5B5] mt-1.5 line-clamp-2">{p.desc}</p>
                             </div>
                           </div>
@@ -862,7 +862,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                           }`}
                         >
                           <span className="text-xs font-bold">{day.slice(0, 3)}</span>
-                          <span className="text-[10px] opacity-90">{isSelected ? `$${currentRate.price.toFixed(2)}` : 'Off'}</span>
+                          <span className="text-[10px] opacity-90">{isSelected ? `৳${currentRate.price}` : 'Off'}</span>
                           <div className={`w-4 h-4 rounded-full mt-1 flex items-center justify-center ${isSelected ? 'bg-white/20' : 'bg-[#261E18]'}`}>
                             {isSelected && <Check className="w-2.5 h-2.5 text-white" />}
                           </div>
@@ -1144,7 +1144,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                       Smart Tiffin Wallet
                     </span>
                     <h4 className="text-3xl font-black text-amber-400 mt-2">
-                      ${account.walletBalance.toFixed(2)}
+                      ৳{account.walletBalance.toFixed(0)}
                     </h4>
                     <p className="text-xs text-[#D4C5B5] mt-1">
                       Auto-credited whenever a meal is paused before 7:00 AM or promotional vouchers are redeemed.
@@ -1194,7 +1194,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                     )}
                   </div>
                   <span className="text-[10px] text-[#A8988A] pt-2">
-                    Try demo codes: <strong className="text-orange-400">TIFFIN15</strong> (+$10) or <strong className="text-orange-400">HEALTHYKID</strong> (+$6.50)
+                    Try demo codes: <strong className="text-orange-400">TIFFIN15</strong> (+৳500) or <strong className="text-orange-400">HEALTHYKID</strong> (+৳320)
                   </span>
                 </div>
               </div>
@@ -1243,7 +1243,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                         <span className="text-[11px] text-[#A8988A]">{inv.id} • {inv.date}</span>
                       </div>
                       <div className="flex items-center gap-3">
-                        <span className="font-black text-sm text-orange-400">${inv.amount.toFixed(2)}</span>
+                        <span className="font-black text-sm text-orange-400">৳{inv.amount.toFixed(0)}</span>
                         <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${
                           inv.status === 'paid' ? 'bg-emerald-950 text-emerald-300 border border-emerald-600/40' :
                             'bg-amber-950 text-amber-300 border border-amber-500/40'

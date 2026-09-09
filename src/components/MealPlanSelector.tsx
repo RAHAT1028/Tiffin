@@ -71,11 +71,11 @@ export const MealPlanSelector: React.FC<MealPlanSelectorProps> = ({ onSelectPlan
                 {/* Pricing Display */}
                 <div className="mb-6 p-4 rounded-2xl bg-[#15100C] border border-orange-500/20 hover:border-orange-500/40 transition-colors">
                   <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-extrabold text-white">${plan.price.toFixed(2)}</span>
+                    <span className="text-4xl font-extrabold text-white">৳{plan.price}</span>
                     <span className="text-sm font-semibold text-[#9E8C7D]">/ day</span>
                   </div>
                   <p className="text-xs text-orange-400 font-semibold mt-1">
-                    ${plan.weeklyPrice5Day.toFixed(2)} / week (5 full school days)
+                    ৳{plan.weeklyPrice5Day} / week (5 full school days)
                   </p>
                   <p className="text-[11px] text-[#9E8C7D] mt-0.5">Free hot insulated delivery included</p>
                 </div>

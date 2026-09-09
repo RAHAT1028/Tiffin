@@ -297,7 +297,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
 
                   {/* Price Chip with Glow */}
                   <div className="absolute top-3 right-3 bg-[#15100C]/90 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-extrabold text-orange-400 border border-orange-500/30 shadow-md group-hover:border-orange-400 group-hover:text-amber-300 transition-colors">
-                    ${meal.pricePerDay.toFixed(2)}/day
+                    ৳{meal.pricePerDay}/day
                   </div>
 
                   {/* Bottom tags */}

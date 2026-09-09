@@ -145,7 +145,7 @@ export const App: React.FC = () => {
       localStorage.setItem('smart_tiffin_family_members', JSON.stringify(userChildren));
     } catch (e) {}
 
-    showToast(`Welcome, ${user.name}! ($${(user.walletBalance || 0).toFixed(2)} in Wallet)`);
+    showToast(`Welcome, ${user.name}! (৳${(user.walletBalance || 0).toFixed(0)} in Wallet)`);
   };
 
   const handleLogout = () => {

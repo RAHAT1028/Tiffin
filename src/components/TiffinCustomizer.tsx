@@ -88,10 +88,10 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
   
   // Add-ons daily cost
   let addOnsDaily = 0;
-  if (fruitBowl) addOnsDaily += 1.20;
-  if (coldPressedJuice) addOnsDaily += 1.80;
-  if (organicYoghurt) addOnsDaily += 1.00;
-  if (proteinCookie) addOnsDaily += 0.90;
+  if (fruitBowl) addOnsDaily += 60;
+  if (coldPressedJuice) addOnsDaily += 80;
+  if (organicYoghurt) addOnsDaily += 50;
+  if (proteinCookie) addOnsDaily += 40;
 
   // Portion multiplier
   const portionMultiplier = portionSize === 'large' ? 1.2 : 1.0;
@@ -249,7 +249,7 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
                   >
                     <div className="flex justify-between items-center mb-1">
                       <span className="font-bold text-sm text-white">{p.name}</span>
-                      <span className="text-xs font-extrabold text-orange-400">${p.price.toFixed(2)}</span>
+                      <span className="text-xs font-extrabold text-orange-400">৳{p.price}</span>
                     </div>
                     <span className="text-[11px] text-[#9E8C7D] block leading-tight">{p.description}</span>
                   </button>
@@ -428,7 +428,7 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
                       <span className="text-[11px] text-[#9E8C7D]">Berries, grapes, apple slices</span>
                     </div>
                   </div>
-                  <span className="text-xs font-extrabold text-orange-400">+$1.20/day</span>
+                  <span className="text-xs font-extrabold text-orange-400">+৳60/day</span>
                 </label>
 
                 <label className={`p-3 rounded-2xl border flex items-center justify-between cursor-pointer transition-all ${
@@ -449,7 +449,7 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
                       <span className="text-[11px] text-[#9E8C7D]">Zero added sugar / preservatives</span>
                     </div>
                   </div>
-                  <span className="text-xs font-extrabold text-orange-400">+$1.80/day</span>
+                  <span className="text-xs font-extrabold text-orange-400">+৳80/day</span>
                 </label>
 
                 <label className={`p-3 rounded-2xl border flex items-center justify-between cursor-pointer transition-all ${
@@ -470,7 +470,7 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
                       <span className="text-[11px] text-[#9E8C7D]">Gut health & calcium boost</span>
                     </div>
                   </div>
-                  <span className="text-xs font-extrabold text-orange-400">+$1.00/day</span>
+                  <span className="text-xs font-extrabold text-orange-400">+৳50/day</span>
                 </label>
 
                 <label className={`p-3 rounded-2xl border flex items-center justify-between cursor-pointer transition-all ${
@@ -491,7 +491,7 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
                       <span className="text-[11px] text-[#9E8C7D]">Nut-free, high fiber energy</span>
                     </div>
                   </div>
-                  <span className="text-xs font-extrabold text-orange-400">+$0.90/day</span>
+                  <span className="text-xs font-extrabold text-orange-400">+৳40/day</span>
                 </label>
               </div>
             </div>
@@ -516,20 +516,20 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
               <div className="py-4 space-y-2.5 text-xs">
                 <div className="flex justify-between text-[#D4C5B5]">
                   <span>{activePlanObj.name} Base Rate ({daysPerWeek} days)</span>
-                  <span className="font-bold text-white">${(baseDaily * daysPerWeek).toFixed(2)}</span>
+                  <span className="font-bold text-white">৳{(baseDaily * daysPerWeek).toFixed(0)}</span>
                 </div>
 
                 {portionSize === 'large' && (
                   <div className="flex justify-between text-[#D4C5B5]">
                     <span>Hearty Portion Upgrade (+20%)</span>
-                    <span className="font-bold text-white">${((baseDaily * 0.2) * daysPerWeek).toFixed(2)}</span>
+                    <span className="font-bold text-white">৳{((baseDaily * 0.2) * daysPerWeek).toFixed(0)}</span>
                   </div>
                 )}
 
                 {addOnsDaily > 0 && (
                   <div className="flex justify-between text-[#D4C5B5]">
                     <span>Healthy Booster Snacks ({daysPerWeek} days)</span>
-                    <span className="font-bold text-white">${(addOnsDaily * daysPerWeek).toFixed(2)}</span>
+                    <span className="font-bold text-white">৳{(addOnsDaily * daysPerWeek).toFixed(0)}</span>
                   </div>
                 )}
 
@@ -555,15 +555,15 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
               <div className="p-4 rounded-2xl bg-[#15100C] border border-orange-500/30 text-white mb-6">
                 <div className="flex items-baseline justify-between">
                   <span className="text-xs font-medium text-[#9E8C7D]">Weekly Total</span>
-                  <span className="text-3xl font-extrabold text-orange-400">${totalWeekly.toFixed(2)}</span>
+                  <span className="text-3xl font-extrabold text-orange-400">৳{totalWeekly.toFixed(0)}</span>
                 </div>
                 <div className="flex items-baseline justify-between mt-1 text-[11px] text-[#9E8C7D]">
                   <span>Daily breakdown</span>
-                  <span>${totalDaily.toFixed(2)} / school day</span>
+                  <span>৳{totalDaily.toFixed(0)} / school day</span>
                 </div>
                 <div className="mt-3 pt-3 border-t border-amber-950/60 flex justify-between text-[11px] text-[#D4C5B5]">
                   <span>Est. Monthly (4 weeks)</span>
-                  <span className="font-bold text-white">${estimatedMonthly.toFixed(2)}</span>
+                  <span className="font-bold text-white">৳{estimatedMonthly.toFixed(0)}</span>
                 </div>
               </div>
 

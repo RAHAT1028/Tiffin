@@ -109,7 +109,7 @@ export const NutribotChat: React.FC<NutribotChatProps> = ({ isOpen, onClose }) =
       } else if (lower.includes('cancel') || lower.includes('sick') || lower.includes('pause') || lower.includes('refund')) {
         fallbackText = `You have full flexibility! You can **pause or cancel any delivery up until 7:00 AM on the day** via your parent dashboard. Any cancelled meals are immediately credited back to your balance for future school days.`;
       } else {
-        fallbackText = `I recommend starting with our **Standard Vitality Plan ($6.50/day)**. It is our most popular tier and includes balanced lean protein, hidden vegetable sugos, fresh fruit bowls, and 100% nut-free safety certification. Would you like me to tailor a plan for a specific age group?`;
+        fallbackText = `I recommend starting with our **Standard Vitality Plan (৳320/day)**. It is our most popular tier and includes balanced lean protein, hidden vegetable sugos, fresh fruit bowls, and 100% nut-free safety certification. Would you like me to tailor a plan for a specific age group?`;
       }
 
       setMessages((prev) => [

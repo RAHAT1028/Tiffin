@@ -370,7 +370,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <div className="min-w-0">
                     <span className="text-sm font-bold text-[#F5EBE1] block truncate">{currentUser.name}</span>
                     <span className="text-[11px] text-orange-400 font-semibold block truncate">
-                      {currentUser.membershipTier} • ${currentUser.walletBalance.toFixed(2)} Balance
+                      {currentUser.membershipTier} • ৳{currentUser.walletBalance.toFixed(0)} Balance
                     </span>
                   </div>
                 </div>
@@ -410,7 +410,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-2xl text-xs font-bold bg-orange-600 hover:bg-orange-500 text-white shadow-lg shadow-orange-600/30 active:scale-98 transition-all"
               >
                 <LogIn className="w-4 h-4" />
-                <span>Parent Sign In / Register (+$10 Welcome Credit)</span>
+                <span>Parent Sign In / Register (+৳500 Welcome Credit)</span>
               </button>
             )}
           </div>

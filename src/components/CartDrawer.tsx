@@ -151,7 +151,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   </div>
                   <div className="flex justify-between">
                     <span className="text-[#A8988A]">Total Charged:</span>
-                    <span className="font-bold text-orange-400 text-sm">${grandTotal.toFixed(2)}</span>
+                    <span className="font-bold text-orange-400 text-sm">৳{grandTotal.toFixed(0)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-[#A8988A]">Thermal Sensor:</span>
@@ -179,7 +179,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                       <Tag className="w-4 h-4 text-amber-400" />
                       <span>Family Multi-Order 10% Discount Applied!</span>
                     </div>
-                    <span className="font-black text-amber-300">-${familyDiscount.toFixed(2)}</span>
+                    <span className="font-black text-amber-300">-৳{familyDiscount.toFixed(0)}</span>
                   </div>
                 )}
 
@@ -396,7 +396,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     <div className="mt-3 pt-3 border-t border-orange-500/20 flex items-center justify-between text-xs">
                       <span className="text-[#A8988A] font-medium">Weekly Billing:</span>
                       <span className="font-extrabold text-orange-400 text-sm">
-                        ${subscription.weeklyTotal.toFixed(2)}
+                        ৳{subscription.weeklyTotal.toFixed(0)}
                       </span>
                     </div>
                   </div>
@@ -434,7 +434,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           </div>
                           <div className="flex items-center gap-2">
                             <span className="font-extrabold text-xs text-orange-400">
-                              ${item.meal.pricePerDay.toFixed(2)}
+                              ৳{item.meal.pricePerDay}
                             </span>
                             <button
                               onClick={() => {
@@ -497,18 +497,18 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               <div className="space-y-1.5 text-xs text-[#D4C5B5]">
                 <div className="flex justify-between">
                   <span>Items Subtotal:</span>
-                  <span>${individualMealsTotal.toFixed(2)}</span>
+                  <span>৳{individualMealsTotal.toFixed(0)}</span>
                 </div>
                 {subscriptionTotal > 0 && (
                   <div className="flex justify-between">
                     <span>Weekly Subscription:</span>
-                    <span>${subscriptionTotal.toFixed(2)}</span>
+                    <span>৳{subscriptionTotal.toFixed(0)}</span>
                   </div>
                 )}
                 {familyDiscount > 0 && (
                   <div className="flex justify-between text-amber-300 font-bold">
                     <span>Multi-Member Discount (10%):</span>
-                    <span>-${familyDiscount.toFixed(2)}</span>
+                    <span>-৳{familyDiscount.toFixed(0)}</span>
                   </div>
                 )}
                 <div className="flex justify-between text-[#A8988A] text-[11px] pt-1">
@@ -519,7 +519,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 </div>
                 <div className="flex items-baseline justify-between pt-2 border-t border-orange-500/20">
                   <span className="text-sm font-bold text-white">Grand Total:</span>
-                  <span className="text-3xl font-extrabold text-orange-400">${grandTotal.toFixed(2)}</span>
+                  <span className="text-3xl font-extrabold text-orange-400">৳{grandTotal.toFixed(0)}</span>
                 </div>
               </div>
 

@@ -447,7 +447,7 @@ export const InteractiveTiffinVisualizer: React.FC<InteractiveTiffinVisualizerPr
   const handleAddToCart = () => {
     sfx.playSuccess();
     const summary = `${selectedMain.name} + ${selectedSide.name} + ${selectedVeggie.name} + ${selectedFruit.name}`;
-    onAddCustomTrayToCart(summary, 6.80);
+    onAddCustomTrayToCart(summary, 350);
   };
 
   return (

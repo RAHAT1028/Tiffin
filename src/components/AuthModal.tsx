@@ -40,7 +40,7 @@ export const DEMO_PARENT_USER: AuthUser = {
   avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80',
   role: 'parent',
   membershipTier: 'Gold VIP',
-  walletBalance: 28.50,
+  walletBalance: 1450,
   activePlan: 'standard'
 };
 
@@ -137,7 +137,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           avatar: existing.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
           role: 'parent',
           membershipTier: existing.membershipTier || 'Silver VIP',
-          walletBalance: typeof existing.walletBalance === 'number' ? existing.walletBalance : 10.00,
+          walletBalance: typeof existing.walletBalance === 'number' ? existing.walletBalance : 500,
           familyMembers: existing.familyMembers || [],
           activePlan: existing.activePlan || 'standard'
         };
@@ -166,7 +166,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80',
           role: 'parent',
           membershipTier: 'Silver VIP',
-          walletBalance: 15.00,
+          walletBalance: 500,
           familyMembers: [generatedChild],
           activePlan: 'standard'
         };
@@ -232,7 +232,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
         role: 'parent',
         membershipTier: 'Silver VIP',
-        walletBalance: 10.00, // $10 Welcome bonus
+        walletBalance: 500, // ৳500 Welcome bonus
         familyMembers: [newChildMember],
         activePlan: 'standard'
       };
@@ -325,7 +325,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           </h3>
           <p className="text-xs text-[#D4C5B5] mt-1 max-w-sm mx-auto">
             {mode === 'login' && 'Access weekly lunch schedules, 7:00 AM pause credits, and live thermal telemetry.'}
-            {mode === 'register' && 'Register in 60s to get $10.00 Welcome Lunch Credit and allergen-safe hot delivery.'}
+            {mode === 'register' && 'Register in 60s to get ৳500 Welcome Lunch Credit and allergen-safe hot delivery.'}
             {mode === 'forgot' && 'Enter your email to receive a secure password recovery magic link.'}
             {mode === 'otp' && 'Enter the 6-digit verification code sent to your phone.'}
           </p>
@@ -363,7 +363,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               >
                 <span>Create Account</span>
                 <span className="px-1.5 py-0.2 rounded-full bg-amber-400 text-black text-[9px] font-black">
-                  +$10
+                  +৳500
                 </span>
               </button>
             </div>
@@ -378,7 +378,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 className="w-full py-2.5 px-4 rounded-2xl bg-gradient-to-r from-orange-950/90 via-[#261E18] to-amber-950/90 border border-orange-500/40 text-xs font-bold text-orange-300 hover:text-white hover:border-orange-400 transition-all flex items-center justify-center gap-2 shadow-sm animate-glow-orange group"
               >
                 <Sparkles className="w-3.5 h-3.5 text-orange-400 group-hover:rotate-12 transition-transform" />
-                <span>One-Click Demo Login (Dr. Sarah Jenkins • $28.50)</span>
+                <span>One-Click Demo Login (Dr. Farhana Rahman • ৳1,450)</span>
               </button>
             </div>
           )}
@@ -666,7 +666,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               {/* Bonus Notification Box */}
               <div className="p-2.5 bg-gradient-to-r from-amber-950/60 to-orange-950/60 rounded-xl border border-amber-500/30 text-[11px] text-amber-200 flex items-center gap-2">
                 <Award className="w-4 h-4 text-amber-400 flex-shrink-0" />
-                <span>🎁 <strong>$10.00 Welcome Bonus</strong> will be instantly credited to your Parent Tiffin Wallet!</span>
+                <span>🎁 <strong>৳500 Welcome Bonus</strong> will be instantly credited to your Parent Tiffin Wallet!</span>
               </div>
 
               <button
@@ -678,7 +678,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   <span>Setting Up Your Account...</span>
                 ) : (
                   <>
-                    <span>Create Parent Account (Get $10 Bonus)</span>
+                    <span>Create Parent Account (Get ৳500 Bonus)</span>
                     <Sparkles className="w-4 h-4 text-amber-200" />
                   </>
                 )}

@@ -88,7 +88,7 @@ export const MealModal: React.FC<MealModalProps> = ({ meal, onClose, onAddToCart
             </div>
             <div className="text-left sm:text-right flex-shrink-0 bg-[#15100C] p-3 rounded-2xl border border-orange-500/20">
               <span className="text-xs text-[#A8988A] block font-semibold">Individual Day Rate</span>
-              <span className="text-2xl font-extrabold text-orange-400">${meal.pricePerDay.toFixed(2)}</span>
+              <span className="text-2xl font-extrabold text-orange-400">৳{meal.pricePerDay}</span>
             </div>
           </div>
 
@@ -186,7 +186,7 @@ export const MealModal: React.FC<MealModalProps> = ({ meal, onClose, onAddToCart
               className="px-6 py-3 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs shadow-lg shadow-orange-600/30 hover:shadow-orange-600/50 flex items-center gap-2 transition-all active:scale-95"
             >
               <Plus className="w-4 h-4" />
-              <span>Add to Meal Subscription (${meal.pricePerDay.toFixed(2)})</span>
+              <span>Add to Meal Subscription (৳{meal.pricePerDay})</span>
             </button>
           </div>
 

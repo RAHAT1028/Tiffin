@@ -231,7 +231,7 @@ export const TopRestaurants: React.FC<TopRestaurantsProps> = ({
                                 {dish.name}
                               </span>
                               <span className="text-[10px] text-orange-400 font-black">
-                                ${dish.pricePerDay.toFixed(2)} • {dish.nutrition.proteinGrams}g Protein
+                                ৳{dish.pricePerDay} • {dish.nutrition.proteinGrams}g Protein
                               </span>
                             </div>
                           </div>
@@ -385,7 +385,7 @@ export const TopRestaurants: React.FC<TopRestaurantsProps> = ({
                     <div className="flex items-center justify-between pt-2 border-t border-orange-500/15 text-xs">
                       <div>
                         <span className="font-black text-sm text-orange-400">
-                          ${dish.pricePerDay.toFixed(2)}
+                          ৳{dish.pricePerDay}
                         </span>
                         <span className="text-[10px] text-[#A8988A] ml-2">
                           {dish.nutrition.calories} kcal • {dish.nutrition.proteinGrams}g P
