@@ -157,11 +157,9 @@ If you prefer to run commands manually in your terminal (Bash, PowerShell, or Zs
 ├── run.bat                     # Root 1-Click Windows Batch Runner (Auto cd project-jk)
 ├── run.ps1                     # Root 1-Click PowerShell Runner (Auto cd project-jk)
 ├── TIFFIN_Smart_School_Tiffin_Presentation.pptx # 13-Slide PowerPoint Presentation Deck
-├── presentation.html           # Interactive 13-Slide Presentation Web App (Fullscreen)
 ├── project-jk/
 │   ├── run.bat                 # Project 1-Click Windows Batch Runner
 │   ├── run.ps1                 # Project 1-Click PowerShell Runner
-│   ├── presentation.html       # Presentation Slide Deck Web App
 │   ├── TIFFIN_Smart_School_Tiffin_Presentation.pptx # PPTX Slide Deck
 │   ├── index.html              # HTML5 Entry Point with Google Fonts (Plus Jakarta Sans)
 │   ├── server.ts               # Express Backend & Vite SSR/HMR Development Server
