@@ -20,7 +20,7 @@ export interface MealItem {
   pricePerDay: number;
   imageUrl: string;
   description: string;
-  dayOfWeek: 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday';
+  dayOfWeek: 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
   allergens: Allergen[];
   tags: string[];
   isVegetarian: boolean;
@@ -29,6 +29,14 @@ export interface MealItem {
   nutrition: NutritionInfo;
   chefNote?: string;
   includedItems: string[];
+  originCuisine?: string;
+  spicinessLevel?: 0 | 1 | 2 | 3;
+  rating?: number;
+  reviewCount?: number;
+  prepTimeMin?: number;
+  isGlutenFree?: boolean;
+  isDairyFree?: boolean;
+  servingTemp?: string;
 }
 
 export interface ChildProfile {
@@ -47,6 +55,7 @@ export interface SubscriptionConfig {
   selectedDays: string[];
   durationWeeks: number;
   portionSize: 'regular' | 'large';
+  deliveryWindow?: '1hr' | '2hr' | '3hr';
   addOns: {
     fruitBowl: boolean;
     coldPressedJuice: boolean;
@@ -82,7 +91,7 @@ export interface ParentAccountChild {
   allergies: Allergen[];
   dietaryPreferences: string[];
   portionSize: 'regular' | 'large';
-  activeDays: ('Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday')[];
+  activeDays: ('Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday')[];
   isPausedToday: boolean;
   pauseReason?: string;
   notes?: string;
@@ -138,7 +147,7 @@ export interface FamilyMember {
   name: string;
   relation: 'Child' | 'Parent' | 'Spouse' | 'Self' | 'Sibling' | 'Other';
   age?: number;
-  deliveryLocation: string; // e.g. "St. Mary Academy - Class 3B (Locker #14)" or "Metropolis Tower, Floor 8"
+  deliveryLocation: string; // e.g. "Scholastica Senior Campus • Class 3B (Yellow Locker #14)" or "Gulshan Centre Point, Floor 9"
   allergies: Allergen[];
   dietaryPreferences: string[];
   avatar: string;

@@ -1,9 +1,9 @@
 @echo off
-title Project JK - Smart School Tiffin Platform
+title TIFFIN - Smart School Tiffin Platform
 cd /d "%~dp0"
 
 echo ========================================================
-echo   Starting Project JK - Smart School Tiffin Platform
+echo   Starting TIFFIN - Smart School Tiffin Platform
 echo ========================================================
 echo.
 

@@ -1,8 +1,8 @@
-# Project JK - Smart School Tiffin Platform Runner Script
-$Host.UI.RawUI.WindowTitle = "Project JK - Smart School Tiffin Platform"
+# TIFFIN - Smart School Tiffin Platform Runner Script
+$Host.UI.RawUI.WindowTitle = "TIFFIN - Smart School Tiffin Platform"
 
 Write-Host "========================================================" -ForegroundColor Cyan
-Write-Host "  Starting Project JK - Smart School Tiffin Platform" -ForegroundColor Green
+Write-Host "  Starting TIFFIN - Smart School Tiffin Platform" -ForegroundColor Green
 Write-Host "========================================================" -ForegroundColor Cyan
 Write-Host ""
 

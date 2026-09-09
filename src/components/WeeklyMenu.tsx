@@ -26,7 +26,7 @@ interface WeeklyMenuProps {
   onOpenFamilyHub?: () => void;
 }
 
-const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as const;
+const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as const;
 
 export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({ 
   onAddToCart,
@@ -102,7 +102,7 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-950/80 border border-orange-500/30 text-orange-400 text-xs font-bold uppercase tracking-wider mb-2">
               <Calendar className="w-3.5 h-3.5" />
-              <span>30+ Chef Meals Rotated Weekly by Paediatric Nutritionists</span>
+              <span>70+ Chef Meals Rotated Weekly by Paediatric Nutritionists</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
               Interactive Weekly Lunch Menu
@@ -267,14 +267,19 @@ export const WeeklyMenu: React.FC<WeeklyMenuProps> = ({
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#15100C] via-[#15100C]/30 to-transparent"></div>
                   
-                  {/* Category Chip */}
-                  <div className="absolute top-3 left-3">
+                  {/* Category & Cuisine Chips */}
+                  <div className="absolute top-3 left-3 flex items-center gap-1.5 flex-wrap">
                     <span className={`px-2.5 py-1 rounded-lg text-white font-extrabold text-[11px] uppercase tracking-wider shadow-sm ${
                       meal.category === 'basic' ? 'bg-orange-600' :
                       meal.category === 'standard' ? 'bg-amber-600' : 'bg-orange-700'
                     }`}>
                       {meal.category}
                     </span>
+                    {meal.originCuisine && (
+                      <span className="px-2 py-1 rounded-lg bg-[#15100C]/85 backdrop-blur-md border border-orange-500/30 text-amber-300 font-bold text-[10px] shadow-sm">
+                        {meal.originCuisine}
+                      </span>
+                    )}
                   </div>
 
                   {/* Price Chip with Glow */}

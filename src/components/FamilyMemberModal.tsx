@@ -313,7 +313,7 @@ export const FamilyMemberModal: React.FC<FamilyMemberModalProps> = ({
               <input
                 type="text"
                 required
-                placeholder={relation === 'Child' ? 'e.g. St. Mary Academy • Class 2A (Locker #8)' : 'e.g. Canary Wharf Tech Office, 12th Floor'}
+                placeholder={relation === 'Child' ? 'e.g. Scholastica Senior Campus • Class 2A (Yellow Locker #8, Uttara)' : 'e.g. Gulshan Centre Point • Level 9, Road 90, Dhaka'}
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 className="w-full bg-[#15100C] border border-orange-500/25 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-orange-500"

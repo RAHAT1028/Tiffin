@@ -59,24 +59,27 @@ export const Testimonials: React.FC = () => {
           ))}
         </div>
 
-        {/* Partner Schools Network */}
+        {/* Partner Schools Network across Dhaka */}
         <div className="bg-[#261E18] rounded-3xl p-8 border border-orange-500/20 shadow-xl text-center">
-          <div className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-orange-400 mb-4">
+          <div className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-orange-400 mb-2">
             <School className="w-4 h-4 text-orange-500" />
-            <span>Active Delivery Route Schools</span>
+            <span>Active Delivery Route Schools in Dhaka</span>
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <p className="text-xs text-[#9E8C7D] mb-5">
+            Serving students across Uttara, Gulshan, Banani, Baridhara, Dhanmondi, Bashundhara R/A, and Mirpur.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-2.5">
             {PARTNER_SCHOOLS.map((school, i) => (
               <span
                 key={i}
-                className="px-3.5 py-1.5 rounded-xl bg-[#15100C] border border-orange-500/20 text-[#D4C5B5] text-xs font-semibold hover:border-orange-500/50 hover:text-[#F5EBE1] transition-colors"
+                className="px-3.5 py-1.5 rounded-xl bg-[#15100C] border border-orange-500/20 text-[#D4C5B5] text-xs font-semibold hover:border-orange-500/50 hover:text-[#F5EBE1] transition-colors shadow-xs"
               >
                 🏫 {school}
               </span>
             ))}
           </div>
-          <p className="text-xs text-[#A8988A] mt-4">
-            Don't see your school? <a href="#customizer" className="text-orange-400 font-bold underline hover:text-orange-300">Request a new school route in 60 seconds</a>.
+          <p className="text-xs text-[#A8988A] mt-5">
+            Don't see your Dhaka school campus? <a href="#customizer" className="text-orange-400 font-bold underline hover:text-orange-300">Request a new school route in 60 seconds</a>.
           </p>
         </div>
 

@@ -22,7 +22,7 @@ const INITIAL_MESSAGES: ChatMessage[] = [
   {
     id: 'welcome',
     sender: 'bot',
-    text: "Hello! I am **JK Nutribot**, your AI School Lunch Nutritionist & Meal Advisor. 🍱✨\n\nHow can I help you today? I can recommend allergen-safe meal plans, calculate macros for your child's age, or explain our thermal delivery and schedule flexibility.",
+    text: "Hello! I am **TIFFIN Nutribot**, your AI School Lunch Nutritionist & Meal Advisor. 🍱✨\n\nHow can I help you today? I can recommend allergen-safe meal plans, calculate macros for your child's age, or explain our thermal delivery and schedule flexibility across Dhaka.",
     timestamp: 'Just now',
     suggestedMeals: ['Paneer Veggie Pulao', 'Chicken Teriyaki Bento', 'Baked Turkey Meatballs']
   }
@@ -142,12 +142,12 @@ export const NutribotChat: React.FC<NutribotChatProps> = ({ isOpen, onClose }) =
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-extrabold text-sm sm:text-base text-white">JK Nutribot</h3>
+                <h3 className="font-extrabold text-sm sm:text-base text-white">TIFFIN Nutribot</h3>
                 <span className="px-2 py-0.5 rounded-full bg-orange-950 text-orange-400 text-[10px] font-bold border border-orange-500/30">
                   AI Paediatric Advisor
                 </span>
               </div>
-              <p className="text-[11px] text-[#A8988A]">Project JK • Smart School Tiffin</p>
+              <p className="text-[11px] text-[#A8988A]">TIFFIN • Smart School Tiffin</p>
             </div>
           </div>
 
@@ -223,7 +223,7 @@ export const NutribotChat: React.FC<NutribotChatProps> = ({ isOpen, onClose }) =
               <div className="bg-[#261E18] border border-orange-500/20 rounded-2xl p-4 shadow-xs">
                 <div className="flex items-center gap-2 text-[#D4C5B5] text-xs font-medium">
                   <span className="w-2 h-2 rounded-full bg-orange-500 animate-ping"></span>
-                  <span>JK Nutribot is crafting personalized meal advice...</span>
+                  <span>TIFFIN Nutribot is crafting personalized meal advice...</span>
                 </div>
               </div>
             </div>

@@ -36,7 +36,7 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
   selectedPlanInitial = 'standard',
   initialProfile
 }) => {
-  const [name, setName] = useState(initialProfile?.name || 'Oliver');
+  const [name, setName] = useState(initialProfile?.name || 'Aayan');
   const [ageGroup, setAgeGroup] = useState<'nursery' | 'primary' | 'secondary'>(
     initialProfile?.ageGroup || 'primary'
   );
@@ -46,7 +46,8 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
   const [specialNotes, setSpecialNotes] = useState(initialProfile?.notes || 'Please pack mild spices only.');
 
   const [plan, setPlan] = useState<MealCategory>(selectedPlanInitial);
-  const [daysPerWeek, setDaysPerWeek] = useState<number>(5);
+  const [daysPerWeek, setDaysPerWeek] = useState<number>(7);
+  const [deliveryWindow, setDeliveryWindow] = useState<'1hr' | '2hr' | '3hr'>('1hr');
   const [portionSize, setPortionSize] = useState<'regular' | 'large'>('regular');
   
   // Add-ons
@@ -111,9 +112,10 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
     const config: SubscriptionConfig = {
       plan,
       daysPerWeek,
-      selectedDays: daysPerWeek === 5 ? ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'] : ['Mon', 'Wed', 'Fri'],
+      selectedDays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       durationWeeks: 4,
       portionSize,
+      deliveryWindow,
       addOns: {
         fruitBowl,
         coldPressedJuice,
@@ -161,7 +163,7 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="e.g. Oliver"
+                    placeholder="e.g. Aayan / Zoya"
                     className="w-full px-4 py-2.5 rounded-xl bg-[#15100C] border border-orange-500/20 text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 placeholder-[#9E8C7D]"
                     required
                   />
@@ -252,41 +254,62 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
                 ))}
               </div>
 
-              {/* Delivery Days per week */}
+              {/* Delivery Frequency (1hr, 2hr, 3hr) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                 <div>
-                  <label className="block text-xs font-bold text-[#D4C5B5] mb-1">Delivery Frequency</label>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-xs font-bold text-[#D4C5B5]">Delivery Frequency</label>
+                    <span className="text-[10px] font-extrabold text-orange-400 bg-orange-950/80 border border-orange-500/30 px-2 py-0.5 rounded-full">
+                      {deliveryWindow.toUpperCase()} Window
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-1.5">
                     <button
                       type="button"
                       onClick={() => {
                         sfx.playPop();
-                        setDaysPerWeek(5);
+                        setDeliveryWindow('1hr');
                       }}
-                      className={`p-3 rounded-xl text-center text-xs font-bold border transition-all ${
-                        daysPerWeek === 5
-                          ? 'bg-gradient-to-r from-orange-600 to-amber-600 text-white border-orange-500 shadow-md shadow-orange-600/30'
+                      className={`p-2.5 rounded-xl text-center text-xs font-bold border transition-all ${
+                        deliveryWindow === '1hr'
+                          ? 'bg-gradient-to-r from-orange-600 to-amber-600 text-white border-orange-500 shadow-md shadow-orange-600/30 ring-1 ring-orange-400/40'
                           : 'bg-[#15100C] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2F251E]'
                       }`}
                     >
-                      <span>5 Days / Week</span>
-                      <span className="block text-[10px] font-normal text-orange-100">Monday to Friday</span>
+                      <span className="block text-xs font-extrabold leading-tight">1 hr</span>
+                      <span className="block text-[9px] font-normal opacity-85 mt-0.5">Express Notice</span>
                     </button>
 
                     <button
                       type="button"
                       onClick={() => {
                         sfx.playPop();
-                        setDaysPerWeek(3);
+                        setDeliveryWindow('2hr');
                       }}
-                      className={`p-3 rounded-xl text-center text-xs font-bold border transition-all ${
-                        daysPerWeek === 3
-                          ? 'bg-gradient-to-r from-orange-600 to-amber-600 text-white border-orange-500 shadow-md shadow-orange-600/30'
+                      className={`p-2.5 rounded-xl text-center text-xs font-bold border transition-all ${
+                        deliveryWindow === '2hr'
+                          ? 'bg-gradient-to-r from-orange-600 to-amber-600 text-white border-orange-500 shadow-md shadow-orange-600/30 ring-1 ring-orange-400/40'
                           : 'bg-[#15100C] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2F251E]'
                       }`}
                     >
-                      <span>3 Days / Week</span>
-                      <span className="block text-[10px] font-normal text-[#9E8C7D]">Mon, Wed, Fri</span>
+                      <span className="block text-xs font-extrabold leading-tight">2 hr</span>
+                      <span className="block text-[9px] font-normal opacity-85 mt-0.5">Standard Notice</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        sfx.playPop();
+                        setDeliveryWindow('3hr');
+                      }}
+                      className={`p-2.5 rounded-xl text-center text-xs font-bold border transition-all ${
+                        deliveryWindow === '3hr'
+                          ? 'bg-gradient-to-r from-orange-600 to-amber-600 text-white border-orange-500 shadow-md shadow-orange-600/30 ring-1 ring-orange-400/40'
+                          : 'bg-[#15100C] text-[#D4C5B5] border-amber-950/80 hover:bg-[#2F251E]'
+                      }`}
+                    >
+                      <span className="block text-xs font-extrabold leading-tight">3 hr</span>
+                      <span className="block text-[9px] font-normal opacity-85 mt-0.5">Scheduled Slot</span>
                     </button>
                   </div>
                 </div>
@@ -507,6 +530,13 @@ export const TiffinCustomizer: React.FC<TiffinCustomizerProps> = ({
                     <span className="font-bold text-white">${(addOnsDaily * daysPerWeek).toFixed(2)}</span>
                   </div>
                 )}
+
+                <div className="flex justify-between text-[#D4C5B5]">
+                  <span>Delivery Speed Window</span>
+                  <span className="font-bold text-orange-400">
+                    {deliveryWindow === '1hr' ? '⚡ 1 hr Express' : deliveryWindow === '2hr' ? '⏱️ 2 hr Standard' : '📅 3 hr Scheduled'}
+                  </span>
+                </div>
 
                 <div className="flex justify-between text-[#D4C5B5]">
                   <span>Insulated Thermal Tiffin Delivery</span>

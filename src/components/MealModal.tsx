@@ -44,8 +44,8 @@ export const MealModal: React.FC<MealModalProps> = ({ meal, onClose, onAddToCart
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#1C1712] via-[#1C1712]/40 to-transparent"></div>
           
-          {/* Day & Category badge */}
-          <div className="absolute top-4 left-4 flex gap-2">
+          {/* Day & Category & Cuisine badges */}
+          <div className="absolute top-4 left-4 flex flex-wrap gap-2">
             <span className="px-3 py-1 rounded-xl bg-[#15100C]/90 backdrop-blur-md text-[#F5EBE1] font-bold text-xs border border-orange-500/30">
               {meal.dayOfWeek}
             </span>
@@ -55,6 +55,16 @@ export const MealModal: React.FC<MealModalProps> = ({ meal, onClose, onAddToCart
             }`}>
               {meal.category} Plan
             </span>
+            {meal.originCuisine && (
+              <span className="px-3 py-1 rounded-xl bg-[#15100C]/90 backdrop-blur-md text-amber-300 font-bold text-xs border border-orange-500/30">
+                {meal.originCuisine}
+              </span>
+            )}
+            {meal.rating && (
+              <span className="px-3 py-1 rounded-xl bg-[#15100C]/90 backdrop-blur-md text-amber-400 font-bold text-xs border border-orange-500/30 flex items-center gap-1">
+                ★ {meal.rating.toFixed(1)}
+              </span>
+            )}
           </div>
 
           <div className="absolute bottom-4 left-6 right-6 text-white">

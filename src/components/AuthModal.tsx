@@ -30,27 +30,19 @@ interface AuthModalProps {
   initialMode?: 'login' | 'register';
 }
 
+import { PARTNER_SCHOOLS } from '../data/mockData';
+
 export const DEMO_PARENT_USER: AuthUser = {
   id: 'usr-parent-9921',
-  name: 'Dr. Sarah Jenkins',
-  email: 'sarah.jenkins@familymail.com',
-  phone: '+44 (0) 7700 900822',
+  name: 'Dr. Farhana Rahman',
+  email: 'farhana.rahman@familymail.com',
+  phone: '+880 1712-345678',
   avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80',
   role: 'parent',
   membershipTier: 'Gold VIP',
   walletBalance: 28.50,
   activePlan: 'standard'
 };
-
-const PARTNER_SCHOOL_LIST = [
-  'St. Mary Academy (Zone A)',
-  'Oakridge International School (Zone A)',
-  'Kingsway Grammar Academy (Zone B)',
-  'Westminster Primary & Nursery (Zone B)',
-  'St. Jude Catholic School (Zone C)',
-  'Greenwich Community School (Zone D)',
-  'Cambridge International Foundation'
-];
 
 const ALLERGEN_OPTIONS: { key: Allergen; label: string }[] = [
   { key: 'nuts', label: 'Nut-Free' },
@@ -81,7 +73,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [childName, setChildName] = useState('');
   const [childAge, setChildAge] = useState('8');
   const [childGrade, setChildGrade] = useState('Class 3B');
-  const [school, setSchool] = useState(PARTNER_SCHOOL_LIST[0]);
+  const [school, setSchool] = useState(PARTNER_SCHOOLS[0]);
   const [selectedAllergies, setSelectedAllergies] = useState<Allergen[]>(['nuts']);
   
   // Login Form fields
@@ -149,7 +141,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           familyMembers: existing.familyMembers || [],
           activePlan: existing.activePlan || 'standard'
         };
-      } else if (targetEmail.toLowerCase().includes('sarah') || targetEmail === DEMO_PARENT_USER.email) {
+      } else if (targetEmail.toLowerCase().includes('farhana') || targetEmail.toLowerCase().includes('sarah') || targetEmail === DEMO_PARENT_USER.email) {
         authenticatedUser = DEMO_PARENT_USER;
       } else {
         // Create an active session for any custom login
@@ -158,7 +150,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           name: `${targetEmail.split('@')[0]}'s Child`,
           relation: 'Child',
           age: 8,
-          deliveryLocation: 'St. Mary Academy • Class 3B (Locker #14)',
+          deliveryLocation: 'Scholastica Senior Campus • Class 3B (Yellow Locker #14, Uttara, Dhaka)',
           allergies: ['nuts'],
           dietaryPreferences: ['High-Protein', 'Halal'],
           avatar: 'https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=300&q=80',
@@ -170,7 +162,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           id: `usr-${Date.now()}`,
           name: targetEmail.split('@')[0].replace('.', ' ').replace(/^./, str => str.toUpperCase()) || 'Parent Member',
           email: targetEmail,
-          phone: '+44 (0) 7700 900822',
+          phone: '+880 1712-345678',
           avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80',
           role: 'parent',
           membershipTier: 'Silver VIP',
@@ -565,10 +557,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                   />
                 </div>
                 <div>
-                  <label className="text-[11px] font-bold text-[#A8988A] block mb-1">City / Area</label>
+                  <label className="text-[11px] font-bold text-[#A8988A] block mb-1">City / Area (Dhaka)</label>
                   <input
                     type="text"
-                    placeholder="e.g. London / Dhaka"
+                    placeholder="e.g. Dhaka (Gulshan / Banani / Dhanmondi)"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
                     className="w-full bg-[#15100C] border border-orange-500/25 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] placeholder-[#8C7B6D] focus:outline-none focus:border-orange-500"
@@ -618,7 +610,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                     onChange={(e) => setSchool(e.target.value)}
                     className="w-full bg-[#261E18] border border-orange-500/20 rounded-lg px-2.5 py-1.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
                   >
-                    {PARTNER_SCHOOL_LIST.map((s) => (
+                    {PARTNER_SCHOOLS.map((s) => (
                       <option key={s} value={s} className="bg-[#1C1712] text-white">
                         {s}
                       </option>

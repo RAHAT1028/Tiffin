@@ -34,15 +34,7 @@ interface CartDrawerProps {
   familyMembers?: FamilyMember[];
 }
 
-const PARTNER_SCHOOL_OPTIONS = [
-  'St. Mary Academy (Zone A)',
-  'Oakridge International School (Zone A)',
-  'Kingsway Grammar Academy (Zone B)',
-  'Westminster Primary & Nursery (Zone B)',
-  'St. Jude Catholic School (Zone C)',
-  'Greenwich Community School (Zone D)',
-  'Cambridge International Foundation'
-];
+import { PARTNER_SCHOOLS } from '../data/mockData';
 
 export const CartDrawer: React.FC<CartDrawerProps> = ({
   isOpen,
@@ -55,16 +47,16 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 }) => {
   const [orderConfirmed, setOrderConfirmed] = useState(false);
 
-  // Delivery Address State
+  // Delivery Address State (Dhaka, Bangladesh)
   const [deliveryType, setDeliveryType] = useState<'school' | 'home' | 'office'>('school');
-  const [schoolName, setSchoolName] = useState(PARTNER_SCHOOL_OPTIONS[0]);
-  const [classroomLocker, setClassroomLocker] = useState('Class 3B (Locker #14)');
-  const [homeStreetAddress, setHomeStreetAddress] = useState('Flat 4B, Maple Residency, Orchard Road');
-  const [homeCity, setHomeCity] = useState('London / Central District');
-  const [homePostcode, setHomePostcode] = useState('W1D 3NE');
-  const [officeBuilding, setOfficeBuilding] = useState('Metropolis Tech Tower • Level 6 Engineering Suite');
-  const [deliveryPhone, setDeliveryPhone] = useState('+44 (0) 7700 900822');
-  const [deliveryNotes, setDeliveryNotes] = useState('Please leave in designated warm yellow lockers before 11:30 AM.');
+  const [schoolName, setSchoolName] = useState(PARTNER_SCHOOLS[0]);
+  const [classroomLocker, setClassroomLocker] = useState('Class 3B (Yellow Locker #14)');
+  const [homeStreetAddress, setHomeStreetAddress] = useState('House 24, Road 11, Block D, Banani');
+  const [homeCity, setHomeCity] = useState('Dhaka (Gulshan / Banani Zone)');
+  const [homePostcode, setHomePostcode] = useState('1213');
+  const [officeBuilding, setOfficeBuilding] = useState('Gulshan Centre Point • Level 9, Road 90, Gulshan-2, Dhaka');
+  const [deliveryPhone, setDeliveryPhone] = useState('+880 1712-345678');
+  const [deliveryNotes, setDeliveryNotes] = useState('Please leave in designated warm yellow lockers at school gate before 11:30 AM.');
 
   if (!isOpen) return null;
 
@@ -144,7 +136,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 <div className="p-4 rounded-2xl bg-[#15100C] border border-orange-500/20 text-left text-xs space-y-2.5 max-w-sm mx-auto">
                   <div className="flex justify-between border-b border-orange-500/10 pb-2">
                     <span className="text-[#A8988A]">Order Reference:</span>
-                    <span className="font-bold text-white">#JK-FAM-{Date.now().toString().slice(-4)}</span>
+                    <span className="font-bold text-white">#TIFFIN-FAM-{Date.now().toString().slice(-4)}</span>
                   </div>
                   <div className="space-y-1">
                     <span className="text-[#A8988A] block font-bold">📍 Delivery Destination:</span>
@@ -264,7 +256,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           onChange={(e) => setSchoolName(e.target.value)}
                           className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
                         >
-                          {PARTNER_SCHOOL_OPTIONS.map((s) => (
+                          {PARTNER_SCHOOLS.map((s) => (
                             <option key={s} value={s} className="bg-[#1C1712] text-white">
                               {s}
                             </option>
@@ -278,7 +270,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           type="text"
                           value={classroomLocker}
                           onChange={(e) => setClassroomLocker(e.target.value)}
-                          placeholder="e.g. Class 3B (Locker #14, Yellow Wing)"
+                          placeholder="e.g. Class 3B (Yellow Locker #14, Senior Campus)"
                           className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
                         />
                       </div>
@@ -294,7 +286,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           type="text"
                           value={homeStreetAddress}
                           onChange={(e) => setHomeStreetAddress(e.target.value)}
-                          placeholder="e.g. House 42, Road 7, Banani / Oxford Street"
+                          placeholder="e.g. House 42, Road 7, Block F, Banani / Dhanmondi"
                           className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
                         />
                       </div>
@@ -306,7 +298,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                             type="text"
                             value={homeCity}
                             onChange={(e) => setHomeCity(e.target.value)}
-                            placeholder="e.g. London / Dhaka"
+                            placeholder="e.g. Dhaka (Gulshan / Banani Zone)"
                             className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
                           />
                         </div>
@@ -316,7 +308,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                             type="text"
                             value={homePostcode}
                             onChange={(e) => setHomePostcode(e.target.value)}
-                            placeholder="e.g. W1D 3NE"
+                            placeholder="e.g. 1213 / 1205"
                             className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
                           />
                         </div>
@@ -333,7 +325,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           type="text"
                           value={officeBuilding}
                           onChange={(e) => setOfficeBuilding(e.target.value)}
-                          placeholder="e.g. Metropolis Tower, Level 6 Engineering Desk"
+                          placeholder="e.g. Gulshan Centre Point • Level 9, Road 90, Gulshan-2, Dhaka"
                           className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
                         />
                       </div>
@@ -348,7 +340,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         type="tel"
                         value={deliveryPhone}
                         onChange={(e) => setDeliveryPhone(e.target.value)}
-                        placeholder="+44 7700 900822"
+                        placeholder="+880 1712-345678"
                         className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3 py-1.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
                       />
                     </div>
@@ -371,11 +363,16 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   <div className="p-4 rounded-2xl bg-orange-950/40 border border-orange-500/40 relative">
                     <div className="flex items-start justify-between">
                       <div>
-                        <span className="px-2 py-0.5 rounded-md bg-orange-600 text-white text-[10px] font-bold uppercase tracking-wider">
-                          Weekly Subscription
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="px-2 py-0.5 rounded-md bg-orange-600 text-white text-[10px] font-bold uppercase tracking-wider">
+                            Weekly Subscription
+                          </span>
+                          <span className="px-2 py-0.5 rounded-md bg-orange-950/80 border border-orange-500/30 text-orange-400 text-[10px] font-bold uppercase">
+                            ⚡ {subscription.config.deliveryWindow || '1hr'} Window
+                          </span>
+                        </div>
                         <h4 className="font-bold text-white text-sm mt-1.5 capitalize">
-                          {subscription.config.plan} Nourish Plan ({subscription.config.daysPerWeek} Days/Week)
+                          {subscription.config.plan} Nourish Plan ({subscription.config.daysPerWeek || 7} Days/Week)
                         </h4>
                         <p className="text-xs text-[#D4C5B5] mt-0.5">
                           Recipient: <span className="font-semibold text-orange-300">{subscription.profile.name}</span> ({subscription.profile.gradeClass})

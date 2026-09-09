@@ -33,7 +33,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onO
             {/* Top pill badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-950/80 border border-orange-500/40 text-orange-300 text-xs sm:text-sm font-semibold shadow-md shadow-orange-950/50">
               <span className="flex h-2 w-2 rounded-full bg-orange-500 animate-pulse"></span>
-              <span>Project JK • 100% Nut-Free & Temperature Controlled</span>
+              <span>TIFFIN • 100% Nut-Free & Temperature Controlled</span>
               <Sparkles className="w-3.5 h-3.5 text-orange-400" />
             </div>
 
@@ -122,54 +122,55 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onO
           </div>
 
           {/* Right Column: Hero Visual Showcase */}
-          <div className="lg:col-span-5 relative">
+          <div className="lg:col-span-5 relative mt-6 lg:mt-0">
             
             {/* Ambient Background Aura */}
             <div className="absolute -inset-4 bg-gradient-to-tr from-orange-600/20 via-amber-500/20 to-transparent blur-2xl rounded-3xl -z-10 pointer-events-none animate-pulse-glow-orange"></div>
 
-            {/* Top-Right Floating Nutrient Badge */}
-            <div className="hidden sm:flex absolute -top-5 -right-5 z-20 bg-[#15100C]/95 backdrop-blur-md px-3.5 py-2 rounded-2xl border border-amber-500/40 shadow-xl items-center gap-2 animate-float">
-              <span className="text-base">🥦</span>
-              <div>
-                <span className="text-[10px] uppercase font-bold text-amber-400 block">100% Certified</span>
-                <span className="text-xs font-black text-white">Nut-Free Kitchen</span>
-              </div>
-            </div>
-
             <div className="relative mx-auto max-w-md lg:max-w-none">
               
-              {/* Main Card: Today's Featured Hot Tiffin */}
-              <div className="bg-[#261E18]/95 backdrop-blur-xl rounded-3xl p-5 shadow-2xl shadow-black/80 border border-orange-500/30 relative overflow-hidden hover-glow-card">
-                
-                {/* Floating Thermal & Freshness Badge */}
-                <div className="absolute top-8 right-8 z-10 bg-[#15100C]/90 backdrop-blur-md text-white px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-lg border border-orange-500/40 animate-glow-orange">
-                  <ThermometerSun className="w-3.5 h-3.5 text-orange-400 animate-pulse" />
-                  <span className="text-orange-300 font-bold">Serving Temp: 68°C</span>
+              {/* Top-Right Floating Certified Badge */}
+              <div className="hidden sm:flex absolute -top-4 -right-3 z-20 bg-[#17120E]/95 backdrop-blur-md px-3.5 py-2 rounded-2xl border border-amber-500/40 shadow-xl items-center gap-2.5 animate-float">
+                <span className="text-lg">🥦</span>
+                <div>
+                  <span className="text-[10px] uppercase font-bold text-amber-400 block tracking-wide">100% Certified</span>
+                  <span className="text-xs font-black text-white">Nut-Free Kitchen</span>
                 </div>
+              </div>
 
-                {/* Food Image */}
-                <div className="relative rounded-2xl overflow-hidden aspect-[4/3] group">
+              {/* Main Card: Today's Featured Hot Tiffin */}
+              <div className="bg-[#261E18]/95 backdrop-blur-xl rounded-3xl p-5 shadow-2xl shadow-black/80 border border-orange-500/30 relative hover-glow-card">
+                
+                {/* Food Image Container */}
+                <div className="relative rounded-2xl overflow-hidden aspect-[4/3] group shadow-inner">
                   <img
                     src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80"
                     alt="School Tiffin Meal"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#15100C]/90 via-[#15100C]/20 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#15100C]/95 via-[#15100C]/30 to-transparent"></div>
                   
-                  <div className="absolute bottom-4 left-4 right-4 text-white">
-                    <span className="px-2.5 py-0.5 rounded-full bg-orange-600 text-[11px] font-bold uppercase tracking-wider shadow-sm animate-pulse">
+                  {/* Floating Thermal Badge inside image */}
+                  <div className="absolute top-3 right-3 z-10 bg-[#15100C]/85 backdrop-blur-md text-white px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-lg border border-orange-500/40">
+                    <ThermometerSun className="w-3.5 h-3.5 text-orange-400 animate-pulse" />
+                    <span className="text-orange-300 font-bold">Serving Temp: 68°C</span>
+                  </div>
+
+                  {/* Meal Info inside image bottom */}
+                  <div className="absolute bottom-3.5 left-4 right-4 text-white">
+                    <span className="px-2.5 py-0.5 rounded-full bg-orange-600 text-[10px] font-extrabold uppercase tracking-wider shadow-sm">
                       Today's Special
                     </span>
-                    <h3 className="text-xl font-bold mt-1 text-white">
+                    <h3 className="text-xl sm:text-2xl font-black mt-1 text-white tracking-tight">
                       Paneer Veggie Pulao & Berry Cup
                     </h3>
-                    <p className="text-xs text-[#D4C5B5] font-medium line-clamp-1">
+                    <p className="text-xs text-[#D4C5B5] font-medium line-clamp-1 mt-0.5">
                       Freshly prepared at 6:30 AM • Delivered warm to Oakridge Academy
                     </p>
                   </div>
                 </div>
 
-                {/* Meal highlights bar */}
+                {/* Meal highlights / nutrition bar */}
                 <div className="mt-4 pt-3 border-t border-amber-950/60 grid grid-cols-3 gap-2 text-center text-xs">
                   <div className="bg-[#17120E] border border-orange-500/15 p-2.5 rounded-xl hover:border-orange-500/30 transition-colors">
                     <span className="text-[#9E8C7D] block text-[10px] uppercase font-bold">Calories</span>
@@ -186,40 +187,44 @@ export const Hero: React.FC<HeroProps> = ({ onExploreMenu, onOpenCustomizer, onO
                 </div>
 
                 {/* Live Delivery Status Simulator pill */}
-                <div className="mt-4 bg-gradient-to-r from-orange-950/50 via-[#1C1712] to-[#15100C] border border-orange-500/30 rounded-2xl p-3.5 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
+                <div className="mt-4 bg-gradient-to-r from-orange-950/50 via-[#1C1712] to-[#15100C] border border-orange-500/30 rounded-2xl p-3.5 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3 min-w-0">
                     <div className="w-9 h-9 rounded-xl bg-orange-600 text-white flex items-center justify-center flex-shrink-0 shadow-md shadow-orange-600/40">
                       <Clock className="w-5 h-5 animate-pulse" />
                     </div>
-                    <div>
+                    <div className="min-w-0">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-xs font-bold text-white">Van #4 Dispatched</span>
-                        <span className="w-2 h-2 rounded-full bg-orange-400 animate-ping"></span>
+                        <span className="text-xs font-bold text-white truncate">Van #4 Dispatched</span>
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0"></span>
                       </div>
-                      <p className="text-[11px] text-[#9E8C7D]">ETA to Class 3B: 11:35 AM (On Schedule)</p>
+                      <p className="text-[11px] text-[#9E8C7D] truncate">ETA to Class 3B: 11:35 AM (On Schedule)</p>
                     </div>
                   </div>
-                  <span className="text-xs font-bold text-orange-400 bg-orange-950/80 border border-orange-500/40 px-2.5 py-1 rounded-lg">
+                  <span className="text-xs font-bold text-orange-400 bg-orange-950/80 border border-orange-500/40 px-2.5 py-1 rounded-lg flex-shrink-0">
                     Live
                   </span>
                 </div>
 
-              </div>
-
-              {/* Floating review card */}
-              <div className="hidden sm:flex absolute -bottom-6 -left-6 z-20 bg-[#261E18]/95 backdrop-blur-xl rounded-2xl p-3.5 shadow-2xl border border-orange-500/35 items-center gap-3 max-w-[260px] animate-float-reverse">
-                <div className="w-10 h-10 rounded-full bg-orange-950/80 border border-orange-500/30 flex items-center justify-center text-orange-400 font-bold text-sm flex-shrink-0">
-                  <HeartHandshake className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="flex text-amber-400">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-3 h-3 fill-current" />
-                    ))}
+                {/* Integrated Parent Review Snippet */}
+                <div className="mt-3.5 pt-3 border-t border-amber-950/60 flex items-center justify-between gap-3 bg-[#17120E]/90 rounded-2xl p-3 border border-orange-500/20">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="w-8 h-8 rounded-xl bg-orange-950/80 border border-orange-500/30 flex items-center justify-center text-orange-400 flex-shrink-0">
+                      <HeartHandshake className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex text-amber-400">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="w-3 h-3 fill-current" />
+                        ))}
+                      </div>
+                      <p className="text-xs font-bold text-white truncate mt-0.5">"100% empty lunchbox!"</p>
+                    </div>
                   </div>
-                  <p className="text-xs font-bold text-white mt-0.5">"100% empty lunchbox!"</p>
-                  <p className="text-[10px] text-[#9E8C7D]">Sarah J. (St. Mary's Primary)</p>
+                  <span className="text-[10px] text-[#A8988A] whitespace-nowrap font-medium">
+                    Nusrat J. (Scholastica Dhaka)
+                  </span>
                 </div>
+
               </div>
 
             </div>

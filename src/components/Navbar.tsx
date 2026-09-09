@@ -99,7 +99,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   Smart<span className="text-orange-500">Tiffin</span>
                 </span>
                 <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-orange-950/80 text-orange-400 border border-orange-500/30 uppercase tracking-wider">
-                  JK
+                  TIFFIN
                 </span>
               </div>
               <p className="text-[10px] text-[#A8988A] font-medium whitespace-nowrap hidden sm:block leading-none mt-0.5">
@@ -201,7 +201,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onOpenNutribot();
               }}
               className="flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-bold bg-orange-950/80 text-orange-300 hover:bg-orange-900/80 border border-orange-500/40 transition-all hover:shadow-sm hover:shadow-orange-500/20 group whitespace-nowrap flex-shrink-0"
-              title="Ask JK AI Nutritionist"
+              title="Ask TIFFIN AI Nutritionist"
             >
               <Sparkles className="w-3.5 h-3.5 text-orange-400 group-hover:rotate-12 transition-transform" />
               <span className="hidden xl:inline">Nutribot</span>
@@ -502,7 +502,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-full text-xs font-semibold bg-orange-950/80 text-orange-300 border border-orange-500/40"
               >
                 <Sparkles className="w-4 h-4 text-orange-400" />
-                Ask JK Nutribot (AI Meal Advisor)
+                Ask TIFFIN Nutribot (AI Meal Advisor)
               </button>
             </div>
           </div>

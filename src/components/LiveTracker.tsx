@@ -14,13 +14,13 @@ import {
 
 export const LiveTracker: React.FC = () => {
   const [activeStep, setActiveStep] = useState<number>(2); // 0 = Prep, 1 = Thermal Pack, 2 = En Route, 3 = Delivered
-  const [selectedChild, setSelectedChild] = useState('Oliver Jenkins (Class 3B)');
+  const [selectedChild, setSelectedChild] = useState('Aayan Chowdhury (Class 3B)');
 
   const steps = [
     {
       title: 'Fresh Morning Cook',
       time: '05:30 AM - 07:30 AM',
-      desc: 'Cooked fresh by paediatric nutrition chefs in sterile allergen-segregated kitchen.',
+      desc: 'Cooked fresh by paediatric nutrition chefs in sterile allergen-segregated kitchen in Banani.',
       icon: ChefHat,
       status: 'Completed'
     },
@@ -34,14 +34,14 @@ export const LiveTracker: React.FC = () => {
     {
       title: 'Eco-Van Dispatch & Route',
       time: '10:45 AM',
-      desc: 'Transit via temperature-controlled electric van #04 directly to school drop-point.',
+      desc: 'Transit via temperature-controlled electric van #04 on Gulshan-Uttara corridor directly to school drop-point.',
       icon: Truck,
       status: 'In Transit • On Schedule'
     },
     {
       title: 'Delivered to Child’s Desk',
       time: '11:35 AM',
-      desc: 'Handed to school meal coordinator and placed hot & fresh on the student desk before lunch bell.',
+      desc: 'Handed to school meal coordinator and placed hot & fresh inside designated lunch locker before the lunch bell.',
       icon: CheckCircle2,
       status: 'Target ETA: 11:35 AM'
     }
@@ -65,7 +65,7 @@ export const LiveTracker: React.FC = () => {
             Live School Lunch & Temperature Tracker
           </h2>
           <p className="text-[#D4C5B5] text-sm sm:text-base mt-2">
-            Track your child's meal from our morning kitchen ovens to their classroom desk with real-time temperature verification.
+            Track your child's meal from our morning kitchen ovens to their classroom desk with real-time temperature verification across Dhaka.
           </p>
         </div>
 
@@ -80,14 +80,14 @@ export const LiveTracker: React.FC = () => {
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-lg font-bold text-[#F5EBE1]">Order #JK-8942 • In Transit</span>
+                  <span className="text-lg font-bold text-[#F5EBE1]">Order #TIFFIN-8942 • In Transit</span>
                   <span className="px-2.5 py-0.5 rounded-full bg-orange-950 text-orange-400 text-[11px] font-bold border border-orange-500/30 flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-ping"></span>
                     <span>Live Telemetry</span>
                   </span>
                 </div>
                 <p className="text-xs text-[#A8988A] mt-0.5">
-                  Destination: <span className="text-[#F5EBE1] font-semibold">{selectedChild} at St. Mary Academy</span>
+                  Destination: <span className="text-[#F5EBE1] font-semibold">{selectedChild} at Scholastica Senior Campus (Uttara, Dhaka)</span>
                 </p>
               </div>
             </div>

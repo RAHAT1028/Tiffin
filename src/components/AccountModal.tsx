@@ -128,7 +128,7 @@ const ALL_ALLERGENS: { key: Allergen; label: string }[] = [
   { key: 'sesame', label: 'Sesame' }
 ];
 
-const WEEK_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] as const;
+const WEEK_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] as const;
 
 export const AccountModal: React.FC<AccountModalProps> = ({
   isOpen,
@@ -153,17 +153,17 @@ export const AccountModal: React.FC<AccountModalProps> = ({
   // New Child Inline Form
   const [isAddingChild, setIsAddingChild] = useState(false);
   const [newChildName, setNewChildName] = useState('');
-  const [newChildSchool, setNewChildSchool] = useState('St. Mary Academy');
+  const [newChildSchool, setNewChildSchool] = useState('Scholastica Senior Campus (Uttara, Dhaka)');
   const [newChildGrade, setNewChildGrade] = useState('Class 3B');
 
   // Edit Parent Profile fields
   const [editName, setEditName] = useState('');
   const [editEmail, setEditEmail] = useState('');
   const [editPhone, setEditPhone] = useState('');
-  const [editAddress, setEditAddress] = useState('Flat 4B, Maple Residency, Orchard Road');
-  const [editCity, setEditCity] = useState('London / Central');
-  const [editPostalCode, setEditPostalCode] = useState('W1D 3NE');
-  const [editDeliveryNotes, setEditDeliveryNotes] = useState('Please ring bell 4B or leave with school reception.');
+  const [editAddress, setEditAddress] = useState('House 24, Road 11, Block D, Banani');
+  const [editCity, setEditCity] = useState('Dhaka (Gulshan / Banani Zone)');
+  const [editPostalCode, setEditPostalCode] = useState('1213');
+  const [editDeliveryNotes, setEditDeliveryNotes] = useState('Please leave with designated school thermal lunch lockers before 11:30 AM.');
 
   // Synchronize account state whenever currentUser or familyMembers or isOpen changes
   useEffect(() => {
@@ -174,23 +174,23 @@ export const AccountModal: React.FC<AccountModalProps> = ({
 
     setEditName(currentUser.name);
     setEditEmail(currentUser.email);
-    setEditPhone(currentUser.phone || '+44 (0) 7700 900822');
-    setEditAddress(currentUser.address || 'Flat 4B, Maple Residency, Orchard Road');
-    setEditCity(currentUser.city || 'London / Central');
-    setEditPostalCode(currentUser.postalCode || 'W1D 3NE');
-    setEditDeliveryNotes(currentUser.deliveryNotes || 'Please ring bell 4B or leave with school reception.');
+    setEditPhone(currentUser.phone || '+880 1712-345678');
+    setEditAddress(currentUser.address || 'House 24, Road 11, Block D, Banani');
+    setEditCity(currentUser.city || 'Dhaka (Gulshan / Banani Zone)');
+    setEditPostalCode(currentUser.postalCode || '1213');
+    setEditDeliveryNotes(currentUser.deliveryNotes || 'Please leave with designated school thermal lunch lockers before 11:30 AM.');
 
     // Build children strictly for currentUser
     let mappedChildren: ParentAccountChild[] = [];
     
-    // If Sarah Jenkins, use her children (Oliver & Maya)
-    // If another user, use their children (excluding Dr. Sarah/Mark)
-    const relevantFamily = (currentUser.email === 'sarah.jenkins@familymail.com')
+    // If Dr. Farhana Rahman, use her children (Aayan & Zoya)
+    // If another user, use their children (excluding parents)
+    const relevantFamily = (currentUser.email === 'farhana.rahman@familymail.com' || currentUser.email === 'sarah.jenkins@familymail.com')
       ? familyMembers.filter(m => m.relation === 'Child')
       : (currentUser.familyMembers && currentUser.familyMembers.length > 0
           ? currentUser.familyMembers
           : (familyMembers && familyMembers.length > 0 
-              ? familyMembers.filter(m => m.relation === 'Child' && !m.name.includes('Jenkins'))
+              ? familyMembers.filter(m => m.relation === 'Child')
               : []));
     
     if (relevantFamily.length > 0) {
@@ -198,9 +198,9 @@ export const AccountModal: React.FC<AccountModalProps> = ({
         id: m.id || `child-${idx}`,
         name: m.name,
         age: m.age || 8,
-        schoolName: m.deliveryLocation?.includes('•') ? m.deliveryLocation.split('•')[0].trim() : (m.deliveryLocation || 'St. Mary Academy'),
+        schoolName: m.deliveryLocation?.includes('•') ? m.deliveryLocation.split('•')[0].trim() : (m.deliveryLocation || 'Scholastica Senior Campus (Uttara, Dhaka)'),
         gradeClass: m.deliveryLocation?.includes('•') ? (m.deliveryLocation.split('•')[1] || 'Class 3B').trim() : 'Class 3B',
-        lunchLocker: `Locker #${idx * 14 + 22} (Yellow Wing)`,
+        lunchLocker: `Yellow Locker #${idx * 14 + 14}`,
         allergies: m.allergies || ['nuts'],
         dietaryPreferences: m.dietaryPreferences || ['Nut-Free Certified'],
         portionSize: 'regular',
@@ -214,9 +214,9 @@ export const AccountModal: React.FC<AccountModalProps> = ({
           id: `child-${Date.now()}`,
           name: `${currentUser.name.split(' ')[0]}'s Child`,
           age: 8,
-          schoolName: 'St. Mary Academy',
+          schoolName: 'Scholastica Senior Campus (Uttara, Dhaka)',
           gradeClass: 'Class 3B',
-          lunchLocker: 'Locker #42',
+          lunchLocker: 'Yellow Locker #14',
           allergies: ['nuts'],
           dietaryPreferences: ['Nut-Free Certified'],
           portionSize: 'regular',
@@ -313,11 +313,11 @@ export const AccountModal: React.FC<AccountModalProps> = ({
 
   const currentChild = account.children[selectedChildIndex] || account.children[0] || {
     id: 'child-1',
-    name: 'Oliver Jenkins',
+    name: 'Aayan Chowdhury',
     age: 8,
-    schoolName: 'St. Mary Academy',
+    schoolName: 'Scholastica Senior Campus (Uttara, Dhaka)',
     gradeClass: 'Class 3B',
-    lunchLocker: 'Locker #42',
+    lunchLocker: 'Yellow Locker #14',
     allergies: ['nuts'],
     dietaryPreferences: ['Halal', 'Mild Spice Only'],
     portionSize: 'regular',
@@ -708,14 +708,14 @@ export const AccountModal: React.FC<AccountModalProps> = ({
               <input
                 type="text"
                 required
-                placeholder="Child's Full Name (e.g. Maya Jenkins)"
+                placeholder="Child's Full Name (e.g. Zoya Chowdhury)"
                 value={newChildName}
                 onChange={(e) => setNewChildName(e.target.value)}
                 className="w-full sm:flex-1 bg-[#15100C] border border-orange-500/25 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
               />
               <input
                 type="text"
-                placeholder="School (e.g. St. Mary Academy)"
+                placeholder="School (e.g. Scholastica / Mastermind)"
                 value={newChildSchool}
                 onChange={(e) => setNewChildSchool(e.target.value)}
                 className="w-full sm:w-48 bg-[#15100C] border border-orange-500/25 rounded-xl px-3 py-2 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
@@ -859,11 +859,11 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                     <p className="text-xs text-[#D4C5B5]">Select days to receive hot insulated lunch at {currentChild.schoolName}</p>
                   </div>
                   <span className="px-3 py-1 rounded-full bg-[#15100C] border border-orange-500/20 text-orange-400 text-xs font-bold">
-                    {currentChild.activeDays.length} of 5 Days Active
+                    {currentChild.activeDays.length} of {WEEK_DAYS.length} Days Active
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-2">
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 pt-2">
                   {WEEK_DAYS.map((day) => {
                     const isSelected = currentChild.activeDays.includes(day);
                     return (
@@ -1301,12 +1301,12 @@ export const AccountModal: React.FC<AccountModalProps> = ({
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="text-xs font-bold text-[#A8988A] block mb-1.5">City / Region</label>
+                        <label className="text-xs font-bold text-[#A8988A] block mb-1.5">City / Zone (Dhaka)</label>
                         <input
                           type="text"
                           value={editCity}
                           onChange={(e) => setEditCity(e.target.value)}
-                          placeholder="e.g. London / Dhaka"
+                          placeholder="e.g. Dhaka (Gulshan / Banani / Dhanmondi)"
                           className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
                         />
                       </div>
@@ -1317,7 +1317,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                           type="text"
                           value={editPostalCode}
                           onChange={(e) => setEditPostalCode(e.target.value)}
-                          placeholder="e.g. W1D 3NE"
+                          placeholder="e.g. 1213 / 1205"
                           className="w-full bg-[#15100C] border border-orange-500/20 rounded-xl px-3.5 py-2.5 text-xs text-[#F5EBE1] focus:outline-none focus:border-orange-500"
                         />
                       </div>
