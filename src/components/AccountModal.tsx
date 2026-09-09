@@ -33,6 +33,7 @@ import {
 } from 'lucide-react';
 import { ParentAccount, ParentAccountChild, MealCategory, Allergen, AuthUser, FamilyMember } from '../types';
 import { sfx } from '../utils/audio';
+import { downloadNutritionReportPDF, downloadInvoicePDF } from '../utils/pdfGenerator';
 
 interface AccountModalProps {
   isOpen: boolean;
@@ -1120,9 +1121,16 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                 <button
                   onClick={() => {
                     sfx.playSuccess();
-                    showFeedback('Downloading Monthly Pediatric Nutrition PDF...');
+                    try {
+                      const currentChild = account?.children[selectedChildIndex] || null;
+                      downloadNutritionReportPDF(currentChild, account);
+                      showFeedback('✓ Monthly Pediatric Nutrition Report PDF downloaded!');
+                    } catch (err) {
+                      console.error('PDF generation error:', err);
+                      showFeedback('Unable to download PDF. Please try again.');
+                    }
                   }}
-                  className="px-5 py-3 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs shadow-md shadow-orange-600/30 flex items-center gap-2 whitespace-nowrap"
+                  className="px-5 py-3 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-bold text-xs shadow-md shadow-orange-600/30 flex items-center gap-2 whitespace-nowrap active:scale-95 transition-all"
                 >
                   <Download className="w-4 h-4" />
                   <span>Download Report (PDF)</span>
@@ -1236,7 +1244,7 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                   {account.recentInvoices.map((inv) => (
                     <div
                       key={inv.id}
-                      className="p-3.5 rounded-2xl bg-[#15100C] border border-orange-500/20 flex items-center justify-between text-xs"
+                      className="p-3.5 rounded-2xl bg-[#15100C] border border-orange-500/20 flex items-center justify-between text-xs hover:border-orange-500/40 transition-colors"
                     >
                       <div>
                         <span className="font-extrabold text-[#F5EBE1] block">{inv.description}</span>
@@ -1250,6 +1258,23 @@ export const AccountModal: React.FC<AccountModalProps> = ({
                         }`}>
                           {inv.status.toUpperCase()}
                         </span>
+                        <button
+                          onClick={() => {
+                            sfx.playSuccess();
+                            try {
+                              downloadInvoicePDF(inv, account);
+                              showFeedback(`✓ Invoice ${inv.id} PDF downloaded!`);
+                            } catch (e) {
+                              console.error(e);
+                              showFeedback('Unable to download invoice PDF');
+                            }
+                          }}
+                          title="Download Official Tax Receipt PDF"
+                          className="px-2.5 py-1 rounded-lg bg-[#261E18] hover:bg-orange-600 text-[#D4C5B5] hover:text-white border border-orange-500/30 transition-all flex items-center gap-1.5 shadow-xs"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                          <span className="text-[11px] font-bold">PDF</span>
+                        </button>
                       </div>
                     </div>
                   ))}

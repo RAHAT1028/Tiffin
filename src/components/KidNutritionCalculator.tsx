@@ -12,10 +12,12 @@ import {
   Milk, 
   Apple, 
   Scale,
-  Smile
+  Smile,
+  Download
 } from 'lucide-react';
 import { sfx } from '../utils/audio';
 import { MealCategory } from '../types';
+import { downloadCalculatedPediatricPlanPDF } from '../utils/pdfGenerator';
 
 interface KidNutritionCalculatorProps {
   onSelectRecommendedPlan: (plan: MealCategory) => void;
@@ -387,13 +389,40 @@ export const KidNutritionCalculator: React.FC<KidNutritionCalculatorProps> = ({ 
                 </p>
               </div>
 
-              <button
-                onClick={handleApplyPlan}
-                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-bold text-xs shadow-lg shadow-orange-600/30 hover:shadow-orange-600/50 flex items-center justify-center gap-2 group transition-all shimmer-effect active:scale-95"
-              >
-                <span>Select & Customize This Plan</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              <div className="flex flex-col sm:flex-row gap-2 pt-1">
+                <button
+                  onClick={handleApplyPlan}
+                  className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-bold text-xs shadow-lg shadow-orange-600/30 hover:shadow-orange-600/50 flex items-center justify-center gap-2 group transition-all shimmer-effect active:scale-95"
+                >
+                  <span>Select & Customize Plan</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    sfx.playSuccess();
+                    downloadCalculatedPediatricPlanPDF({
+                      age,
+                      activity,
+                      appetite,
+                      goal,
+                      calories: nutrition.calories,
+                      proteinGrams: nutrition.proteinGrams,
+                      carbsGrams: nutrition.carbsGrams,
+                      fatsGrams: nutrition.fatsGrams,
+                      hydrationMl: nutrition.hydrationMl,
+                      calciumMg: nutrition.calciumMg,
+                      planBadge: nutrition.planBadge,
+                      planReason: nutrition.planReason
+                    });
+                  }}
+                  title="Download Pediatric Diet PDF"
+                  className="py-3 px-3.5 rounded-xl bg-[#15100C] hover:bg-[#261E18] text-amber-400 hover:text-amber-300 font-bold text-xs border border-orange-500/30 hover:border-orange-500/60 flex items-center justify-center gap-1.5 transition-all shadow-md active:scale-95"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>PDF</span>
+                </button>
+              </div>
             </div>
 
           </div>

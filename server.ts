@@ -25,7 +25,7 @@ if (apiKey && apiKey !== "MY_GEMINI_API_KEY") {
 }
 
 const app = express();
-const PORT = 3000;
+const PORT = Number(process.env.PORT) || 3001;
 
 app.use(express.json());
 
