@@ -1,31 +1,73 @@
 # 🍱 TIFFIN – Smart School Tiffin Platform
 
-> **Warm, Wholesome & Allergen-Safe School Lunches Delivered Daily to Your Child's Desk across Dhaka.**
+> **Warm, Wholesome & Allergen-Safe School Lunches Delivered Daily to Your Child's Desk across Dhaka, Bangladesh.**
 
-TIFFIN (Smart School Tiffin) is an innovative full-stack meal platform designed for busy parents and schools. We prepare fresh, nutritionist-approved meals every morning and deliver them hot in medical-grade double-wall vacuum-insulated stainless steel containers before lunchtime.
+**TIFFIN** is a full-stack, enterprise-grade smart school meal subscription platform built for parents, students, and schools in Dhaka. Fresh, certified paediatric nutritionist-approved meals are prepared daily in hygienic central commissaries and delivered piping hot in double-wall vacuum-insulated stainless steel containers (68°C guaranteed) right to school lockers and classroom gates before lunchtime.
 
 ---
 
 ## ✨ Key Features
 
-- **🥗 Rotated Weekly Menu**: 7-day paediatrician-designed meal rotation across three pricing tiers:
-  - *Basic Nourish ($4.50/day)*: Balanced home-style classics with hidden vegetable sugos.
-  - *Standard Vitality ($6.50/day)*: High-protein artisan wraps, grain bowls, and gut-healthy sides.
-  - *Premium Gourmet Bento ($8.50/day)*: Wild salmon, grass-fed meats, DHA omega-3 boosters & 100% cold-pressed juices.
-- **🛡️ 100% Nut-Free & Strict Allergen Segregation**: Segregated preparation zones for nuts, dairy, gluten, eggs, soy, and shellfish.
-- **🌡️ Live Temperature & Delivery Telemetry**: Real-time tracking from kitchen ovens (72°C) to school desk delivery (68°C verified).
-- **🤖 TIFFIN Nutribot (AI Meal Advisor)**: AI-powered paediatric nutritionist powered by Gemini to provide customized meal recommendations, macro calculations, and allergen guidance.
-- **📅 Flexible Cancellation**: Cancel or pause any school day delivery up to 7:00 AM on the day with instant account credit.
-- **♻️ Zero Single-Use Plastics**: 304 food-grade stainless steel containers washed and steam-sanitized at 85°C daily.
+- **🇧🇩 100% Bangladeshi Taka (৳ / BDT) Native Currency & Pricing**:
+  - **Basic Nourish Plan (৳২২০/দিন | ৳১,১০০/সপ্তাহ)**: Balanced home-style classics, gentle lentils & hidden veggie sugos.
+  - **Standard Vitality Plan (৳৩২০/দিন | ৳১,৬০০/সপ্তাহ)**: High-protein artisan wraps, grilled poultry, quinoa bowls & seasonal fruits.
+  - **Premium Gourmet Bento (৳৪৫০/দিন | ৳২,২৫০/সপ্তাহ)**: Wild Atlantic salmon, lamb kofta, beef bulgogi & cold-pressed juices.
+  - **70+ Meal Price Calibration**: Nuanced individual meal pricing ranging from **৳180 to ৳480**.
+
+- **👨‍👩‍👧‍👦 Family & Children Hub (Multi-Member Management)**:
+  - Add, edit, and manage multiple children and family members with individual schools, grades, and lunch lockers.
+  - 1-click lunch allocation for each child with automatic **15% Multi-Child Family Discount** in cart.
+  - Full local storage persistence (data remains saved across page refreshes and session restarts).
+
+- **🍱 Interactive 3D Bento Builder**:
+  - Live 4-compartment thermal stainless steel lunchbox customizer.
+  - Real-time paediatric macro calculation (Calories, Bioavailable Protein, Low-GI Carbs, Omega-3 Fats, Fiber).
+  - 1-click paediatrician-approved preset combos and shuffle randomizer.
+
+- **🏛️ Top Dhaka Partner Cloud Kitchens & Restaurants**:
+  - Order authentic chef specialties from Dhaka's finest vetted restaurants:
+    - **Sultan's Dine** (Dhanmondi, Gulshan-2 & Uttara) – Basmati Mutton Kacchi & Shahi Polao
+    - **Star Kabab & Restaurant** (Banani & Dhanmondi) – Charcoal Chicken Boti & Tender Leg Roast
+    - **Takeout Burgers** (Banani Road 11) – Gourmet Smash Beef Burgers & Wedges
+    - **Yum Cha District** (Gulshan-2) – Steamed Crystal Dim Sum & Teriyaki Bento
+    - **Spaghetti Jazz Trattoria** (Gulshan) – Handcrafted Fettuccine & Pomodoro Sugo
+    - **Shawarma House** (Gulshan Avenue) – Flame-Grilled Rotisserie Shawarma & Falafel
+
+- **📊 Certified Pediatric Nutrition & Growth Report (PDF Export)**:
+  - Instant client-side download of official certified WHO & AAP compliant paediatric nutrition reports.
+  - Detailed macronutrient breakdown, micronutrient scorecards (Calcium, Iron, Vitamin D3/Zinc), hot-chain thermal food safety audit, and paediatrician recommendations.
+
+- **🧾 Tax Invoice & Receipt PDF Generation**:
+  - Instant electronic receipt and billing invoice PDF downloads with official tax metadata.
+
+- **🧮 Interactive Kid Nutrition & Calorie Calculator**:
+  - Dynamic nutrition calculator based on age (3-18 yrs), activity level, appetite, and health goal.
+  - 1-click personalized diet prescription PDF download.
+
+- **🌡️ Live IoT Temperature & Delivery Telemetry**:
+  - Real-time hot-chain telemetry tracking from central kitchen dispatch (74°C) to school gate delivery (68°C verified).
+
+- **🤖 Nutribot AI Paediatric Advisor**:
+  - Powered by Google Gemini (`@google/genai`) with fallback heuristics for instant dietary recommendations, allergen queries, and lunchbox advice.
+
+- **🛡️ 100% Nut-Free Facility & Strict Allergen Segregation**:
+  - Filter by 100% Vegetarian, 100% Halal, High-Protein (25g+), Nut-Free, Gluten-Free, Dairy-Free.
+
+- **👛 Smart Tiffin Wallet & Promo Voucher System**:
+  - Welcome bonus credit (+৳500), referral codes (`TIFFIN15`, `HEALTHYKID`), and automatic pause refunds credited to wallet.
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Technology Stack
 
-- **Frontend**: React 19, TypeScript, Tailwind CSS v4, Lucide React, Recharts
-- **Bundler & Dev Server**: Vite 6, tsx
-- **Backend**: Express.js (Node.js)
-- **AI Integration**: `@google/genai` (Gemini 2.5 Flash) with fallback heuristics
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend** | React 19, TypeScript, Tailwind CSS v4, Motion, Lucide React, Recharts |
+| **PDF Engine** | jsPDF (Client-Side Vector PDF Generator) |
+| **Build & Bundler** | Vite 6, tsx, esbuild |
+| **Backend** | Node.js, Express.js |
+| **AI Integration** | `@google/genai` (Gemini 2.5 Flash / Interactions API) |
+| **Styling & Theme** | Warm Artisan Bento Palette (Charcoal `#15100C`, Amber `#F59E0B`, Orange `#E85D04`) |
 
 ---
 
@@ -33,67 +75,104 @@ TIFFIN (Smart School Tiffin) is an innovative full-stack meal platform designed 
 
 ### Prerequisites
 
-- **Node.js** (v18 or higher recommended)
-- **npm** (v9 or higher)
+- **Node.js** (v18.0.0 or higher recommended)
+- **npm** (v9.0.0 or higher)
 
-### Installation
+### Quick 1-Click Launch (Windows)
 
-1. Clone the repository:
+Simply double-click [`run.bat`](file:///p:/web/project-jk/run.bat) or [`run.ps1`](file:///p:/web/project-jk/run.ps1). It will automatically install dependencies, configure `.env`, open your default browser at `http://localhost:3000`, and start the development server.
+
+### Manual Installation
+
+1. **Clone the Repository**:
    ```bash
    git clone https://github.com/RAHAT1028/Tiffin.git
    cd Tiffin
    ```
 
-2. Install dependencies:
+2. **Install Dependencies**:
    ```bash
    npm install
    ```
 
-3. (Optional) Set up your Gemini API key in `.env.local`:
-   ```bash
-   GEMINI_API_KEY="your_gemini_api_key_here"
+3. **Configure Environment Variables**:
+   Create a `.env` file (or copy from `.env.example`):
+   ```env
+   PORT=3000
+   GEMINI_API_KEY="your_gemini_api_key_here" # Optional
    ```
-   *(Note: The app includes full paediatric fallback responses if no API key is provided).*
+   *(Note: The application has built-in clinical fallback responses if no API key is provided).*
 
-4. Run the development server:
+4. **Start Development Server**:
    ```bash
    npm run dev
    ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+5. **Build for Production**:
+   ```bash
+   npm run build
+   ```
+
+6. **Start Production Server**:
+   ```bash
+   npm start
+   ```
 
 ---
 
-## 📁 Project Structure
+## 📁 Project Architecture
 
 ```text
-├── index.html              # HTML entry point with Google Fonts
-├── server.ts               # Express backend & Vite HMR dev server
-├── vite.config.ts          # Vite & Tailwind configuration
-├── package.json            # Project dependencies & scripts
+├── run.bat                     # 1-Click Windows Batch Runner
+├── run.ps1                     # 1-Click PowerShell Runner
+├── index.html                  # HTML5 Entry Point with Google Fonts (Plus Jakarta Sans)
+├── server.ts                   # Express Backend & Vite SSR/HMR Development Server
+├── vite.config.ts              # Vite & Tailwind CSS v4 Configuration
+├── package.json                # Project Dependencies & Scripts
+├── package-lock.json           # Locked Dependency Manifest
 ├── src/
-│   ├── main.tsx            # React application mount
-│   ├── App.tsx             # Main dashboard, cart drawer & state management
-│   ├── index.css           # Tailwind v4 styles, custom typography & glassmorphism
-│   ├── types/              # TypeScript interfaces (Meals, Plans, Child Profiles)
-│   ├── data/               # Mock weekly meals, reviews & partner schools
+│   ├── main.tsx                # React Root Mount
+│   ├── App.tsx                 # Core State, Toasts, Cart, Auth & Family State Management
+│   ├── index.css               # Tailwind v4 Tokens, Animations, Glassmorphism
+│   ├── types/                  # TypeScript Types & Interfaces (Meals, Plans, Invoices, Members)
+│   ├── utils/
+│   │   ├── audio.ts            # Sound Effects Engine (Web Audio API)
+│   │   └── pdfGenerator.ts     # Certified Pediatric Nutrition Report & Tax Invoice PDF Generator
+│   ├── data/
+│   │   └── mockData.ts         # 77+ Weekly Meals, Partner Restaurants, Plans & Nutrition Data
 │   └── components/
-│       ├── Navbar.tsx      # Responsive header with live cart & AI trigger
-│       ├── Hero.tsx        # Value proposition & live thermal status showcase
-│       ├── WeeklyMenu.tsx  # 5-day interactive lunch menu with dietary filters
-│       ├── MealModal.tsx   # Macronutrient breakdown & chef notes popover
-│       ├── MealPlanSelector.tsx # Pricing plans (Basic, Standard, Premium)
-│       ├── TiffinCustomizer.tsx # Personalised meal subscription calculator
-│       ├── LiveTracker.tsx # Real-time delivery & temperature sensor tracker
-│       ├── NutribotChat.tsx# TIFFIN Nutribot AI Paediatric Advisor
-│       ├── CartDrawer.tsx  # Order review & subscription checkout drawer
-│       ├── HygieneSection.tsx # Safety standards & sanitization cycle
-│       ├── Testimonials.tsx # Parent reviews & partner schools network
-│       └── Footer.tsx      # Platform links, policies & kitchen contact
+│       ├── Navbar.tsx          # Responsive Header with Wallet Pill, Cart Count & Auth
+│       ├── Hero.tsx            # Animated Hero Banner, Value Proposition & Quick CTA
+│       ├── FamilyMembersModal.tsx # Multi-Child / Family Hub Manager (Add/Remove/Assign)
+│       ├── WeeklyMenu.tsx      # 7-Day Lunch Menu with Dietary, Price Range & Sort Filters
+│       ├── InteractiveTiffinVisualizer.tsx # 3D 4-Compartment Insulated Bento Builder
+│       ├── TopRestaurants.tsx  # Dhaka Partner Restaurants & Cloud Kitchen Ordering
+│       ├── KidNutritionCalculator.tsx # Pediatric Calorie & RDA Calculator with PDF Export
+│       ├── MealPlanSelector.tsx # 3-Tier Subscription Cards (Basic, Standard, Premium)
+│       ├── TiffinCustomizer.tsx # Interactive Duration, Portion & Add-On Configurator
+│       ├── LiveTracker.tsx     # IoT Thermal Telemetry & Real-Time Delivery Steps
+│       ├── NutribotChat.tsx    # AI Paediatric Dietician Floating Chatbot
+│       ├── AccountModal.tsx    # Parent Dashboard, Child Profiles, Deliveries, Invoices & PDF
+│       ├── AuthModal.tsx       # Authentication & Welcome Bonus Modal
+│       ├── CartDrawer.tsx      # Multi-Item Cart, Family Discounts & Checkout
+│       ├── MealModal.tsx       # Deep-Dive Meal Modal with Macronutrient Breakdown
+│       ├── HygieneSection.tsx  # ISO 22000 & 85°C Thermal Autoclave Sanitization
+│       ├── Testimonials.tsx    # Dhaka Parents Reviews & Partner Schools Showcase
+│       ├── MobileBottomNav.tsx # Mobile Bottom Navigation Bar
+│       └── Footer.tsx          # Contact, Commissary Locations, Policies & Hotline
 ```
+
+---
+
+## 🔒 Safety & Food Standards
+
+- **ISO 22000 Certified** Commissary Prep Facility (Dhaka Central Commissary).
+- **BSTI & Dhaka Safe Food Authority** compliance.
+- **100% Halal Verified** poultry, prime grass-fed beef, and sustainable seafood.
+- **0% Single-Use Plastic**: Food-grade 304 Stainless Steel vacuum containers with zero BPA or phthalates.
 
 ---
 
 ## 📜 License
 
-MIT License © 2026 TIFFIN – Smart School Tiffin Platform.
+MIT License © 2026 **TIFFIN – Smart School Tiffin Platform**. All rights reserved.
