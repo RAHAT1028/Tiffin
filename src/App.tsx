@@ -18,6 +18,7 @@ import { TasteQuizModal } from './components/TasteQuizModal';
 import { AccountModal } from './components/AccountModal';
 import { AuthModal } from './components/AuthModal';
 import { FamilyMemberModal } from './components/FamilyMemberModal';
+import { MobileBottomNav } from './components/MobileBottomNav';
 import { INITIAL_FAMILY_MEMBERS } from './data/mockData';
 import { 
   MealItem, 
@@ -364,7 +365,7 @@ export const App: React.FC = () => {
       />
 
       {/* Main Content Sections */}
-      <main className="flex-1">
+      <main className="flex-1 pb-20 lg:pb-0">
         {/* Hero Section */}
         <Hero
           onExploreMenu={() => {
@@ -441,8 +442,8 @@ export const App: React.FC = () => {
       {/* Footer */}
       <Footer />
 
-      {/* Floating Buttons (Bottom Right / Left) */}
-      <div className="fixed bottom-6 right-6 z-40 flex flex-col sm:flex-row items-end sm:items-center gap-3">
+      {/* Desktop Floating Action Buttons */}
+      <div className="hidden lg:flex fixed bottom-6 right-6 z-40 flex-row items-center gap-3">
         {/* Floating Family Hub Shortcut */}
         <button
           onClick={() => {
@@ -485,11 +486,20 @@ export const App: React.FC = () => {
         </button>
       </div>
 
+      {/* Mobile/Tablet Bottom Navigation Bar */}
+      <MobileBottomNav
+        onOpenCart={() => setCartOpen(true)}
+        cartCount={cartItems.length}
+        onOpenNutribot={() => setNutribotOpen(true)}
+        onOpenAccount={() => setAccountOpen(true)}
+        onOpenFamilyHub={() => setFamilyModalOpen(true)}
+      />
+
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 left-6 z-50 bg-[#261E18] border border-orange-500/40 text-white px-5 py-3.5 rounded-2xl shadow-2xl text-xs sm:text-sm font-semibold flex items-center gap-2.5 animate-in slide-in-from-left duration-200">
-          <span className="w-2.5 h-2.5 rounded-full bg-orange-400 animate-pulse"></span>
-          <span>{toastMessage}</span>
+        <div className="fixed bottom-20 lg:bottom-6 left-4 sm:left-6 z-50 bg-[#261E18] border border-orange-500/40 text-white px-5 py-3 rounded-2xl shadow-2xl text-xs sm:text-sm font-semibold flex items-center gap-2.5 animate-in slide-in-from-left duration-200">
+          <span className="w-2.5 h-2.5 rounded-full bg-orange-400 animate-pulse flex-shrink-0"></span>
+          <span className="line-clamp-2">{toastMessage}</span>
         </div>
       )}
 
